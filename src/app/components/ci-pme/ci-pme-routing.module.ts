@@ -5,6 +5,7 @@ import {ParametresComponent} from "./parametres/parametres.component";
 import {RatiosComponent} from "./ratios/ratios.component";
 import {EligibiliteComponent} from "./eligibilite/eligibilite.component";
 import {PonderationScoreComponent} from "./ponderation-score/ponderation-score.component";
+import {CalibrageComponent} from "./ratios/calibrage/calibrage.component";
 
 const routes: Routes = [
   {
@@ -26,7 +27,16 @@ const routes: Routes = [
       },
       {
         path: 'ratios',
-        component: RatiosComponent,
+        children: [
+          {
+            path: '',
+            component: RatiosComponent,
+          },
+          {
+            path: 'calibrage',
+            component: CalibrageComponent,
+          },
+        ]
       },
       {
         path: 'ponderation-score',

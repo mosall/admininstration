@@ -1,21 +1,54 @@
 <div class="row mt-5">
   <div class="col-sm-11">
-    <h3><i class="fas fa-folder mr-2 fa-1x"></i> Liste pondération des scores</h3>
+    <h3><i class="fas fa-folder mr-2 fa-1x"></i> Pondération des scores</h3>
   </div>
-  <div class="col-sm-1">
+  <!--<div class="col-sm-1">
     <button class="btn btn-sm px-3 py-1" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #006a25; color: #ebeef2;">Nouveau</button>
-  </div>
+  </div>-->
 
   <div class="container mt-4">
+    <div class="card p-4 mb-3">
+      <div class="card-title mb-3">
+        <h5>Ajouter une pondération d'un score</h5>
+      </div>
+      <form>
+        <div class="form-row align-items-center">
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Code score">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Paramètre qualitatifs">
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Valeur">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn" style="color: #000000; background-color: rgba(247, 131, 0, .25)"><i class="fas fa-check small"></i> Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <div class="card p-2">
       <div class="card-body">
+        <div class="card-title mb-4">
+          <h5>Liste des pondérations</h5>
+        </div>
         <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
           <thead class="text-black">
           <tr class="text-center">
-            <th>Code score</th>
-            <th>Score</th>
-            <th>Valeur pondération</th>
-            <th>Actions</th>
+            <th style="width: 15%;">Code score</th>
+            <th>Libellé score</th>
+            <th style="width: 20%">Valeur pondération</th>
+            <th style="width: 15%">Actions</th>
           </tr>
           </thead>
           <tbody>

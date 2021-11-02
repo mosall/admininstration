@@ -8,6 +8,7 @@ import {ParametresComponent} from "./parametres/parametres.component";
 import {RatiosComponent} from "./ratios/ratios.component";
 import { EligibiliteComponent } from './eligibilite/eligibilite.component';
 import { PonderationScoreComponent } from './ponderation-score/ponderation-score.component';
+import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PonderationScoreComponent } from './ponderation-score/ponderation-score
     ParametresComponent,
     RatiosComponent,
     EligibiliteComponent,
-    PonderationScoreComponent
+    PonderationScoreComponent,
+    CalibrageComponent
   ],
   imports: [
     CommonModule,
