@@ -1,0 +1,89 @@
+<div class="row mt-5">
+  <div class="col-sm-11">
+    <h3><i class="fas fa-folder mr-2 fa-1x"></i> Liste paramètres calibrage</h3>
+  </div>
+  <div class="col-sm-1">
+    <button class="btn btn-sm px-3 py-1" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #006a25; color: #ebeef2;">Nouveau</button>
+  </div>
+
+  <div class="container mt-4">
+    <div class="card p-2">
+      <div class="card-body">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+          <thead class="text-black">
+          <tr class="text-center">
+            <th>Ratio</th>
+            <th>Classe ratio</th>
+            <th>Valeur max</th>
+            <th>Valeur min</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center">
+            <td>Technical Author</td>
+            <td>Technical Author</td>
+            <td>2</td>
+            <td>
+              1
+            </td>
+            <td>
+              <i class="fas fa-edit small mr-2" style="color: #f78300; cursor: pointer"></i>
+              <i class="fas fa-trash text-danger small " style="cursor: pointer"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header" style="background-color: #006a25; color: #ebeef2">
+          <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un ratio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
+
+          <div class="form-group">
+            <label>Ratio</label>
+            <select class="form-control custom-select">
+              <option disabled selected>Sélectionner le ratio</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Classe ratio</label>
+            <input type="text" class="form-control" placeholder="Entrez la classe">
+          </div>
+
+          <div class="form-group">
+            <label>Valeur max</label>
+            <select class="form-control custom-select">
+              <option disabled selected>Sélectionner la valeur max</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Valeur min</label>
+            <select class="form-control custom-select">
+              <option disabled selected>Sélectionner la valeur min</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn" style="background-color: #006a25; color: #ebeef2">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
