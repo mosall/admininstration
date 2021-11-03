@@ -1,0 +1,402 @@
+container {
+    padding-top: 3%;
+    padding-right: 5%;
+    margin-left: 2%;
+}
+
+#gadd-user,
+#gsearch-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: .5em;
+}
+
+#gadd-user h3,
+#gsearch-user h4 {
+    width: 50%;
+}
+
+#gsearch-user h4 {
+    font-weight: lighter;
+}
+
+#gadd-user h3 img,
+#gsearch-user h4 img {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin-right: 1%;
+}
+
+#gsearch-user h4 {
+    cursor: pointer;
+}
+
+#gadd-user #addbutton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 40px;
+    border: 2px solid black;
+    align-items: center;
+    width: 15%;
+    border-radius: 25pt;
+    color: white;
+    background-color: #3C8DBC;
+    overflow: hidden;
+    border-left: none;
+    cursor: pointer;
+}
+
+#gadd-user #addbutton img {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+#gadd-user #addbutton span {
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 25pt;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5%;
+    margin-left: 0;
+}
+
+#gsearch-user #searchfield {
+    width: 30%;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0;
+    height: fit-content;
+    padding-right: 2%;
+}
+
+#gsearch-user #searchfield .has-search {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: 2px solid #3C8DBC !important;
+    border-radius: 25pt !important;
+    padding-left: 5%;
+    padding-right: 5%;
+    float: right;
+}
+
+#gsearch-user #searchfield .has-search img {
+    border: none;
+}
+
+#gsearch-user #searchfield .has-search input {
+    border: none !important;
+}
+
+#gswitch {
+    width: inherit;
+    height: 5vh;
+    background-color: lightgray;
+    margin-bottom: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#gswitch>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 50%;
+    align-items: center;
+    padding-left: 1%;
+}
+
+#gswitch>div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+    align-items: center;
+}
+
+#gswitch .gswitch-button {
+    width: 10%;
+    background-color: #3D6286;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    margin-left: .25rem;
+}
+
+#gswitch>div>span {
+    cursor: pointer !important;
+}
+
+table td.icons img {
+    margin: 5%;
+}
+
+.modal-header {
+    color: white !important;
+    background-color: #3C8DBC !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+modal-header h1 img {
+    height: 30px;
+    width: 30px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    background-color: #D8D7D7;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+#buttons button:last-child {
+    margin-right: 1%;
+    color: white;
+    background-color: #3D6286 !important;
+}
+
+.gbtn {
+    background-color: #3C8DBC;
+    margin-left: 10%;
+}
+
+.detail-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.detail {
+    width: 100%;
+}
+
+.icon {
+    width: 20%;
+    padding: 5%;
+}
+
+.infos {
+    width: 80%;
+}
+
+.infos>table>tbody>tr>td {
+    width: 70%;
+}
+
+#form-msg {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-bottom: .5em;
+    padding-left: 1%;
+    background-color: #D8D7D7;
+    font-weight: bold;
+    font-size: .8em;
+}
+
+.display-none {
+    display: none;
+}
+
+.invalid-msg {
+    color: #EF7878;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+td.toggle {
+    transform: scale(0.8);
+}
+
+.icons img {
+    transform: scale(0.8);
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+}
+
+modal-header h1 {
+    font-size: 1.2em;
+    margin-bottom: 0%;
+}
+
+@media screen and (min-width: 995px),
+screen and (min-height: 700px) {
+    #addbutton {
+        transform: scale(0.71);
+    }
+}
+
+@media screen and (max-width: 995px),
+screen and (max-height: 700px) {
+    #gadd-user h3 {
+        font-size: 1em;
+        font-weight: bold;
+    }
+    #gadd-user h3 img {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+    }
+    #gsearch-user h4 {
+        font-size: 1em;
+    }
+    #gsearch-user h4 img {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+    }
+    .has-search>* {
+        height: 5vh;
+    }
+    #addbutton,
+    .has-search img {
+        transform: scale(0.7);
+    }
+    thead tr th {
+        font-size: .7em;
+        padding-left: 0;
+    }
+    td {
+        padding: 0%;
+        padding-right: 1%;
+        font-size: .7em;
+    }
+    td.toggle {
+        transform: scale(0.6);
+    }
+    .icons {
+        display: flex;
+        justify-content: space-around;
+    }
+    .icons img {
+        transform: scale(0.6);
+    }
+    #gsearch-user #searchfield {
+        padding-right: 2%;
+    }
+    modal-header h1 img {
+        height: 20px;
+        width: 20px;
+    }
+    modal-header h1 {
+        font-size: 1em;
+    }
+    modal-content form>* {
+        font-size: .8em;
+    }
+    modal-content form input,
+    modal-content form select.form-control.form-select {
+        font-size: .8em;
+    }
+    div.form-outline {
+        margin: 0%;
+    }
+    #buttons button {
+        font-size: 1em;
+        padding: .5em;
+    }
+    #buttons button:last-child {
+        margin-left: 2%;
+    }
+    .detail-user table.table tbody tr td {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .btn.gbtn.btn-lg {
+        width: 100px;
+    }
+    #buttons.display-modal-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    #buttons.display-modal-button button {
+        padding-top: 0;
+        margin-top: 0;
+    }
+}
+
+.printPassword-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+}
+
+.printPassword-containers {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+}
+
+.printPassword {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.printPassword span {
+    margin-right: .5%;
+}
+
+div.detail-user {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.detail-user .table th {
+    font-size: .8em;
+    color: #3D6286;
+    border-color: #3C8DBC;
+}
+
+.detail-user .table td {
+    font-size: .8em;
+    border-color: #3C8DBC;
+}
+
+div.icon {
+    display: none;
+}
+
+#buttons.display-modal-button {
+    height: 3vw;
+}
+
+#buttons.display-modal-button button {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    font-size: .8em;
+    height: 2.1vw;
+    padding-top: .1em;
+}
