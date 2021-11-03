@@ -1,0 +1,139 @@
+<div id="gcontainer">
+    <div id="gsidebar">
+        <div class="image-container">
+            <img src="/assets/logo_admin.png" alt="">
+        </div>
+        <div id="gsidebar-header">
+            <h3>administration</h3>
+        </div>
+
+        <div id="gsidebar-list">
+            <div class="item" [class.active]="isMenuUserActive" (click)="navigateTo('users')">
+                <img src="/assets/user.png" alt="">
+                <h2 >utilisateur</h2>
+            </div>
+            <div class="item" [class.active]="isMenuProfilActive" (click)="navigateTo('profils')">
+                <img src="/assets/profil.png" alt="">
+
+                <h2 > profil</h2>
+            </div>
+
+        </div>
+    </div>
+    <div id="gmain">
+
+        <div id="gmain-navbar">
+            <div class="title">
+                <img src="/assets/senegal-flag.png" alt="">
+                <h4>Ministére des finances et du budget</h4>
+            </div>
+
+            <div class="user-data">
+                <h4> <img src="/assets/profile.png" alt="">{{user?.fullname}}
+                    <div class="row">
+                        <div class="col">
+                            <div ngbDropdown class="d-inline-block">
+                                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle></button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <div class="user-infos">
+                                        <ul>
+
+                                            <li> <span> Identifiant</span> <br> <span>{{user?.username}} </span> </li>
+                                            <li> <span> Profil  </span> <br> <span> {{user?.profil}}</span> </li>
+                                        </ul>
+                                        <hr>
+                                    </div>
+                                    <button ngbDropdownItem (click)="openModal()">Modifier mot de passe</button>
+                                    <button ngbDropdownItem (click)="logout()">Se déconnecter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h4>
+
+            </div>
+        </div>
+        <div id="gcomponent-container">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+
+    <div id="gfooter">
+        copyright agile way international
+    </div>
+
+
+</div>
+
+<!-- <modal #updatePassword id="user-list-modal" [hideCloseButton]="hideCloseButton">
+    <modal-header>
+        <h1> <img src="/assets/user.png" alt=""> Modification mot de passe
+        </h1>
+    </modal-header>
+    <modal-content>
+        <div id="form-msg">
+            Veuillez remplir soigneusement le formulaire ci-dessous.
+        </div>
+        <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitUpdatePassword()">
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example1">Mot de passe courant <span style="color: red;">*</span></label>
+                        <div class="input-two-icons">
+                            <span>
+                                <img src="/assets/key.png" alt="">
+                            </span>
+                            <input type="password" id="current-password" class="form-control" placeholder="Mot de passe" formControlName="password" />
+                            <span (click)="togglePasswordView('current-password')">
+                                <img src="/assets/view.png" alt="">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example2">Nouveau mot de passe <span style="color: red;">*</span></label>
+                        <div class="input-two-icons">
+                            <span>
+                                    <img src="/assets/key.png" alt="">
+                                </span>
+                            <input type="password" id="new-password" placeholder="Nouveau mot du passe" class="form-control" formControlName="newPassword" />
+                            <span (click)="togglePasswordView('new-password')">
+                                <img src="/assets/view.png" alt="">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example2">Confirmation du nouveau mot du passe <span style="color: red;">*</span></label>
+                        <div class="input-two-icons">
+                            <span>
+                                        <img src="/assets/key.png" alt="">
+                                    </span>
+                            <input type="password" id="confirm-password" placeholder="Confirmation du nouveau mot du passe" class="form-control" formControlName="newPasswordConfirm" />
+                            <span (click)="togglePasswordView('confirm-password')">
+                                        <img src="/assets/view.png" alt="">
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="buttons">
+                <button type="button" class="btn btn-danger btn-lg" (click)="closeUpdatePasswordModal()" *ngIf="!hideCloseButton">Annuler</button>
+                <button type="submit" class="btn gbtn btn-lg">Envoyer</button>
+            </div>
+        </form>
+
+    </modal-content>
+    <modal-footer>
+    </modal-footer>
+</modal> -->
