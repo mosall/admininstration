@@ -16,6 +16,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgToggleModule } from 'ng-toggle-button';
 import { CommonModule } from '@angular/common';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     LoginComponent,
     ProfilsComponent,
     AdminMenuComponent,
-    PaginationComponent
+    PaginationComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,9 @@ import { Routes } from "@angular/router";
 import { AdminMenuComponent } from "./components/admin-menu/admin-menu.component";
 import { ProfilsComponent } from "./components/admin/profils/profils.component";
 import { UsersComponent } from "./components/admin/users/users.component";
+import { ForgotPasswordComponent } from "./components/auth/forgot-password/forgot-password.component";
 import { LoginComponent } from "./components/auth/login/login.component";
+import { ResetPasswordComponent } from "./components/auth/reset-password/reset-password.component";
 
 
 const appRoutes: Routes = [
@@ -11,20 +13,20 @@ const appRoutes: Routes = [
     component: LoginComponent,
     
 	},
-	// {
-	// 	path: 'account',
-	// 	children: [
-	// 	{
-	// 		path: 'password_recovery',
-	// 		component: ForgotPasswordComponent
-	// 	},
-	// 	{
-	// 		path: 'reset_password',
-	// 		component: ResetPasswordComponent
-	// 	},
+	{
+		path: 'account',
+		children: [
+		{
+			path: 'password_recovery',
+			component: ForgotPasswordComponent
+		},
+		{
+			path: 'reset_password',
+			component: ResetPasswordComponent
+		},
 
-	// 	]
-	// },
+		]
+	},
 	// {
 	// 	path: 'login',
 	// 	component: LoginComponent

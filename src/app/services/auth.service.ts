@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   forgotPassword(emailOrId: any, cbs: any){
-    this.http.post(AppSettings.UM_URL + '/forgot_password', {'emailOrUsername': emailOrId}).subscribe(...cbs);
+    this.http.post(AppSettings.UM_URL + '/forgot_password', emailOrId).subscribe(...cbs);
   }
 
   resetPassword(data: any, cbs: any){
