@@ -31,5 +31,9 @@ export class UserService {
     this.httpClient.patch(`${this.baseUrl}/users/${id}`, user, AppSettings.httpOptions).subscribe(...cbs)
   }
   
+  switchSatus(id: number, cbs: any){
+    this.httpClient.get(`${this.baseUrl}/users/${id}/status`, AppSettings.httpOptions).subscribe(...cbs)
+  }
+  
 
 }

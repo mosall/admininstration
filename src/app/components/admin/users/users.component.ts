@@ -13,24 +13,19 @@ import { UserService } from 'src/app/services/user.service';
 export class UsersComponent implements OnInit {
 
   @ViewChild('content') content: any;
+  @ViewChild('details') details: any;
 
   closeResult = '';
   addModal: any;
 
   users: any = [];
   profils: any = [];
+  user: any;
 
   errorMessage: string = '';
-  addUserForm: FormGroup = this.fb.group({
-      id: [''],
-      username: ['', [Validators.required]],
-      prenom: ['', [Validators.required]],
-      nom: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")]],
-      profil: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmePassword: ['', [Validators.required]],
-  });
+  addUserForm: any; 
+  
+  
   submitted: boolean = false;
   edit: boolean = false;
 
@@ -42,44 +37,76 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUsers([
-      (users: any) => {
-        return this.users = users;
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err);  
-      }
-    ]);
-
+    this.fetchProfils();
+    this.fetchUsers();
+    this.initForm(null);
+  }
+  
+  fetchProfils(){
     this.profilService.getProfils([
       (data: any) => {this.profils = data;},
-      (err: HttpErrorResponse) => {},
+      (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
+  
+  fetchUsers(){
+    this.userService.getUsers([
+      (data: any) => {this.users = data;},
+      (err: HttpErrorResponse) => {console.log(err);},
+    ]);
+  }
+
   //User
 
-  fillForm(user: any){
+  initForm(user: any){
     this.addUserForm = this.fb.group({
-      id: [user.id, [Validators.required]],
-      username: [user.identifiant, [Validators.required]],
-      prenom: [user.prenom, [Validators.required]],
-      nom: [user.nom, [Validators.required]],
-      email: [user.email, [Validators.required, Validators.pattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")]],
-      profil: [user.profil, [Validators.required]],
-    })
+      id: [user?.id],
+      username: [user?.identifiant, [Validators.required]],
+      prenom: [user?.prenom, [Validators.required]],
+      nom: [user?.nom, [Validators.required]],
+      email: [user?.email, [Validators.required, Validators.pattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")]],
+      profil: [user?.profil?.id, [Validators.required]],
+      password: ['' ],
+      confirmePassword: ['' ],
+    });
+    if(!this.edit){
+      this.addUserForm.get('password').addValidators(Validators.required);
+      this.addUserForm.get('confirmePassword').addValidators(Validators.required);
+    }
   }
 
   get f() { return this.addUserForm.controls;}
 
-  addUser(): void{}
+  addUser(): void{
+    this.edit = false;
+    this.open(this.content);
+  }
 
   editUser(id: number){
+    this.edit = true;
     this.userService.getUser(id, [
       (data: any) =>{
-        this.fillForm(data);
+        this.initForm(data);
         this.open(this.content)
       },
       (err: HttpErrorResponse) =>{},
+    ]);
+  }
+
+  statusChanged(id: number){
+    this.userService.switchSatus(id, [
+      (data: any) => {},
+      (err: HttpErrorResponse) => {console.log(err)},
+    ]);
+  }
+
+  showDetails(id: number){
+    this.userService.getUser(id, [
+      (data: any) => {
+        this.user = data;
+        this.open(this.details)
+      },
+      (err: HttpErrorResponse) => {console.log(err)}
     ]);
   }
 
@@ -89,40 +116,44 @@ export class UsersComponent implements OnInit {
     
     if(!this.addUserForm.valid)
       return;
-      interface Body{
-        [key: string]: any
+
+    interface Body{
+      [key: string]: any
+    }
+    const data: Body = {
+      id: this.addUserForm.get('id')?.value,
+      identifiant: this.addUserForm.get('username')?.value,
+      email: this.addUserForm.get('email')?.value,
+      prenom: this.addUserForm.get('prenom')?.value,
+      nom: this.addUserForm.get('nom')?.value,
+      profil: this.addUserForm.get('profil')?.value,
+    };
+   
+    if(!data.id){
+      data.motDePasse = this.addUserForm.get('password')?.value;
+      data.confirmationMotDePasse = this.addUserForm.get('confirmePassword')?.value;
+    }
+    // if(this.addUserForm.get('id')?.value !== 0)
+    //   data.id = this.addUserForm.get('id')?.value;
+    console.log(data);
+    const cbs: any[] = [
+      (data: any) => {
+
+      },
+      (err: HttpErrorResponse) =>{
+        console.log(err);        
       }
-      const data: Body = {
-        id: this.addUserForm.get('id')?.value,
-        identifiant: this.addUserForm.get('username')?.value,
-        email: this.addUserForm.get('email')?.value,
-        prenom: this.addUserForm.get('prenom')?.value,
-        nom: this.addUserForm.get('nom')?.value,
-        profil: this.addUserForm.get('profil')?.value,
-      };
-      
-      if(!this.edit){
-        data.motDePasse = this.addUserForm.get('motDePasse')?.value;
-        data.motDePasseConfirme = this.addUserForm.get('motDePasseConfirme')?.value;
+    ];
+    if(!data.id) this.userService.createUser(data, cbs);
+    else this.userService.editUser(data.id, data, cbs); 
 
-      }
-      // if(this.addUserForm.get('id')?.value !== 0)
-      //   data.id = this.addUserForm.get('id')?.value;
-      console.log(data);
-      const cbs: any[] = [
-        (data: any) => {
-
-        },
-        (err: HttpErrorResponse) =>{
-
-        }
-      ];
-      if(data.id == 0) this.userService.createUser(data, cbs);
-      else this.userService.editUser(data.id, data, cbs);
-      
+    this.addModal.close('');
   }
 
-  togglePasswordView(field: string){}
+  togglePasswordView(field: string){
+    const passInput = document.getElementById(field) as HTMLInputElement;
+    (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
+  }
 
   //Pagination
 

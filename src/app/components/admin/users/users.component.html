@@ -2,7 +2,7 @@
 	 <br>
 	 <div id="gadd-user">
 		 <h3><img src="/assets/list-text.png" alt=""> Liste des utilisateurs</h3>
-		 <div (click)="open(content)" id="addbutton">
+		 <div (click)="addUser()" id="addbutton">
 			 <span> <img src="/assets/plus.png" alt=""></span> Ajouter
 			</div>
 		</div>
@@ -33,21 +33,21 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of users">
-                <td>{{ user.identifiant }}</td>
-                <td>{{ user.prenom }}</td>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.profil }}</td>
+                <td>{{ user?.identifiant }}</td>
+                <td>{{ user?.prenom }}</td>
+                <td>{{ user?.nom }}</td>
+                <td>{{ user?.email }}</td>
+                <td>{{ user?.profil?.libelle }}</td>
                 <td class="toggle">
-                    <!-- <ng-toggle [value]="user.active" [color]="{
+                    <ng-toggle [value]="user.actif  " [color]="{
                       unchecked: 'red',
                       checked: 'green'
-                    }" (change)="statusChanged(user)"></ng-toggle> -->
+                    }" (change)="statusChanged(user?.id)"></ng-toggle>
                 </td>
                 <td class="icons">
-                    <img src="/assets/view.png" alt="" >
-                    <img src="/assets/edit.png" *ngIf="user.active == 1" alt="" (click)="editUser(user?.id)">
-                    <img src="/assets/lock.png" *ngIf="user.active == 0" alt="utilisateur désactivé">
+                    <img src="/assets/view.png" alt="" (click)="showDetails(user?.id)">
+                    <img src="/assets/edit.png" *ngIf="user.actif == 1" alt="" (click)="editUser(user?.id)">
+                    <img src="/assets/lock.png" *ngIf="user.actif == 0" alt="utilisateur désactivé">
 
                 </td>
             </tr>
@@ -75,7 +75,7 @@
         <div class="invalid-msg text-center">
             <div *ngIf="errorMessage != ''">{{errorMessage}}</div>
         </div>
-            <input type="hidden" id="form3Example1" class="form-control" placeholder="Id" formControlName="id" />
+            <input type="hidden" id="form3Exampleid" class="form-control" placeholder="Id" formControlName="id" />
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
@@ -91,7 +91,7 @@
                 <div class="col">
                     <div class="form-outline">
 
-                        <label class="form-label" for="form3Example1">Nom <span style="color: red;">*</span></label>
+                        <label class="form-label" for="form3Example2">Nom <span style="color: red;">*</span></label>
 
                         <input type="text" id="form3Example2" placeholder="Nom" class="form-control" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f?.nom?.errors }" />
                         <div class="invalid-feedback">
@@ -105,9 +105,9 @@
                 <div class="col">
                     <div class="form-outline">
 
-                        <label class="form-label" for="form3Example2">Identifiant <span style="color: red;">*</span></label>
+                        <label class="form-label" for="form3Example3">Identifiant <span style="color: red;">*</span></label>
 
-                        <input type="text" id="form3Example2" placeholder="Identifiant" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f?.username?.errors }" />
+                        <input type="text" id="form3Example3" placeholder="Identifiant" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f?.username?.errors }" />
                         <div class="invalid-feedback">
                             L'identifiant est obligatoire
                         </div>
@@ -116,9 +116,9 @@
                 <div class="col">
                     <div class="form-outline">
 
-                        <label class="form-label" for="form3Example1">Email <span style="color: red;">*</span></label>
+                        <label class="form-label" for="form3Example4">Email <span style="color: red;">*</span></label>
 
-                        <input type="text" ngbPopover="L'Email doit être comme suit : mamadou@gmail.com." triggers="focus" id="form3Example1" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f?.email?.errors }" />
+                        <input type="text" ngbPopover="L'Email doit être comme suit : mamadou@gmail.com." triggers="focus" id="form3Example4" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f?.email?.errors }" />
                         <div class="invalid-feedback">
                             L'Email est obligatoire et doit suivre le format indiqué.
                         </div>
@@ -130,7 +130,7 @@
                 <div class="col">
                     <div class="form-outline">
 
-                        <label class="form-label" for="form3Example1">Mot de passe <span style="color: red;">*</span></label>
+                        <label class="form-label" for="password-id">Mot de passe <span style="color: red;">*</span></label>
 
                         <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir un caractère spécial, un chiffre, une majuscule et doit contenir au moins 8 caractères." triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
                             [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
@@ -142,9 +142,9 @@
                 <div class="col">
                     <div class="form-outline">
 
-                        <label class="form-label" for="form3Example2">Confirmation de mot du passe <span style="color: red;">*</span></label>
+                        <label class="form-label" for="confirmePassword">Confirmation de mot du passe <span style="color: red;">*</span></label>
 
-                        <input type="password" id="confirmPassword" placeholder="Confirmation de mot du passe" class="form-control" formControlName="confirmePassword" [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
+                        <input type="password" id="confirmePassword" placeholder="Confirmation de mot du passe" class="form-control" formControlName="confirmePassword" [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
                         <div class="invalid-feedback">
                             La confirmation du mot de passe est obligatoire
                         </div>
@@ -158,10 +158,10 @@
 
                         <label class="form-label" for="form3Example1">Profil <span style="color: red;">*</span></label> <br>
 
-                        <!-- <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil?.errors || f?.profil?.value == 0) }">
-                                <option selected [value]="0">Selectionner un profil</option>
-                                <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.libelle }}</option>
-                              </select> -->
+                        <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil?.errors || f?.profil?.value == 0) }">
+                            <option selected [value]="0">Selectionner un profil</option>
+                            <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.libelle }}</option>
+                        </select>
                         <div class="invalid-feedback">
                             Le profil est obligatoire
                         </div>
@@ -182,174 +182,15 @@
 	</form>
 </ng-template>
 
-<!-- 
-	<modal #myModal id="user-list-modal">
-    <modal-header>
 
-            <h1> <img src="/assets/user.png" alt=""> Ajout d'utilisateur
-            </h1>
 
-    </modal-header>
-
-    <modal-content>
-	
-        <div id="form-msg">
-            Veuillez remplir soigneusement le formulaire ci-dessous.
-        </div>
-
-        <div class="invalid-msg text-center">
-            <div *ngIf="errorMessage != ''">{{errorMessage}}</div>
-        </div>
-        <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
-            <input type="hidden" id="form3Example1" class="form-control" placeholder="Id" formControlName="id" />
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Prénom <span style="color: red;">*</span></label>
-
-                        <input type="text" id="form3Example1" class="form-control" placeholder="Prénom" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && f?.firstname.errors }" />
-                        <div class="invalid-feedback">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Nom <span style="color: red;">*</span></label>
-
-                        <input type="text" id="form3Example2" placeholder="Nom" class="form-control" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted && f?.lastname.errors }" />
-                        <div class="invalid-feedback">
-                            Le nom est obligatoire
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example2">Service <span style="color: red;">*</span></label>
-
-                        <select class="form-select form-control" aria-label="Default select example" (change)="loadSubstituts($event)" formControlName="service" [ngClass]="{ 'is-invalid': submitted && (f?.service.errors || f?.service.value == 0) }">
-                            <option selected  [value]="0">Selectionner un service</option>
-                            <option *ngFor="let service of services" [value]="service.id">{{ service.libelle }}</option>
-                          </select>
-
-                        <div class="invalid-feedback">
-                            Le service est obligatoire
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Service substitution</label>
-
-                    </div>
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="serviceSubstition" [ngClass]="{ 'is-invalid': submitted && f?.serviceSubstition.errors }">
-                        <option selected [value]="null">Selectionner un service de substitution</option>
-                        <option *ngFor="let substitut of substituts" [value]="substitut.code">{{substitut.libelle}}</option>
-                      </select>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example2">Identifiant <span style="color: red;">*</span></label>
-
-                        <input type="text" id="form3Example2" placeholder="Identifiant" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f?.username.errors }" />
-                        <div class="invalid-feedback">
-                            L'identifiant est obligatoire
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Email <span style="color: red;">*</span></label>
-
-                        <input type="text" ngbPopover="L'Email doit être comme suit : mamadou@gmail.com." triggers="focus" id="form3Example1" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f?.email.errors }" />
-                        <div class="invalid-feedback">
-                            L'Email est obligatoire et doit suivre le format indiqué.
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row mb-4" *ngIf="!edit">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Mot de passe <span style="color: red;">*</span></label>
-
-                        <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir un caractère spécial, un chiffre, une majuscule et doit contenir au moins 8 caractères." triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
-                            [ngClass]="{ 'is-invalid': submitted && f?.passwordConfirm.errors }" />
-                        <div class="invalid-feedback">
-                            Le mot de passe est obligatoire
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example2">Confirmation de mot du passe <span style="color: red;">*</span></label>
-
-                        <input type="password" id="confirmPassword" placeholder="Confirmation de mot du passe" class="form-control" formControlName="passwordConfirm" [ngClass]="{ 'is-invalid': submitted && f?.passwordConfirm.errors }" />
-                        <div class="invalid-feedback">
-                            La confirmation du mot de passe est obligatoire
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example1">Profil <span style="color: red;">*</span></label> <br>
-
-                        <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil.errors || f?.profil.value == 0) }">
-                                <option selected [value]="0">Selectionner un profil</option>
-                                <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.code }}</option>
-                              </select>
-                        <div class="invalid-feedback">
-                            Le profil est obligatoire
-                        </div>
-                    </div>
-                </div>
-                <div class="col printPassword-container">
-
-                    <div class="printPassword" style="width: 100%;">
-                        <span><input (change)="togglePasswordView('password-id');togglePasswordView('confirmPassword');" type="checkbox"> </span> <span>Afficher les mots de passe </span>
-                    </div>
-                </div>
-            </div>
-            <div id="buttons">
-                <button type="button" class="btn btn-danger btn-lg" (click)="closeModal()">Annuler</button>
-                <button type="submit" class="btn gbtn btn-lg">Envoyer</button>
-            </div>
-        </form>
-<!--
-    </modal-content>
-    <modal-footer>
-    </modal-footer>
-</modal>
-
-<modal #detailModal id="user-list-modal">
-    <modal-header>
-
+<ng-template #details let-modal>
+    <div class="modal-header">
         <h1> <img src="/assets/user.png" alt=""> Details utilisateur
         </h1>
+    </div>
 
-    </modal-header>
-
-    <modal-content>
+    <div class="modal-body">
         <div class="detail-user">
             <div class="row detail">
                 <div class="icon">
@@ -360,55 +201,32 @@
                         <thead></thead>
                         <tbody>
                             <tr>
-                                <th>Nom complet</th>
-                                <td>{{ user.fullname }}</td>
+                                <th>Prenom</th>
+                                <td>{{ user?.prenom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ user?.nom }}</td>
                             </tr>
                             <tr>
                                 <th>Matricule</th>
-                                <td>{{ user.username }}</td>
+                                <td>{{ user?.identifiant }}</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
-                                <td>{{ user.email }}</td>
+                                <td>{{ user?.email }}</td>
                             </tr>
                             <tr>
                                 <th>Profil</th>
-                                <td>{{ user.profil }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row detail">
-                <div class="icon">
-                    <img src="/assets/city-hall.png" alt="Service" />
-                </div>
-                <div class="infos">
-                    <table class="table">
-                        <thead></thead>
-                        <tbody>
-                            <tr>
-                                <th>Service</th>
-                                <td>{{ user.service.libelle }}</td>
-                            </tr>
-                            <tr>
-                                <th>Entité</th>
-                                <td>{{ user.service.entiteDTO.libelleEntite}}</td>
-                            </tr>
-                            <tr>
-                                <th>Type</th>
-                                <td>{{ user.service.typeEmetteurDTO.libelle}}</td>
+                                <td>{{ user?.profil?.libelle }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-        <div id="buttons" class="display-modal-button">
-            <button type="button" class="btn gbtn btn-lg" (click)="closeDetailModal()">Fermer</button>
-        </div>
-    </modal-content>
-    <modal-footer>
-    </modal-footer>
-</modal> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="modal.close('Save click')">Fermer</button>
+    </div>
+</ng-template> 
