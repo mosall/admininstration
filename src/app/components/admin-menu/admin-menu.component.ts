@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-admin-menu',
@@ -11,12 +17,98 @@ export class AdminMenuComponent implements OnInit {
   isMenuProfilActive: boolean = false;
   isMenuUserActive: boolean = false;
 
-  constructor() { }
+  updatePasswordForm: any;
+
+  @ViewChild('content') content: any;
+  addModal: any;
+  closeResult: string = '';
+  
+  constructor(
+    private auth: AuthService,
+    private userService: UserService,
+    private router: Router,
+    private fb: FormBuilder,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
+    this.auth.me([
+      (data: any) => {
+        this.user = data;
+      },
+      (err: HttpErrorResponse) => console.log(err)
+    ]);
+    this.initForm();
   }
 
-  navigateTo(url: string){}
-  openModal(){}
-  logout(){}
+  initForm(){
+    this.updatePasswordForm =this.fb.group({
+      password: ['', [Validators.required]],
+      newPassword: ['', [Validators.required]],
+      newPasswordConfirm: ['', [Validators.required]],
+    });
+  }
+
+  navigateTo(url: string){
+    this.router.navigate(["/admin/" + url]);
+  }
+  
+  openModal(){
+    this.open(this.content);
+  }
+
+  onSubmit(){
+    if(this.updatePasswordForm.inValid)
+      return;
+
+    const data = {
+      password: this.updatePasswordForm.get('password').value,
+      newPassword: this.updatePasswordForm.get('newPassword').value,
+      newPasswordConfirm: this.updatePasswordForm.get('newPasswordConfirm').value,
+    }
+
+    this.userService.updatePassword(this.user?.id, data, [
+      (data: any) => {
+        this.content.close('');
+      },
+      (err: HttpErrorResponse) => console.log(err)
+    ]);
+
+  }
+
+  logout(){
+    const token = sessionStorage.getItem('connectedUser');
+    if (token != null){
+      sessionStorage.removeItem("connectedUser");
+      this.router.navigate(['/'])
+    }
+  }
+
+  togglePasswordView(id: string) {
+    const passInput = document.getElementById(id) as HTMLInputElement;
+    (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
+  }
+
+  // bootstrap modal
+
+  open(content: any) {
+    this.addModal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'});
+    this.addModal.result.then((result: any) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason: any) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  //end modal
 }

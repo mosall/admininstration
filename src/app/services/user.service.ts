@@ -35,5 +35,7 @@ export class UserService {
     this.httpClient.get(`${this.baseUrl}/users/${id}/status`, AppSettings.httpOptions).subscribe(...cbs)
   }
   
-
+  updatePassword(id: number, data: any, cbs: any){
+    this.httpClient.patch(`${this.baseUrl}/users/${id}/update-password`, data, AppSettings.httpOptions).subscribe(...cbs);
+  }
 }
