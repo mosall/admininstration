@@ -46,6 +46,11 @@ export class AuthService {
     this.http.post(AppSettings.UM_URL + '/forgot_password', emailOrId).subscribe(...cbs);
   }
 
+
+  checkToken(data: any, cbs: any){
+    this.http.post(`${AppSettings.UM_URL}/check_token`, data, AppSettings.httpOptions).subscribe(...cbs);
+  }
+
   resetPassword(data: any, cbs: any){
     this.http.post(AppSettings.UM_URL + '/reset_password', data).subscribe(...cbs);
   }
