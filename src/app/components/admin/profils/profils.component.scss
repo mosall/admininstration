@@ -1,3 +1,5 @@
+@import '../../../../vars.scss';
+
 .container {
     padding-top: 3%;
     padding-right: 5%;
@@ -43,7 +45,7 @@
     width: 15%;
     border-radius: 25pt;
     color: white;
-    background-color: #3C8DBC;
+    background-color: $secondary /*#3C8DBC*/;
     overflow: hidden;
     border-left: none;
     cursor: pointer;
@@ -373,7 +375,7 @@ screen and (max-height: 700px) {
     width: 15%;
     border-radius: 25pt;
     color: white;
-    background-color: #3C8DBC;
+    background-color: $secondary/*#3C8DBC*/;
     overflow: hidden;
     border-left: none;
     cursor: pointer;
@@ -477,7 +479,7 @@ table td.icons img {
 
 .modal-header {
     color: white !important;
-    background-color: #3C8DBC !important;
+    background-color: $secondary/*#3C8DBC*/ !important;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfilService } from 'src/app/services/profil.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -28,6 +29,7 @@ export class UsersComponent implements OnInit {
   
   submitted: boolean = false;
   edit: boolean = false;
+
 
   constructor(
     private userService: UserService,
@@ -95,7 +97,9 @@ export class UsersComponent implements OnInit {
 
   statusChanged(id: number){
     this.userService.switchSatus(id, [
-      (data: any) => {},
+      (data: any) => {
+        this.showSuccessMessage('', 'L\'action est effectué avec succès.')
+      },
       (err: HttpErrorResponse) => {console.log(err)},
     ]);
   }
@@ -144,8 +148,16 @@ export class UsersComponent implements OnInit {
         console.log(err);        
       }
     ];
-    if(!data.id) this.userService.createUser(data, cbs);
-    else this.userService.editUser(data.id, data, cbs); 
+    if(!data.id){
+      this.userService.createUser(data, cbs);
+      this.showSuccessMessage('', 'L\'utilisateur a été ajouté avec succès.');
+    } 
+    
+    else{
+      this.userService.editUser(data.id, data, cbs); 
+      this.showSuccessMessage('', 'L\'utilisateur a été modifié avec succès.');
+
+    } 
 
     this.addModal.close('');
   }
@@ -181,4 +193,8 @@ export class UsersComponent implements OnInit {
   }
 
   //end modal
+
+  showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 3000});
+  }
 }

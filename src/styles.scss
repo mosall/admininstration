@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
+@import './vars.scss';
+
+.bgc-primary{
+	background-color: $primary;
+	color: white;
+}
+.bgc-secondary{
+	background-color: $secondary;
+	color: white;
+}

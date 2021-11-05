@@ -1,3 +1,5 @@
+@import '../../../vars.scss';
+
 #gcontainer {
     position: fixed;
     top: 0;
@@ -25,7 +27,7 @@
     left: 0;
     bottom: 0;
     width: 20%;
-    background-color: #364850;
+    background-color: $primary /**#364850*/;
     display: flex;
     flex-direction: column;
 }
@@ -56,7 +58,7 @@
 #gsidebar #gsidebar-list .item {
     color: white;
     width: 80%;
-    border: 1px solid #3C8DBC;
+    border: 1px solid $secondary/*#3C8DBC*/;
     margin-bottom: 5%;
     text-align: center;
     border-radius: 25pt;
@@ -71,7 +73,7 @@
 }
 
 #gsidebar #gsidebar-list .item.active {
-    background-color: #3C8DBC;
+    background-color: $secondary/*#3C8DBC*/;
 }
 
 #gsidebar #gsidebar-list .item img {
@@ -95,7 +97,7 @@
     bottom: 0;
     right: 0;
     height: 30px;
-    background-color: #3C8DBC;
+    background-color: $primary/*#3C8DBC*/;
     text-align: center;
     color: white;
     z-index: 1000;
@@ -106,7 +108,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #3C8DBC;
+    background-color: $secondary/*#3C8DBC*/;
     width: inherit;
 }
 
