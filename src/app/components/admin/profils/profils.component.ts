@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { HabilitationService } from 'src/app/services/habilitation.service';
 import { ProfilService } from 'src/app/services/profil.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profils',
@@ -133,18 +134,24 @@ export class ProfilsComponent implements OnInit {
         (err: HttpErrorResponse) => {console.log(err);},
       ];     
 
-      if(data.id)
+      if(data.id){
         this.profilService.editUser(data.id, data, cbs);
-      else
+        this.showSuccessMessage('', 'Le profil a été modifié avec succès.');
+      }
+      else{
         this.profilService.createUser(data, cbs);
+        this.showSuccessMessage('', 'Le profil a été ajouté avec succès.');
+      }
       
       this.addModal.close("");
       
-  }
-
-  statusChanged(elt: any){
-    this.profilService.switchStatus(elt, [
-      (data: any) => {},
+    }
+    
+    statusChanged(elt: any){
+      this.profilService.switchStatus(elt, [
+        (data: any) => {
+          this.showSuccessMessage('', 'L\'action est effectué avec succès.');
+        },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
     
@@ -181,4 +188,7 @@ export class ProfilsComponent implements OnInit {
     console.log(items);
   }
 
+  showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 3000});
+  }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reset-password',
@@ -59,6 +60,7 @@ export class ResetPasswordComponent implements OnInit {
 
     this.auth.resetPassword(param, [
     (data: any) => {
+      this.showSuccessMessage('', 'Votre mot de passe a été mis à jour.');
       this.router.navigate(['/'])
     },
     (err: HttpErrorResponse) => console.log(err)
@@ -69,5 +71,8 @@ export class ResetPasswordComponent implements OnInit {
       const passInput = document.getElementById(id) as HTMLInputElement;
     (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';   
     }
-
+    
+    showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 3000});
+    }
 }

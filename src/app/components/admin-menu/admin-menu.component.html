@@ -1,31 +1,30 @@
 <div id="gcontainer">
     <div id="gsidebar">
         <div class="image-container">
-            <img src="/assets/logo_admin.png" alt="">
+            <img src="/assets/Logo02.png" alt="">
         </div>
         <div id="gsidebar-header">
             <h3>administration</h3>
         </div>
 
         <div id="gsidebar-list">
-            <div class="item" [class.active]="isMenuUserActive" (click)="navigateTo('users')">
+            <div class="item" [class.active]="currentRoute == '/admin/users'" (click)="navigateTo('users')">
                 <img src="/assets/user.png" alt="">
-                <h2 >utilisateur</h2>
+                <h2 >Utilisateur</h2>
             </div>
-            <div class="item" [class.active]="isMenuProfilActive" (click)="navigateTo('profils')">
+            <div class="item" [class.active]="currentRoute == '/admin/profils'" (click)="navigateTo('profils')">
                 <img src="/assets/profil.png" alt="">
 
-                <h2 > profil</h2>
+                <h2 > Profil</h2>
             </div>
 
         </div>
     </div>
     <div id="gmain">
-
         <div id="gmain-navbar">
             <div class="title">
-                <img src="/assets/senegal-flag.png" alt="">
-                <h4>Ministére des finances et du budget</h4>
+                <!-- <img src="/assets/senegal-flag.png" alt="">
+                <h4>Ministére des finances et du budget</h4> -->
             </div>
 
             <div class="user-data">
@@ -53,6 +52,7 @@
 
             </div>
         </div>
+
         <div id="gcomponent-container">
             <router-outlet></router-outlet>
         </div>

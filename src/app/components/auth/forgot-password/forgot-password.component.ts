@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgot-password',
@@ -40,9 +41,15 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     this.auth.forgotPassword(data, [
-      (data: any) => {},
+      (data: any) => {
+        this.showSuccessMessage('','Un email vous a été envoyé.');
+      },
       (err: HttpErrorResponse) => console.log(err)
     ]);
+  }
+
+  showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 3000});
   }
 
 }

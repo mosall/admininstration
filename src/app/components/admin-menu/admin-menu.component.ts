@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-menu',
@@ -22,16 +23,26 @@ export class AdminMenuComponent implements OnInit {
   @ViewChild('content') content: any;
   addModal: any;
   closeResult: string = '';
+
+  currentRoute: string = '/admin/users';
   
   constructor(
     private auth: AuthService,
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe(
+       (event: any) => {
+         if(event instanceof NavigationEnd)
+          this.currentRoute = ''+event.url;
+       }
+     );
+    
     this.auth.me([
       (data: any) => {
         this.user = data;
@@ -70,6 +81,7 @@ export class AdminMenuComponent implements OnInit {
     this.userService.updatePassword(this.user?.id, data, [
       (data: any) => {
         this.content.close('');
+        this.showSuccessMessage('Modification de mot de passe', 'Votre mot de passe a été modifié avec succès.');
       },
       (err: HttpErrorResponse) => console.log(err)
     ]);
@@ -111,4 +123,8 @@ export class AdminMenuComponent implements OnInit {
   }
 
   //end modal
+
+  showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 3000});
+  }
 }

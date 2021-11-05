@@ -1,3 +1,5 @@
+@import '../../../../vars.scss';
+
 #login-container {
     position: fixed;
     top: 0;
@@ -29,9 +31,9 @@
     width: 50%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    background-color: #3C8DBC;
+    background-color: $primary/*#3C8DBC*/;
     background-image: url('/portailMFB/assets/side-text-bg.png');
     background-size: cover;
     background-position: bottom right;
@@ -42,7 +44,7 @@
     text-align: left;
     color: white;
     padding-left: 5%;
-    width: 60%;
+    width: 70%;
     font-size: 2.5em;
     font-weight: bold;
 }
@@ -194,7 +196,7 @@
     color: white;
     border: none;
     border-radius: 5pt;
-    background-color: #3C8DBC;
+    background-color: $secondary/*#3C8DBC*/;
     margin-top: 5%;
     align-self: flex-end;
 }
@@ -281,4 +283,8 @@ screen and (max-height: 700px) {
     #form form .login-btn {
         font-size: .8em !important;
     }
+}
+
+.color-primary{
+    color: $primary;
 }
