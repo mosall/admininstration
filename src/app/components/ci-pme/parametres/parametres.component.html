@@ -30,14 +30,20 @@
 
           <div class="row card m-2 p-3">
             <h5 style="font-size: 1.2rem;">Ajouter une question</h5>
-            <form class="mt-3">
+            <form class="mt-3" [formGroup]="addQuestionForm" (submit)="saveQuestion()">
               <div class="form-row align-items-center">
                 <div class="col-sm-10">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Libellé">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Libellé"
+                    formControlName="libelleQuestion" [ngClass]="{ 'is-invalid': submittedQ && q.libelleQuestion.errors }">
+
+                    <div *ngIf="submittedQ && q.libelleQuestion.errors" class="invalid-feedback">
+                      <div *ngIf="q.libelleQuestion.errors.required">Le champ est obligatoire.</div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-2">
+
+                <div class="col-sm-2" [ngClass]="{'mt-n4': submittedQ && q.libelleQuestion.errors}">
                   <button type="submit" class="btn" style="color: #000000; background-color: rgba(247, 131, 0, .25)"><i class="fas fa-check small"></i> Enregistrer</button>
                 </div>
               </div>
@@ -127,7 +133,7 @@
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form>
+      <form [formGroup]="addParamForm" (submit)="saveParam()">
         <div class="modal-header" style="background-color: #006a25; color: #ebeef2">
           <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un nouveau paramètre</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -138,19 +144,37 @@
           <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
 
           <div class="form-group">
+            <label>Code</label>
+            <input type="text" class="form-control" placeholder="Entrez le code" formControlName="code"
+                   [ngClass]="{ 'is-invalid': submitted && f.code.errors }">
+            <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+              <div *ngIf="f.code.errors.required">Le champ est obligatoire.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label>Libellé</label>
-            <input type="text" class="form-control" placeholder="Entrez le libellé">
+            <input type="text" class="form-control" placeholder="Entrez le libellé" formControlName="libelle"
+                   [ngClass]="{ 'is-invalid': submitted && f.libelle.errors }">
+            <div *ngIf="submitted && f.libelle.errors" class="invalid-feedback">
+              <div *ngIf="f.libelle.errors.required">Le champ est obligatoire.</div>
+            </div>
           </div>
 
           <div class="form-group">
             <label>Nombre de questions</label>
-            <input type="number" class="form-control" placeholder="Entrez le nombre de question" min="0">
+            <input type="number" class="form-control" placeholder="Entrez le nombre de question" formControlName="nbQuestion"
+                   [ngClass]="{ 'is-invalid': submitted && f.nbQuestion.errors }">
+            <div *ngIf="submitted && f.nbQuestion.errors" class="invalid-feedback">
+              <div *ngIf="f.nbQuestion.errors.required">Le champ est obligatoire.</div>
+              <div *ngIf="f.nbQuestion.errors.min">Un paramètre doit avoir au moins une question.</div>
+            </div>
           </div>
 
         </div>
         <div class="modal-footer border-0">
           <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn" style="background-color: #006a25; color: #ebeef2">Enregistrer</button>
+          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2">Enregistrer</button>
         </div>
       </form>
     </div>

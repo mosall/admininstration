@@ -9,6 +9,8 @@ import {RatiosComponent} from "./ratios/ratios.component";
 import { EligibiliteComponent } from './eligibilite/eligibilite.component';
 import { PonderationScoreComponent } from './ponderation-score/ponderation-score.component';
 import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {ParametresService} from "../../services/parametres.service";
 
 
 @NgModule({
@@ -22,8 +24,9 @@ import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
     CalibrageComponent
   ],
   imports: [
-    CommonModule,
-    CiPmeRoutingModule
+      CommonModule,
+      CiPmeRoutingModule,
+      ReactiveFormsModule,
   ]
 })
 export class CiPmeModule { }

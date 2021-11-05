@@ -4,16 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
 import {AppRoutes} from "./app.routing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ParametresService} from "./services/parametres.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
     RouterModule.forRoot(AppRoutes)
   ],
-  providers: [],
+  providers: [ParametresService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
