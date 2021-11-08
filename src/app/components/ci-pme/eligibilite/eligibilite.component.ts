@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EligibilityService} from "../../../services/eligibility.service";
+import Swal from "sweetalert2";
 declare var $: any;
 
 @Component({
@@ -14,6 +15,9 @@ export class EligibiliteComponent implements OnInit {
   submitted = false;
 
   listQuestions: any = [];
+  codeQuestion = '';
+  libelleQuestion = '';
+  idQuestion = null;
 
   constructor(private formBuilder: FormBuilder, private eligibilityService: EligibilityService) { }
 
@@ -24,7 +28,6 @@ export class EligibiliteComponent implements OnInit {
       }
     });
 
-    this.initForms();
     this.getQuestion();
   }
 
@@ -41,37 +44,88 @@ export class EligibiliteComponent implements OnInit {
 
   saveQuestion(){
     this.submitted = true;
-    if (this.addQuestionEligibilityForm.invalid){
+
+    if (this.codeQuestion == '' || this.libelleQuestion == ''){
       return;
     }
+    else {
+      const data = {
+        code: this.codeQuestion,
+        libelle: this.libelleQuestion,
+      }
 
-    const data = {
-      code: this.addQuestionEligibilityForm.get('codeQuestion')?.value,
-      libelle: this.addQuestionEligibilityForm.get('libelleQuestion')?.value,
+      if(this.idQuestion != null){
+        // @ts-ignore
+        data.id = this.idQuestion;
+      }
+
+      // @ts-ignore
+      const msg = data.id ? "La question a été modifiée avec succès." : "La question a été enregistrée avec succès."
+
+      this.eligibilityService.saveQuestion(data).subscribe(
+        data => this.successMsgBox(msg),
+        error => this.errorMsgBox(error.error),
+      );
     }
-
-    this.eligibilityService.saveQuestion(data).subscribe(
-      data => {},
-      error => {},
-    );;
 
   }
 
   getQuestion(){
     this.eligibilityService.getQuestion().subscribe(
-      data => this.listQuestions = data,
+      data => {
+        this.listQuestions = data;
+        console.log(this.listQuestions);
+      },
     );
   }
 
-  onUpdateQuestionClick(idQuestion: any){}
-
-  updateQuestion(){}
+  onUpdateQuestionClick(id: any){
+    const question = this.listQuestions.find((param: { id: any; }) => param.id == id);
+    this.codeQuestion = question.code;
+    this.libelleQuestion = question.libelle;
+    this.idQuestion = question.id;
+    $('#exampleModalCenter').modal('show');
+  }
 
   deleteQuestion(idQuestion: any){
-    this.eligibilityService.deleteQuestion(idQuestion).subscribe(
-      data => {},
-      error => {},
+    Swal.fire({
+      title: 'Suppression',
+      text: 'Êtes vous sûr de vouloir supprimer cette question ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#006a25',
+      cancelButtonColor: '#f78300',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // tslint:disable-next-line:triple-equals
+        this.eligibilityService.deleteQuestion(idQuestion).subscribe(
+          data => this.successMsgBox("La question a été supprimée."),
+          error => this.errorMsgBox(error.error),
+        );
+      }
+    });
+  }
+
+  successMsgBox(msg: any){
+    Swal.fire({
+      icon: 'success',
+      text: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(
+      ()=> window.location.reload()
     );
+  }
+
+  errorMsgBox(msg: any){
+    Swal.fire({
+      icon: 'warning',
+      text: msg,
+      showConfirmButton: false,
+      timer: 2500
+    });
   }
 
 }

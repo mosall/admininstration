@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ParametresService} from "../../../services/parametres.service";
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -20,6 +21,20 @@ export class ParametresComponent implements OnInit {
   listParameters: any = [];
   listQuestions: any = [];
   listReponses: any = [];
+
+  code = '';
+  libelle = '';
+  nbQuestion = 0;
+  idParameter = null;
+
+  codeQuestion = '';
+  libelleQuestion = '';
+  idQuestion = null;
+
+  codeReponse = ''
+  libelleReponse = '';
+  scoreReponse = 0;
+  idReponse = null;
 
   constructor(private formBuilder: FormBuilder, private parametresService: ParametresService) { }
 
@@ -65,79 +80,134 @@ export class ParametresComponent implements OnInit {
 
   saveParam(){
     this.submitted = true;
-    if (this.addParamForm.invalid){
+    if (this.code == '' || this.libelle == '' || this.nbQuestion == 0 || !this.nbQuestion){
       return;
     }
+    else {
+      const data = {
+        code: this.code,
+        libelle: this.libelle,
+        nbreQuestion: this.nbQuestion
+      }
 
-    const data = {
-      code: this.addParamForm.get('code')?.value,
-      libelle: this.addParamForm.get('libelle')?.value,
-      nbreQuestion: this.addParamForm.get('nbQuestion')?.value
+      if(this.idParameter != null){
+        // @ts-ignore
+        data.id = this.idParameter;
+      }
+
+      // @ts-ignore
+      const msg = data.id ? "Le paramètre a été modifié avec succès." : "Le paramètre a été enregistré avec succès."
+
+      this.parametresService.saveParameter(data).subscribe(
+        data => this.successMsgBox(msg),
+        error => this.errorMsgBox(error.error),
+      );
+
+      this.idParameter = null;
     }
-
-    this.parametresService.saveParameter(data).subscribe(
-      data => {},
-      error => {},
-    );
   }
 
   getParameters(){
     this.parametresService.getParameter().subscribe(
       data => {
         this.listParameters = data;
-        console.log("da" + data);
+        this.getQuestion(1);
       },
       error => {}
     );
   }
 
   deleteParameter(idParameter: any){
-    this.parametresService.deleteParameter(idParameter).subscribe(
-      data => {},
-      error => {},
-    );
+    Swal.fire({
+      title: 'Suppression',
+      text: 'Êtes vous sûr de vouloir supprimer ce paramètre ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#006a25',
+      cancelButtonColor: '#f78300',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // tslint:disable-next-line:triple-equals
+        this.parametresService.deleteParameter(idParameter).subscribe(
+          data => this.successMsgBox("Le paramètre a été supprimé."),
+          error => this.errorMsgBox(error.error),
+        );
+      }
+    });
   }
 
-  onUpdateParameterClick(){}
+  onUpdateParameterClick(id: any){
+    const parameter = this.listParameters.find((param: { id: any; }) => param.id == id);
+    this.code = parameter.code;
+    this.libelle = parameter.libelle;
+    this.nbQuestion = parameter.nbre_question;
+    this.idParameter = parameter.id;
+    $('#exampleModalCenter').modal('show');
+  }
 
-  updateParameter(){}
-
-
-  saveQuestion(){
+  saveQuestion(idParametre: any){
     this.submittedQ = true;
-    if (this.addQuestionForm.invalid){
+
+    if (this.codeQuestion == '' || this.libelleQuestion == ''){
       return;
     }
+    else {
+      const data = {
+        code: this.codeQuestion,
+        libelle: this.libelleQuestion,
+        idParametre
+      }
 
-    const data = {
-      code: this.addQuestionForm.get('codeQuestion')?.value,
-      libelle: this.addQuestionForm.get('libelleQuestion')?.value,
-      idParametre: "1",
+      if(this.idQuestion != null){
+        // @ts-ignore
+        data.id = this.idQuestion;
+      }
+
+      // @ts-ignore
+      const msg = data.id ? "La question a été modifiée avec succès." : "La question a été enregistrée avec succès."
+
+      this.parametresService.saveQuestion(data).subscribe(
+        data => this.successMsgBox(msg),
+        error => this.errorMsgBox(error.error),
+      );
     }
-
-    this.parametresService.saveQuestion(data).subscribe(
-      data => {},
-      error => {},
-    );;
   }
 
   getQuestion(idParameter: any){
     this.parametresService.getQuestionByParameter(idParameter).subscribe(
       data => this.listQuestions = data,
-      error => {}
     );
   }
 
   deleteQuestion(idQuestion: any){
-    this.parametresService.deleteQuestion(idQuestion).subscribe(
-      data => {},
-      error => {},
-    );
+    Swal.fire({
+      title: 'Suppression',
+      text: 'Êtes vous sûr de vouloir supprimer cette question ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#006a25',
+      cancelButtonColor: '#f78300',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // tslint:disable-next-line:triple-equals
+        this.parametresService.deleteQuestion(idQuestion).subscribe(
+          data => this.successMsgBox("La question a été supprimée."),
+          error => this.errorMsgBox(error.error),
+        );
+      }
+    });
   }
 
-  onUpdateQuestionClick(){}
-
-  updateQuestion(){}
+  onUpdateQuestionClick(id: any){
+    const question = this.listQuestions.find((param: { id: any; }) => param.id == id);
+    this.codeQuestion = question.code;
+    this.libelleQuestion = question.libelle;
+    this.idQuestion = question.id;
+  }
 
   saveReponse(){
     this.submittedR = true;
@@ -175,5 +245,25 @@ export class ParametresComponent implements OnInit {
   onUpdateReponseClick(){}
 
   updateReponse(){}
+
+  successMsgBox(msg: any){
+    Swal.fire({
+      icon: 'success',
+      text: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(
+      ()=> window.location.reload()
+    );
+  }
+
+  errorMsgBox(msg: any){
+    Swal.fire({
+      icon: 'warning',
+      text: msg,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
 
 }

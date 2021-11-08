@@ -9,7 +9,7 @@ import {RatiosComponent} from "./ratios/ratios.component";
 import { EligibiliteComponent } from './eligibilite/eligibilite.component';
 import { PonderationScoreComponent } from './ponderation-score/ponderation-score.component';
 import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ParametresService} from "../../services/parametres.service";
 
 
@@ -24,9 +24,10 @@ import {ParametresService} from "../../services/parametres.service";
     CalibrageComponent
   ],
   imports: [
-      CommonModule,
-      CiPmeRoutingModule,
-      ReactiveFormsModule,
+    CommonModule,
+    CiPmeRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class CiPmeModule { }
