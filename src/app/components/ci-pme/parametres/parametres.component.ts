@@ -11,9 +11,6 @@ declare var $: any;
 })
 export class ParametresComponent implements OnInit {
 
-  addParamForm: FormGroup = new FormGroup({});
-  addQuestionForm: FormGroup = new FormGroup({});
-  addReponseForm: FormGroup = new FormGroup({});
   submitted = false;
   submittedQ = false;
   submittedR = false;
@@ -47,45 +44,17 @@ export class ParametresComponent implements OnInit {
       "paging":   false,
     });
 
-    this.initForms();
     this.getParameters();
   }
 
-  initForms(){
-    this.addParamForm = this.formBuilder.group({
-      code: ['', Validators.required],
-      libelle: ['', Validators.required],
-      nbQuestion: ['', [Validators.required, Validators.min(1)]],
-    });
-
-    this.addQuestionForm = this.formBuilder.group({
-      codeQuestion: ['', Validators.required],
-      libelleQuestion: ['', Validators.required]
-    });
-
-    this.addReponseForm = this.formBuilder.group({
-      codeReponse: ['', Validators.required],
-      libelleReponse: ['', Validators.required],
-      scoreReponse: ['', Validators.required]
-    });
-  }
-
-  get f(){
-    return this.addParamForm.controls;
-  }
-
-  get q(){
-    return this.addQuestionForm.controls;
-  }
 
   saveParam(){
     this.submitted = true;
-    if (this.code == '' || this.libelle == '' || this.nbQuestion == 0 || !this.nbQuestion){
+    if (this.libelle == '' || this.nbQuestion == 0 || !this.nbQuestion){
       return;
     }
     else {
       const data = {
-        code: this.code,
         libelle: this.libelle,
         nbreQuestion: this.nbQuestion
       }
@@ -93,6 +62,8 @@ export class ParametresComponent implements OnInit {
       if(this.idParameter != null){
         // @ts-ignore
         data.id = this.idParameter;
+        // @ts-ignore
+        data.code = this.code;
       }
 
       // @ts-ignore
@@ -112,8 +83,7 @@ export class ParametresComponent implements OnInit {
       data => {
         this.listParameters = data;
         this.getQuestion(1);
-      },
-      error => {}
+      }
     );
   }
 
@@ -150,12 +120,11 @@ export class ParametresComponent implements OnInit {
   saveQuestion(idParametre: any){
     this.submittedQ = true;
 
-    if (this.codeQuestion == '' || this.libelleQuestion == ''){
+    if (this.libelleQuestion == ''){
       return;
     }
     else {
       const data = {
-        code: this.codeQuestion,
         libelle: this.libelleQuestion,
         idParametre
       }
@@ -163,6 +132,8 @@ export class ParametresComponent implements OnInit {
       if(this.idQuestion != null){
         // @ts-ignore
         data.id = this.idQuestion;
+        // @ts-ignore
+        data.code = this.codeQuestion;
       }
 
       // @ts-ignore
@@ -211,21 +182,18 @@ export class ParametresComponent implements OnInit {
 
   saveReponse(){
     this.submittedR = true;
-    if (this.addReponseForm.invalid){
-      return;
-    }
 
     const data = {
-      code: this.addReponseForm.get('codeReponse')?.value,
-      libelle: this.addReponseForm.get('libelleReponse')?.value,
+      code: this.codeReponse,
+      libelle: this.libelleReponse,
       idQuestion: "",
-      score: this.addReponseForm.get('scoreReponse')?.value,
+      score: this.scoreReponse,
     }
 
     this.parametresService.saveReponse(data).subscribe(
       data => {},
       error => {},
-    );;
+    );
   }
 
   getReponse(idQuestion: any){

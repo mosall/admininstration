@@ -10,7 +10,7 @@ import { EligibiliteComponent } from './eligibilite/eligibilite.component';
 import { PonderationScoreComponent } from './ponderation-score/ponderation-score.component';
 import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ParametresService} from "../../services/parametres.service";
+import {DataTablesModule} from "angular-datatables";
 
 
 @NgModule({
@@ -28,6 +28,7 @@ import {ParametresService} from "../../services/parametres.service";
     CiPmeRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    DataTablesModule,
   ]
 })
 export class CiPmeModule { }

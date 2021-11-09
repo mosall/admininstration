@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {RatiosService} from "../../../services/ratios.service";
 declare var $: any;
 
 @Component({
@@ -9,7 +10,9 @@ declare var $: any;
 })
 export class RatiosComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  listRatios: any = [];
+
+  constructor(private router: Router, private ratiosService: RatiosService) { }
 
   ngOnInit(): void {
     $('#example').DataTable({
@@ -17,6 +20,14 @@ export class RatiosComponent implements OnInit {
         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
       }
     });
+
+    // this.getRatios();
+  }
+
+  getRatios(){
+    this.ratiosService.getRatios().subscribe(
+      data => this.listRatios = data
+    );
   }
 
   goto(url: string){

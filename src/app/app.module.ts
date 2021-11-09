@@ -7,13 +7,14 @@ import {AppRoutes} from "./app.routing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ParametresService} from "./services/parametres.service";
 import {HttpClientModule} from "@angular/common/http";
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
+    BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, DataTablesModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [ParametresService],

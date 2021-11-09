@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EligibilityService} from "../../../services/eligibility.service";
 import Swal from "sweetalert2";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {DatatableSettings} from "../../../settings/datatable.settings";
 declare var $: any;
 
 @Component({
@@ -10,6 +13,10 @@ declare var $: any;
   styleUrls: ['./eligibilite.component.css']
 })
 export class EligibiliteComponent implements OnInit {
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective | undefined;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   addQuestionEligibilityForm: FormGroup = new FormGroup({});
   submitted = false;
@@ -22,20 +29,12 @@ export class EligibiliteComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private eligibilityService: EligibilityService) { }
 
   ngOnInit(): void {
-    $('#example').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-      }
-    });
+    this.dtOptions = DatatableSettings.dataTableOptions();
 
     this.getQuestion();
-  }
 
-  initForms(){
-    this.addQuestionEligibilityForm = this.formBuilder.group({
-      codeQuestion: ['', Validators.required],
-      libelleQuestion: ['', Validators.required]
-    });
+
+
   }
 
   get q(){
@@ -45,18 +44,19 @@ export class EligibiliteComponent implements OnInit {
   saveQuestion(){
     this.submitted = true;
 
-    if (this.codeQuestion == '' || this.libelleQuestion == ''){
+    if (this.libelleQuestion == ''){
       return;
     }
     else {
       const data = {
-        code: this.codeQuestion,
         libelle: this.libelleQuestion,
       }
 
       if(this.idQuestion != null){
         // @ts-ignore
         data.id = this.idQuestion;
+        // @ts-ignore
+        data.code = this.codeQuestion;
       }
 
       // @ts-ignore
@@ -74,15 +74,15 @@ export class EligibiliteComponent implements OnInit {
     this.eligibilityService.getQuestion().subscribe(
       data => {
         this.listQuestions = data;
-        console.log(this.listQuestions);
+        this.dtTrigger.next();
       },
     );
   }
 
   onUpdateQuestionClick(id: any){
     const question = this.listQuestions.find((param: { id: any; }) => param.id == id);
-    this.codeQuestion = question.code;
     this.libelleQuestion = question.libelle;
+    this.codeQuestion = question.code;
     this.idQuestion = question.id;
     $('#exampleModalCenter').modal('show');
   }

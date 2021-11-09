@@ -9,7 +9,8 @@
   <div class="container mt-4">
     <div class="card p-2">
       <div class="card-body">
-        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
+               datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead class="text-black">
           <tr class="text-center">
             <th>Code</th>
@@ -22,8 +23,8 @@
             <td>{{question.code}}</td>
             <td>{{question.libelle}}</td>
             <td>
-              <i class="fas fa-edit mr-2" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(question.id)"></i>
-              <i class="fas fa-trash" style="cursor: pointer; color: #dc3545" (click)="deleteQuestion(question.id)"></i>
+              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(question.id)"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteQuestion(question.id)"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
           </tbody>
@@ -44,14 +45,6 @@
         </div>
         <div class="modal-body">
           <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
-
-          <div class="form-group">
-            <label>Code</label>
-            <input type="text" class="form-control" placeholder="Entrez le code" [(ngModel)]="codeQuestion"
-                      [ngClass]="{ 'is-invalid': submitted && codeQuestion == '' }">
-
-            <div *ngIf="submitted && codeQuestion == ''" class="invalid-feedback">Le champ est obligatoire.</div>
-          </div>
 
           <div class="form-group">
             <label>Libellé</label>
