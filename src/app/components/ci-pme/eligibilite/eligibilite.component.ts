@@ -32,9 +32,6 @@ export class EligibiliteComponent implements OnInit {
     this.dtOptions = DatatableSettings.dataTableOptions();
 
     this.getQuestion();
-
-
-
   }
 
   get q(){

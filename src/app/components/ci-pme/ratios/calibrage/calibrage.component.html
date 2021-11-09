@@ -9,7 +9,8 @@
   <div class="container mt-4">
     <div class="card p-2">
       <div class="card-body">
-        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
+               datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead class="text-black">
           <tr class="text-center">
             <th>Ratio</th>
@@ -20,16 +21,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="text-center">
-            <td>Technical Author</td>
-            <td>Technical Author</td>
-            <td>2</td>
+          <tr class="text-center" *ngFor="let cal of listCalibrage">
+            <td>{{cal.ratioDTO.libelle}}</td>
+            <td>{{cal.classe}}</td>
+            <td>{{cal.max}}</td>
+            <td>{{cal.min}}</td>
             <td>
-              1
-            </td>
-            <td>
-              <i class="fas fa-edit small mr-2" style="color: #f78300; cursor: pointer"></i>
-              <i class="fas fa-trash text-danger small " style="cursor: pointer"></i>
+              <!--<i class="fas fa-edit small mr-2" style="color: #f78300; cursor: pointer"></i>
+              <i class="fas fa-trash text-danger small " style="cursor: pointer"></i>-->
+
+              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(cal.id)"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteCalibrage(cal.id)"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
           </tbody>
@@ -42,7 +44,7 @@
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form>
+
         <div class="modal-header" style="background-color: #006a25; color: #ebeef2">
           <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un ratio</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -53,37 +55,33 @@
           <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
 
           <div class="form-group">
-            <label>Ratio</label>
-            <select class="form-control custom-select">
-              <option disabled selected>Sélectionner le ratio</option>
-            </select>
-          </div>
-
-          <div class="form-group">
             <label>Classe ratio</label>
-            <input type="text" class="form-control" placeholder="Entrez la classe">
+            <input type="number" class="form-control" placeholder="Entrez la classe" [(ngModel)]="classe"
+                   [ngClass]="{ 'is-invalid': submitted && (classe.length == 0 || classe < 1 || classe > 5) }">
+            <div *ngIf="submitted && (classe.length == 0)" class="invalid-feedback">Veuillez saisir une valeur correcte.</div>
+            <div *ngIf="submitted && (classe < 1 || classe > 5)" class="invalid-feedback">La classe doit être comprise entre 1 et 5.</div>
           </div>
 
           <div class="form-group">
             <label>Valeur max</label>
-            <select class="form-control custom-select">
-              <option disabled selected>Sélectionner la valeur max</option>
-            </select>
+            <input type="number" class="form-control" placeholder="Entrez la valeur max" [(ngModel)]="max"
+                   [ngClass]="{ 'is-invalid': submitted && (max.length == 0 || isNan(max)) }">
+            <div *ngIf="submitted && (max.length == 0 || isNan(max))" class="invalid-feedback">Veuillez saisir une valeur correcte.</div>
           </div>
 
           <div class="form-group">
             <label>Valeur min</label>
-            <select class="form-control custom-select">
-              <option disabled selected>Sélectionner la valeur min</option>
-            </select>
+            <input type="number" class="form-control" placeholder="Entrez la valeur min" [(ngModel)]="min"
+                   [ngClass]="{ 'is-invalid': submitted && (max.length == 0 || isNan(min)) }">
+            <div *ngIf="submitted && (max.length == 0 || isNan(min))" class="invalid-feedback">Veuillez saisir une valeur correcte.</div>
           </div>
 
         </div>
         <div class="modal-footer border-0">
           <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn" style="background-color: #006a25; color: #ebeef2">Enregistrer</button>
+          <button type="button" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveCalibrage()">Enregistrer</button>
         </div>
-      </form>
+
     </div>
   </div>
 </div>

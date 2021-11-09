@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {RatiosService} from "../../../services/ratios.service";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {DatatableSettings} from "../../../settings/datatable.settings";
 declare var $: any;
 
 @Component({
@@ -9,29 +12,41 @@ declare var $: any;
   styleUrls: ['./ratios.component.css']
 })
 export class RatiosComponent implements OnInit {
-
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective | undefined;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
   listRatios: any = [];
+
+  showValidateIcon = false;
+  addOrEditClicked = false;
+  fieldId = null;
 
   constructor(private router: Router, private ratiosService: RatiosService) { }
 
   ngOnInit(): void {
-    $('#example').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-      }
-    });
+    this.dtOptions = DatatableSettings.dataTableOptions();
 
-    // this.getRatios();
+    this.getRatios();
   }
 
   getRatios(){
     this.ratiosService.getRatios().subscribe(
-      data => this.listRatios = data
+      data => {
+        this.listRatios = data;
+        this.dtTrigger.next();
+      }
     );
   }
 
   goto(url: string){
     this.router.navigateByUrl(url);
+  }
+
+  enableAddOrEdit(id: any){
+    this.addOrEditClicked = true;
+    this.fieldId = id;
+    console.log(id)
   }
 
 }

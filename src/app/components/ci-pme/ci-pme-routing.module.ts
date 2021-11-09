@@ -33,7 +33,7 @@ const routes: Routes = [
             component: RatiosComponent,
           },
           {
-            path: 'calibrage',
+            path: 'calibrage/:idRatio',
             component: CalibrageComponent,
           },
         ]

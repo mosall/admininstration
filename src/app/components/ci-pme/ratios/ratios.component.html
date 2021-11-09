@@ -2,87 +2,42 @@
   <div class="col-sm-11">
     <h3><i class="fas fa-folder mr-2 fa-1x"></i> Liste des ratios financiers</h3>
   </div>
-  <!--<div class="col-sm-1">
-    <button class="btn btn-sm px-3 py-1" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #006a25; color: #ebeef2;">Nouveau</button>
-  </div>-->
 
   <div class="container mt-4">
     <div class="card p-2">
       <div class="card-body">
-        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
+               datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead class="text-black">
           <tr class="text-center">
-            <th style="width: 50%;">Libellé</th>
-            <th>Formules</th>
-            <th style="width: 17%">Pondération</th>
-            <th style="width: 10%">Calibrage</th>
+            <th>Libellé</th>
+            <th style="width: 50%;">Formules</th>
+            <th style="width: 20%">Pondération</th>
+            <th style="width: 7%">Calibrage</th>
           </tr>
           </thead>
           <tbody>
-          <tr class="text-center">
-            <td>Technical Author</td>
-            <td>Technical Author</td>
+          <tr class="text-center" *ngFor="let ratio of listRatios">
+            <td>{{ratio.libelle}}</td>
+            <td>{{ratio.formule}}</td>
             <td>
-              <input type="text" class="small pound-input mr-3">
-              <i class="fas fa-plus small mr-2" style="cursor: pointer"></i>
-              <i class="fas fa-check text-success small mr-2" style="cursor: pointer"></i>
-              <i class="fas fa-edit small" style="color: #f78300; cursor: pointer"></i>
+              <input type="text" class="small pound-input mr-3" [disabled]="addOrEditClicked == false && fieldId != ratio.id" [value]="ratio.ponderation + '%'" (input)="showValidateIcon = ratio.id">
+              <!--<i class="fas fa-plus small mr-2" style="cursor: pointer" (click)="addOrEditClicked = true" *ngIf="ratio.ponderation == null"></i>
+              <i class="fas fa-edit small mr-2" style="color: #f78300; cursor: pointer" *ngIf="ratio.ponderation != null"></i>
+              <i class="fas fa-check text-success small" style="cursor: pointer" *ngIf="showValidateIcon == ratio.id"></i>-->
+
+              <button class="btn btn-sm" style="cursor: pointer;" (click)="enableAddOrEdit(ratio.id)" *ngIf="ratio.ponderation == null"><i class="fas fa-plus small"></i></button>
+              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="enableAddOrEdit(ratio.id)" *ngIf="ratio.ponderation != null"><i class="fas fa-edit small"></i></button>
+              <button class="btn btn-sm" style="cursor: pointer;" *ngIf="showValidateIcon == ratio.id"><i class="fas fa-check small text-success"></i></button>
+
             </td>
-            <td (click)="goto('/ci-pme/ratios/calibrage')">
+            <td (click)="goto('/ci-pme/ratios/calibrage/' + ratio.id)">
               <i class="fas fa-arrows-alt mr-2" style="cursor: pointer;"></i>
             </td>
           </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <form>
-        <div class="modal-header" style="background-color: #006a25; color: #ebeef2">
-          <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un ratio</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
-
-          <div class="form-group">
-            <label>Code</label>
-            <input type="text" class="form-control" placeholder="Entrez le code">
-          </div>
-
-          <div class="form-group">
-            <label>Libellé</label>
-            <input type="text" class="form-control" placeholder="Entrez le libellé">
-          </div>
-
-          <div class="form-group">
-            <label>Pondération</label>
-            <input type="number" class="form-control" placeholder="Entrez une pondération" min="0">
-          </div>
-
-          <div class="form-group">
-            <label>Formule</label>
-            <input type="text" class="form-control" placeholder="Entrez la formule">
-          </div>
-
-          <div class="form-group">
-            <label>Unité de mesure</label>
-            <input type="text" class="form-control" placeholder="Entrez l'unité de mesure">
-          </div>
-
-        </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn" style="background-color: #006a25; color: #ebeef2">Enregistrer</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
