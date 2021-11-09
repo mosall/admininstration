@@ -21,15 +21,8 @@
             <td>{{ratio.libelle}}</td>
             <td>{{ratio.formule}}</td>
             <td>
-              <input type="text" class="small pound-input mr-3" [disabled]="addOrEditClicked == false && fieldId != ratio.id" [value]="ratio.ponderation + '%'" (input)="showValidateIcon = ratio.id">
-              <!--<i class="fas fa-plus small mr-2" style="cursor: pointer" (click)="addOrEditClicked = true" *ngIf="ratio.ponderation == null"></i>
-              <i class="fas fa-edit small mr-2" style="color: #f78300; cursor: pointer" *ngIf="ratio.ponderation != null"></i>
-              <i class="fas fa-check text-success small" style="cursor: pointer" *ngIf="showValidateIcon == ratio.id"></i>-->
-
-              <button class="btn btn-sm" style="cursor: pointer;" (click)="enableAddOrEdit(ratio.id)" *ngIf="ratio.ponderation == null"><i class="fas fa-plus small"></i></button>
-              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="enableAddOrEdit(ratio.id)" *ngIf="ratio.ponderation != null"><i class="fas fa-edit small"></i></button>
-              <button class="btn btn-sm" style="cursor: pointer;" *ngIf="showValidateIcon == ratio.id"><i class="fas fa-check small text-success"></i></button>
-
+              <input type="text" class="small pound-input mr-3" id="ponderation" [value]="ratio.ponderation + '%'" (input)="showValidateIcon = ratio.id; getPonderationValue($event)">
+              <button class="btn btn-sm mt-n2" style="cursor: pointer;" *ngIf="showValidateIcon == ratio.id" (click)="savePondaration(ratio.id, ratio.code, ratio.libelle, ratio.formule)"><i class="fas fa-check small text-success"></i></button>
             </td>
             <td (click)="goto('/ci-pme/ratios/calibrage/' + ratio.id)">
               <i class="fas fa-arrows-alt mr-2" style="cursor: pointer;"></i>

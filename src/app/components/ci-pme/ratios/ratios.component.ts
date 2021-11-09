@@ -4,6 +4,8 @@ import {RatiosService} from "../../../services/ratios.service";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {DatatableSettings} from "../../../settings/datatable.settings";
+import Swal from "sweetalert2";
+import {$e} from "@angular/compiler/src/chars";
 declare var $: any;
 
 @Component({
@@ -21,6 +23,7 @@ export class RatiosComponent implements OnInit {
   showValidateIcon = false;
   addOrEditClicked = false;
   fieldId = null;
+  ponderation = null;
 
   constructor(private router: Router, private ratiosService: RatiosService) { }
 
@@ -34,9 +37,35 @@ export class RatiosComponent implements OnInit {
     this.ratiosService.getRatios().subscribe(
       data => {
         this.listRatios = data;
+        console.log(data)
         this.dtTrigger.next();
       }
     );
+  }
+
+  savePondaration(id: any, code: any, libelle: any, formule: any){
+    // @ts-ignore
+    if(this.ponderation.length == 0 || isNaN(this.ponderation)){
+      this.errorMsgBox('Veuillez saisir une valeur correcte.')
+    }
+    else {
+      const data = {
+        id,
+        code,
+        ponderation: this.ponderation,
+        libelle,
+        formule
+      }
+
+      this.ratiosService.updatePonderation(data).subscribe(
+        data => this.successMsgBox("Pondération mise à jour !"),
+        error => this.errorMsgBox(error.error),
+      );
+    }
+  }
+
+  getPonderationValue(event: any){
+    this.ponderation = event.target.value;
   }
 
   goto(url: string){
@@ -46,7 +75,26 @@ export class RatiosComponent implements OnInit {
   enableAddOrEdit(id: any){
     this.addOrEditClicked = true;
     this.fieldId = id;
-    console.log(id)
   }
 
+  successMsgBox(msg: any){
+    Swal.fire({
+      icon: 'success',
+      text: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(
+      ()=> window.location.reload()
+    );
+  }
+
+  errorMsgBox(msg: any){
+    Swal.fire({
+      icon: 'warning',
+      text: msg,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
 }
+
