@@ -67,7 +67,7 @@
               <tbody>
                 <ng-template  ngFor let-q [ngForOf]="listQuestions" >
                   <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code">
-                    <td><i class="fas fa-chevron-right small text-black-50"></i></td>
+                    <td><i class="fas fa-chevron-right small text-black-50" *ngIf="q.listReponsesDTO.length != 0"></i></td>
                     <td>{{q.code}}</td>
                     <td>{{q.libelle}}</td>
                     <td>
