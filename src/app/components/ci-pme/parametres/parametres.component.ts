@@ -148,7 +148,10 @@ export class ParametresComponent implements OnInit {
 
   getQuestion(idParameter: any){
     this.parametresService.getQuestionByParameter(idParameter).subscribe(
-      data => this.listQuestions = data,
+      data => {
+        this.listQuestions = data;
+        console.log(data);
+      },
     );
   }
 
@@ -198,19 +201,40 @@ export class ParametresComponent implements OnInit {
 
   getReponse(idQuestion: any){
     this.parametresService.getReponseByQuestion(idQuestion).subscribe(
-      data => this.listReponses = data,
+      data => {
+        this.listReponses = data;
+      },
       error => {}
     );
   }
 
   deleteReponse(idReponse: any){
-    this.parametresService.deleteReponse(idReponse).subscribe(
-      data => {},
-      error => {},
-    );
+    Swal.fire({
+      title: 'Suppression',
+      text: 'Êtes vous sûr de vouloir supprimer cette réponse ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#006a25',
+      cancelButtonColor: '#f78300',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // tslint:disable-next-line:triple-equals
+        this.parametresService.deleteReponse(idReponse).subscribe(
+          data => this.successMsgBox("La réponse a été supprimée."),
+          error => this.errorMsgBox(error.error),
+        );
+      }
+    });
   }
 
-  onUpdateReponseClick(){}
+  onUpdateReponseClick(idReponse: any, code: any, libelle: any){
+    this.codeReponse = code;
+    this.libelleReponse = libelle;
+    this.idReponse = idReponse;
+    $('#addReponseModal').modal('show');
+  }
 
   updateReponse(){}
 

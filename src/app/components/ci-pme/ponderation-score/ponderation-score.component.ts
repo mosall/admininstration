@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {DatatableSettings} from "../../../settings/datatable.settings";
 declare var $: any;
 
 @Component({
@@ -8,17 +11,17 @@ declare var $: any;
   styleUrls: ['./ponderation-score.component.css']
 })
 export class PonderationScoreComponent implements OnInit {
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective | undefined;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   addScoreForm: FormGroup = new FormGroup({});
   submitted = false;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    $('#example').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-      }
-    });
+    this.dtOptions = DatatableSettings.dataTableOptions();
 
     this.initForms();
   }

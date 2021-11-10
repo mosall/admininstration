@@ -34,7 +34,7 @@
           </div>
 
           <div class="row card m-2 p-3">
-            <h5 style="font-size: 1.2rem;">Ajouter une question</h5>
+            <h5 style="font-size: 1.2rem;">Ajouter / Modifier une question</h5>
               <div class="form-row align-items-center">
                 <div class="col-sm-10">
                   <div class="input-group">
@@ -65,15 +65,27 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let q of listQuestions" class="text-center" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <td><i class="fas fa-chevron-right small text-black-50"></i></td>
-                <td>{{q.code}}</td>
-                <td>{{q.libelle}}</td>
-                <td>
-                  <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
-                  <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
-                </td>
-              </tr>
+                <ng-template  ngFor let-q [ngForOf]="listQuestions" >
+                  <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code">
+                    <td><i class="fas fa-chevron-right small text-black-50"></i></td>
+                    <td>{{q.code}}</td>
+                    <td>{{q.libelle}}</td>
+                    <td>
+                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let r of q.listReponsesDTO" class="text-center small collapse" id="{{q.code}}">
+                    <td></td>
+                    <td>{{r.code}}</td>
+                    <td>{{r.libelle}}</td>
+                    <td class="small">
+                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateReponseClick(q.id, q.code, q.libelle)"><i class="fas fa-edit small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteReponse(q.id)"><i class="fas fa-trash small"></i></button>
+                    </td>
+                  </tr>
+                </ng-template>
               </tbody>
             </table>
           </div>
@@ -114,6 +126,34 @@
         <div class="modal-footer border-0">
           <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
           <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveParam()">Enregistrer</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addReponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header" style="background-color: #006a25; color: #ebeef2">
+          <h5 class="modal-title">Ajout d'une réponse</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
+
+          <div class="form-group">
+            <label>Libellé</label>
+            <input type="text" class="form-control" placeholder="Entrez le libellé" [(ngModel)]="libelleReponse"
+                   [ngClass]="{ 'is-invalid': submittedR && libelleReponse == '' }">
+            <div *ngIf="submittedR && libelleReponse == ''" class="invalid-feedback">Le champ est obligatoire.</div>
+          </div>
+
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveReponse()">Enregistrer</button>
         </div>
     </div>
   </div>

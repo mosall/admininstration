@@ -56,7 +56,8 @@
         <div class="card-title mb-4">
           <h5>Liste des pondérations</h5>
         </div>
-        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
+               datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead class="text-black">
           <tr class="text-center">
             <th style="width: 15%;">Code score</th>
