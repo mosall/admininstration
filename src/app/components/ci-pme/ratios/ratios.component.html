@@ -22,7 +22,7 @@
             <td>{{ratio.formule}}</td>
             <td>
               <input type="text" class="small pound-input mr-3" id="ponderation" [value]="ratio.ponderation + '%'" (input)="showValidateIcon = ratio.id; getPonderationValue($event)">
-              <button class="btn btn-sm mt-n2" style="cursor: pointer;" *ngIf="showValidateIcon == ratio.id" (click)="savePondaration(ratio.id, ratio.code, ratio.libelle, ratio.formule)"><i class="fas fa-check small text-success"></i></button>
+              <button class="btn btn-sm mt-n2" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Enregistrer" *ngIf="showValidateIcon == ratio.id" (click)="savePondaration(ratio.id, ratio.code, ratio.libelle, ratio.formule)"><i class="fas fa-check small text-success"></i></button>
             </td>
             <td (click)="goto('/ci-pme/ratios/calibrage/' + ratio.id)">
               <i class="fas fa-arrows-alt mr-2" style="cursor: pointer;"></i>

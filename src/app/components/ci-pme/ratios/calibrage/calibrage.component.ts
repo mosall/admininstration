@@ -123,6 +123,5 @@ export class CalibrageComponent implements OnInit {
 
   isNan(value: any){
     return isNaN(value);
-
   }
 }

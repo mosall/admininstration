@@ -28,8 +28,8 @@
           <div class="row px-2">
             <div class="col-sm-10"><h5>{{p.libelle}}</h5></div>
             <div class="col-sm-2">
-              <button class="btn small" style="cursor: pointer; color: #f78300" (click)="onUpdateParameterClick(p.id)"><i class="fas fa-edit"></i></button>
-              <button class="btn small ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteParameter(p.id)"><i class="fas fa-trash"></i></button>
+              <button class="btn small" style="cursor: pointer; color: #f78300" (click)="onUpdateParameterClick(p.id)" data-toggle="tooltip" data-placement="bottom" title="Modifier le paramètre"><i class="fas fa-edit"></i></button>
+              <button class="btn small ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteParameter(p.id)"><i class="fas fa-trash" data-toggle="tooltip" data-placement="bottom" title="Supprimer le paramètre"></i></button>
             </div>
           </div>
 
@@ -71,8 +71,9 @@
                     <td>{{q.code}}</td>
                     <td>{{q.libelle}}</td>
                     <td>
-                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
+                      <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q.id)"><i class="fas fa-comments small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
                     </td>
                   </tr>
 
@@ -81,8 +82,8 @@
                     <td>{{r.code}}</td>
                     <td>{{r.libelle}}</td>
                     <td class="small">
-                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateReponseClick(q.id, q.code, q.libelle)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteReponse(q.id)"><i class="fas fa-trash small"></i></button>
+                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la réponse" (click)="onUpdateReponseClick(r.id, r.score, r.code, r.libelle, q.id)"><i class="fas fa-edit small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la réponse" (click)="deleteReponse(r.id)"><i class="fas fa-trash small"></i></button>
                     </td>
                   </tr>
                 </ng-template>
@@ -142,6 +143,14 @@
         </div>
         <div class="modal-body">
           <p class="small text-muted" style="color: #f78300 !important">Veuillez renseigner tous les champs et cliquer sur le bouton enregistrer.</p>
+
+          <div class="form-group">
+            <label>Classe</label>
+            <input type="number" class="form-control" placeholder="Entrez la classe" [(ngModel)]="scoreReponse"
+                   [ngClass]="{ 'is-invalid': submittedR && (scoreReponse.length == 0 || scoreReponse < 1 || scoreReponse > 5) }">
+            <div *ngIf="submittedR && (scoreReponse.length == 0)" class="invalid-feedback">Veuillez saisir une valeur correcte.</div>
+            <div *ngIf="submittedR && (scoreReponse < 1 || scoreReponse > 5)" class="invalid-feedback">La classe doit être comprise entre 1 et 5.</div>
+          </div>
 
           <div class="form-group">
             <label>Libellé</label>

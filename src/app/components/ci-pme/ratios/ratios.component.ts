@@ -37,22 +37,23 @@ export class RatiosComponent implements OnInit {
     this.ratiosService.getRatios().subscribe(
       data => {
         this.listRatios = data;
-        console.log(data)
         this.dtTrigger.next();
       }
     );
   }
 
   savePondaration(id: any, code: any, libelle: any, formule: any){
+
     // @ts-ignore
-    if(this.ponderation.length == 0 || isNaN(this.ponderation)){
+    if(isNaN(parseInt(this.ponderation.trim()))){
       this.errorMsgBox('Veuillez saisir une valeur correcte.')
     }
     else {
       const data = {
         id,
         code,
-        ponderation: this.ponderation,
+        // @ts-ignore
+        ponderation: parseInt(this.ponderation.trim()),
         libelle,
         formule
       }

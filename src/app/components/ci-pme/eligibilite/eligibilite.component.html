@@ -23,8 +23,8 @@
             <td>{{question.code}}</td>
             <td>{{question.libelle}}</td>
             <td>
-              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateQuestionClick(question.id)"><i class="fas fa-edit"></i></button>
-              <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteQuestion(question.id)"><i class="fas fa-trash"></i></button>
+              <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(question.id)"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(question.id)"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
           </tbody>

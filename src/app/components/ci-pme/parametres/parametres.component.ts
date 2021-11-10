@@ -30,7 +30,7 @@ export class ParametresComponent implements OnInit {
 
   codeReponse = ''
   libelleReponse = '';
-  scoreReponse = 0;
+  scoreReponse: any = '';
   idReponse = null;
 
   constructor(private formBuilder: FormBuilder, private parametresService: ParametresService) { }
@@ -150,7 +150,6 @@ export class ParametresComponent implements OnInit {
     this.parametresService.getQuestionByParameter(idParameter).subscribe(
       data => {
         this.listQuestions = data;
-        console.log(data);
       },
     );
   }
@@ -183,20 +182,40 @@ export class ParametresComponent implements OnInit {
     this.idQuestion = question.id;
   }
 
+  onAddReponseClick(id: any){
+    this.idQuestion = id;
+    $('#addReponseModal').modal('show');
+  }
+
   saveReponse(){
     this.submittedR = true;
 
-    const data = {
-      code: this.codeReponse,
-      libelle: this.libelleReponse,
-      idQuestion: "",
-      score: this.scoreReponse,
+    if (isNaN(this.scoreReponse) || this.scoreReponse < 1 || this.scoreReponse > 5 || this.libelleReponse == ''){
+      return;
     }
+    else {
+      const data = {
+        libelle: this.libelleReponse,
+        score: this.scoreReponse,
+        idQuestion: this.idQuestion
+      }
 
-    this.parametresService.saveReponse(data).subscribe(
-      data => {},
-      error => {},
-    );
+      if(this.idReponse != null){
+        // @ts-ignore
+        data.id = this.idReponse;
+        // @ts-ignore
+        data.code = this.codeReponse;
+        // @ts-ignore
+      }
+
+      // @ts-ignore
+      const msg = data.id ? "La réponse a été modifiée avec succès." : "La réponse a été enregistrée avec succès."
+
+      this.parametresService.saveReponse(data).subscribe(
+        data => this.successMsgBox(msg),
+        error => this.errorMsgBox(error.error),
+      );
+    }
   }
 
   getReponse(idQuestion: any){
@@ -229,10 +248,12 @@ export class ParametresComponent implements OnInit {
     });
   }
 
-  onUpdateReponseClick(idReponse: any, code: any, libelle: any){
+  onUpdateReponseClick(idReponse: any, score: any, code: any, libelle: any, idQuestion: any){
     this.codeReponse = code;
     this.libelleReponse = libelle;
+    this.scoreReponse = score;
     this.idReponse = idReponse;
+    this.idQuestion = idQuestion;
     $('#addReponseModal').modal('show');
   }
 
@@ -258,4 +279,7 @@ export class ParametresComponent implements OnInit {
     });
   }
 
+  isNan(value: any){
+    return isNaN(value);
+  }
 }
