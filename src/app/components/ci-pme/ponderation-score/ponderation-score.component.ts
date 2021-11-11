@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { PonderationService } from 'src/app/services/ponderation.service';
+import { DatatableSettings } from 'src/app/settings/datatable.settings';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -8,55 +13,122 @@ declare var $: any;
   styleUrls: ['./ponderation-score.component.css']
 })
 export class PonderationScoreComponent implements OnInit {
-
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective | undefined;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
+  
   addScoreForm: FormGroup = new FormGroup({});
   submitted = false;
-  constructor(private formBuilder: FormBuilder) { }
+  
+  listPonderation: any = [];
+   code: any = "";
+   idParametre: any = null;
+   valeur: any = null;
+   idPonderation: any = null;
+
+  constructor(private formBuilder: FormBuilder, private ponderationService: PonderationService) { }
 
   ngOnInit(): void {
-    $('#example').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-      }
-    });
-
-    this.initForms();
+    this.dtOptions = DatatableSettings.dataTableOptions();
+    this.getPonderation();
   }
-
-  initForms(){
-    this.addScoreForm = this.formBuilder.group({
-      code: ['', Validators.required],
-      parameter: ['', Validators.required],
-      value: ['', Validators.required]
-    });
-  }
-
-  get q(){
-    return this.addScoreForm.controls;
-  }
-
-  saveScore(){
+ 
+  savePonderation(){
     this.submitted = true;
-    if (this.addScoreForm.invalid){
+    console.log(this.idParametre);
+
+    if (this.code == '' || isNaN(this.idParametre) || this.idParametre == null || isNaN(this.valeur) || this.valeur == null ){
       return;
     }
+    else {
+      const data = {
+        code_score: this.code,
+        idParametre: this.idParametre,
+        ponderation: this.valeur
+      }
 
-    const data = {
-      code: this.addScoreForm.get('code')?.value,
-      parameter: this.addScoreForm.get('parameter')?.value,
-      value: this.addScoreForm.get('value')?.value,
+
+
+      if(this.idPonderation != null){
+        // @ts-ignore
+        data.id = this.idPonderation;
+      }
+
+      // @ts-ignore
+      const msg = data.id ? "La pondération a été modifiée avec succès." : "La pondération a été enregistrée avec succès."
+
+      this.ponderationService.savePonderation(data).subscribe(
+        data => this.successMsgBox(msg),
+        error => this.errorMsgBox(error.error),
+      );
+
+      
+
     }
-
-    console.log(data)
-
   }
 
-  getScore(idQuestion: any){}
+  getPonderation(){
+    this.ponderationService.getPonderation().subscribe(
+      data => {
+        this.listPonderation = data;
+        this.dtTrigger.next();
+      }
+    );
+  }
 
-  deleteScore(idQuestion: any){}
+  deletePonderation(idQuestion: any){
+    Swal.fire({
+    title: 'Suppression',
+    text: 'Êtes vous sûr de vouloir supprimer la pondération ?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#006a25',
+    cancelButtonColor: '#f78300',
+    confirmButtonText: 'Oui',
+    cancelButtonText: 'Annuler'
+      }).then((result) => {
+      if (result.isConfirmed) {
+        // tslint:disable-next-line:triple-equals
+        this.ponderationService.deletePonderation(idQuestion).subscribe(
+          data => this.successMsgBox("La pondération a été supprimée."),
+          error => this.errorMsgBox(error.error),
+        );
+      }
+    });
+  }
 
-  onUpdateScoreClick(){}
 
-  updateScore(){}
+  onUpdateScoreClick(id: any){
+    const ponderation = this.listPonderation.find((param: { id: any; }) => param.id == id);
+    this.code = ponderation.code_score;
+    this.idParametre = ponderation.parametreDTO.id;
+    this.valeur = ponderation.ponderation;
+    this.idPonderation = id;
+  }
+
+  successMsgBox(msg: any){
+    Swal.fire({
+      icon: 'success',
+      text: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(
+      ()=> window.location.reload()
+    );
+  }
+
+  errorMsgBox(msg: any){
+    Swal.fire({
+      icon: 'warning',
+      text: msg,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  isNan(value: any){
+    return isNaN(value);
+  }
 
 }
