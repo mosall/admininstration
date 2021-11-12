@@ -27,6 +27,7 @@ export class AdminMenuComponent implements OnInit {
   disableCloseModal: boolean = false;
 
   currentRoute: string = '/admin/users';
+  isShowing: boolean = true;
   
   constructor(
     private auth: AuthService,
@@ -138,5 +139,9 @@ export class AdminMenuComponent implements OnInit {
 
   showSuccessMessage(title: string, text: string){
     Swal.fire({title, text, timer: 3000});
+  }
+
+  toggleSidenav() {
+    this.isShowing = !this.isShowing;
   }
 }

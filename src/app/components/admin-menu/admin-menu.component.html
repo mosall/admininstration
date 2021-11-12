@@ -1,4 +1,4 @@
-<div id="gcontainer">
+<!-- <div id="gcontainer">
     <div id="gsidebar">
         <div class="image-container">
             <img src="/assets/Logo02.png" alt="">
@@ -23,8 +23,8 @@
     <div id="gmain">
         <div id="gmain-navbar">
             <div class="title">
-                <!-- <img src="/assets/senegal-flag.png" alt="">
-                <h4>Ministére des finances et du budget</h4> -->
+                 <img src="/assets/senegal-flag.png" alt="">
+                <h4>Ministére des finances et du budget</h4> 
             </div>
 
             <div class="user-data">
@@ -64,12 +64,109 @@
     </div>
 
 
+</div> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+</head>
+<body>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 ml-2" id="sidebarToggle" (click)="toggleSidenav()"><i class="fas fa-bars"></i></button>
+
+  <!-- Navbar Brand-->
+  <a class="navbar-brand mt-1 ps-3" href="index.html">
+    <img src="/assets/Logo01.png" alt="logo" style="width: 150px;">
+  </a>
+  <!-- Navbar-->
+  <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/admin/users">Utilisateurs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/admin/profils">Profils</a>
+    </li>
+    
+    <!-- <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <li class="dropdown-item">
+            <ul>
+                <li> <span> Identifiant</span> <br> <span>{{user?.identifiant}} </span> </li>
+                <li> <span> Profil  </span> <br> <span> {{user?.profil?.libelle}}</span> </li>
+            </ul>
+        </li> 
+        <li><a class="dropdown-item" href="#!">Settings</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#!">Modifier mot de passe</a></li>
+        <li><a class="dropdown-item" href="#!">Se déconnecter</a></li>
+      </ul>
+    </li> -->
+    <li class="nav-item">
+        <div ngbDropdown>
+            <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+                <div class="user-infos">
+                    <ul>
+
+                        <li> <span> Identifiant</span> <br> <span>{{user?.identifiant}} </span> </li>
+                        <li> <span> Profil  </span> <br> <span> {{user?.profil?.libelle}}</span> </li>
+                    </ul>
+                    <hr>
+                </div>
+                <button ngbDropdownItem (click)="openModal()">Modifier mot de passe</button>
+                <button ngbDropdownItem (click)="logout()">Se déconnecter</button>
+            </div>
+        </div>
+    </li>
+  </ul>
+</nav>
+
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav" *ngIf="isShowing">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin/users">
+            <div class="sb-nav-link-icon"><i class="fas fa-folder mr-2 fa-2x"></i></div>
+            Utilisateurs
+          </a>
+
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin/profils">
+            <div class="sb-nav-link-icon"><i class="fas fa-folder mr-2 fa-2x"></i></div>
+            Profils
+          </a>
+
+        </div>
+      </div>
+      <div class="sb-sidenav-footer small text-muted" style="color: rgba(255,255,255,0.5) !important">
+        <div class="small py-1"></div>
+        Copyright &copy; <img src="assets/Logo02.png" class="ml-n2 mr-n2" alt="logo" style="width: 70px"> 2021
+      </div>
+    </nav>
+  </div>
+
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4 myContent">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
 
 <ng-template #content  let-modal>
     <div class="modal-header">
-        <h1> <img src="/assets/user.png" alt=""> Modification mot de passe
-        </h1>
+        <img src="/assets/user.png" alt="">
+        <h4 class="modal-title" id="modal-basic-title">Modification de mot passe</h4>
     </div>
     <div class="modal-body">
         <div id="form-msg">
@@ -127,13 +224,12 @@
                     </div>
                 </div>
             </div>
-            <div id="buttons">
-                <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
-                <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
-            </div>
+                
         </form>
-
+        
     </div>
     <div class="modal-footer">
+        <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
+        <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
     </div>
 </ng-template>
