@@ -142,7 +142,7 @@ export class UsersComponent implements OnInit {
     console.log(data);
     const cbs: any[] = [
       (data: any) => {
-
+        this.fetchUsers();
       },
       (err: HttpErrorResponse) =>{
         console.log(err);        
