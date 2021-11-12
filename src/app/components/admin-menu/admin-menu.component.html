@@ -128,8 +128,8 @@
                 </div>
             </div>
             <div id="buttons">
-                <button type="button" class="btn btn-danger btn-lg" (click)="modal.close('Closed')">Annuler</button>
-                <button type="submit" class="btn gbtn btn-lg">Envoyer</button>
+                <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
+                <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
             </div>
         </form>
 

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
@@ -23,6 +23,8 @@ export class AdminMenuComponent implements OnInit {
   @ViewChild('content') content: any;
   addModal: any;
   closeResult: string = '';
+  ngbModalOptions: NgbModalOptions = {ariaLabelledBy: 'modal-basic-title', size: 'lg'};
+  disableCloseModal: boolean = false;
 
   currentRoute: string = '/admin/users';
   
@@ -46,6 +48,15 @@ export class AdminMenuComponent implements OnInit {
     this.auth.me([
       (data: any) => {
         this.user = data;
+        if(data.actif == 0){
+          this.ngbModalOptions = {
+            ...this.ngbModalOptions, 
+            backdrop : 'static',
+            keyboard : false
+          };
+          this.disableCloseModal = true;
+          this.open(this.content);
+        }
       },
       (err: HttpErrorResponse) => console.log(err)
     ]);
@@ -82,6 +93,7 @@ export class AdminMenuComponent implements OnInit {
       (data: any) => {
         this.content.close('');
         this.showSuccessMessage('Modification de mot de passe', 'Votre mot de passe a été modifié avec succès.');
+        this.logout();
       },
       (err: HttpErrorResponse) => console.log(err)
     ]);
@@ -104,7 +116,7 @@ export class AdminMenuComponent implements OnInit {
   // bootstrap modal
 
   open(content: any) {
-    this.addModal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'});
+    this.addModal = this.modalService.open(content, this.ngbModalOptions);
     this.addModal.result.then((result: any) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason: any) => {
