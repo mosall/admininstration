@@ -130,7 +130,9 @@ export class ProfilsComponent implements OnInit {
       console.log(data);
       
       const cbs = [
-        (data: any) => {},
+        (data: any) => {
+          this.fetchProfils();
+        },
         (err: HttpErrorResponse) => {console.log(err);},
       ];     
 

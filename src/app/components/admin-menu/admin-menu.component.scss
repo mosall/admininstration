@@ -181,7 +181,7 @@
 
 .modal-header {
     color: white !important;
-    background-color: #3C8DBC !important;
+    background-color: $secondary/*#3C8DBC*/ !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -206,7 +206,7 @@ modal-header h1 img {
     margin-right: 1%;
     margin-left: 15%;
     color: white;
-    background-color: #3D6286 !important;
+    // background-color: #3D6286 !important;
 }
 
 #form-msg {
