@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+@import './vars.scss';
+
+.bgc-primary{
+	background-color: $primary !important;
+	color: white;
+}
+.bgc-secondary{
+	background-color: $secondary !important;
+	color: white;
+}
+
+.text-white{
+	color: #fff !important;
+}
+
+.no-deco{
+	text-decoration: none;
+}
+
+.p-3rem{
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.close{
+	display: none;
+}
+
+.modal-header > img {
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-right: 1rem;
+}

@@ -1,0 +1,290 @@
+@import '../../../../vars.scss';
+
+#login-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('/portailMFB/assets/login-bg-edted.png');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-container>div {
+    width: 70%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.11);
+    border-radius: 5pt;
+}
+
+#login-extras {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary/*#3C8DBC*/;
+    background-image: url('/portailMFB/assets/side-text-bg.png');
+    background-size: cover;
+    background-position: bottom right;
+    border-radius: 5pt;
+}
+
+#login-extras h2 {
+    text-align: left;
+    color: white;
+    padding-left: 5%;
+    width: 70%;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+#login-extras p {
+    color: rgba(255, 255, 255, 0.575);
+    padding-left: 5%;
+    width: 60%;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+#login-extras img {
+    display: inline-block;
+    height: 15%;
+    width: 30%;
+    margin-bottom: 4%;
+}
+
+#login-form-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 5pt;
+}
+
+#login-form-container #form {
+    height: 80%;
+    width: 80%;
+    border-radius: 5pt;
+}
+
+#login-form-container #form .form-head {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    color: black;
+}
+
+#login-form-container #form .form-head h3 {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#login-form-container #form .form-head p {
+    height: 30%;
+    font-size: 1em;
+}
+
+#login-form-container #form .form-inputs {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#login-form-container #form .form-inputs .input-one-icon,
+#login-form-container #form .form-inputs .input-two-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid lightgray;
+    padding: 2%;
+    width: 100%;
+    border-radius: 5pt;
+    margin-top: 10%;
+    position: relative;
+}
+
+#login-form-container #form .form-inputs .input-one-icon img,
+#login-form-container #form .form-inputs .input-two-icons img {
+    height: 1em;
+    width: 1em;
+    border: none;
+    margin-right: 1%;
+}
+
+#login-form-container #form .form-inputs .input-one-icon span {
+    height: inherit;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+#login-form-container #form .form-inputs .input-two-icon {
+    position: relative;
+}
+
+#login-form-container #form .form-inputs .input-two-icons span:first-of-type {
+    height: inherit;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+#login-form-container #form .form-inputs .input-two-icons span:last-of-type {
+    height: inherit;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#login-form-container #form .form-inputs .input-one-icon input {
+    height: 1.7em;
+    border: none;
+    width: 95%;
+    background: none;
+    margin-left: 3em;
+}
+
+#login-form-container #form .form-inputs .input-two-icons input {
+    height: 1.7em;
+    border: none;
+    width: 95%;
+    background: none;
+    margin-left: 3em;
+}
+
+#login-form-container #form .login-btn {
+    font-size: 1.2em;
+    padding: 1.5%;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5pt;
+    background-color: $secondary/*#3C8DBC*/;
+    margin-top: 5%;
+    align-self: flex-end;
+}
+
+#login-form-container #form .login-btn+a {
+    text-decoration: none;
+    margin-top: 2%;
+}
+
+.remember_me {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: .8em;
+    font-weight: bold;
+    margin-top: 2%;
+}
+
+.remember_me input {
+    height: 100%;
+    margin-right: 5px;
+}
+
+.remember_me>div {
+    display: flex;
+    flex-direction: row;
+    align-items: center !important;
+}
+
+.invalid-msg {
+    color: #EF7878;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+.logo-container {
+    height: 20vh;
+    width: 100%;
+    background-color: black;
+}
+
+.logo-container img {
+    height: 100%;
+}
+
+@media screen and (max-width: 995px),
+screen and (max-height: 700px) {
+    #form form>div,
+    #form form>div * {
+        margin-top: 0% !important;
+        padding-top: 0% !important;
+    }
+    #form form>div.form-inputs div {
+        margin-top: 5% !important;
+    }
+    #form form>div.form-inputs>div.remember_me {
+        margin-top: 0% !important;
+        padding-top: 0% !important;
+    }
+    #form form>div.form-inputs>div.remember_me div {
+        margin-top: 5% !important;
+    }
+    #form form .login-btn {
+        margin-top: 3%;
+    }
+    #login-container>div {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+    #login-extras {
+        display: none;
+    }
+    #login-form-container {
+        width: 100%;
+    }
+    #form form .login-btn {
+        font-size: .8em !important;
+    }
+}
+
+.color-primary{
+    color: $primary;
+}

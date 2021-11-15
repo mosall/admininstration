@@ -1,0 +1,163 @@
+<div class="">
+    <br>
+    <div id="gadd-user">
+        <h3><img src="/assets/list-text.png" alt=""> Liste des profils</h3>
+        <div (click)="addProfil()" id="addbutton">
+            <span> <img src="/assets/plus.png" alt=""></span> Ajouter
+        </div>
+    </div>
+
+    <!-- <div id="gsearch-user">
+        <h4 (click)="refresh()"><img src="/assets/refresh.png" alt=""> Actualiser</h4>
+        <div id="searchfield">
+            <div class="form-group has-search">
+                <img src="/assets/search.png" alt="">
+                <input #search type="text" class="form-control" placeholder="Rechercher" (keyup)="onSearch(search.value)">
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <table class="table">
+        <thead style="background-color: lightgray;">
+            <tr>
+                <th scope="col">Libelle</th>
+                <th scope="col">Profil</th>
+                <th scope="col">Actions</th>
+                <th scope="col">Statut</th>
+
+                <th scope="col">Options</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let role of profils">
+				<td>{{ role.libelle }}</td>
+                <td>{{ role.code }}</td>
+                <td>
+					<span *ngFor="let h of role?.habilitations">{{ h.libelle }}</span>
+				</td>
+                <td class="toggle">
+                    <ng-toggle 
+                       [value]="role.actif"
+                        [color]="{
+                            unchecked: 'red',
+                            checked: 'green'
+                        }" (change)="statusChanged(role.id)" 
+					>
+                    </ng-toggle>
+                </td>
+                <td class="icons">
+					<img src="/assets/view.png" alt="" (click)="showDetails(role.id)">
+                    <img src="/assets/edit.png" alt="" (click)="editProfil(role.id)">
+                </td>
+            </tr>
+			
+			
+        </tbody>
+    </table>
+	
+    <!-- <app-pagination [items]="profils" (changePage)="onChangePage($event)"></app-pagination> -->
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<img src="/assets/user.png" alt="">
+		<h4 class="modal-title" id="modal-basic-title">Ajout profil</h4>
+	</div>
+	<form [formGroup]="addProfilForm" (ngSubmit)="onSubmit()">
+		<div class="modal-body">
+			<div id="form-msg">
+				Veuillez remplir soigneusement le formulaire ci-dessous.
+			</div>
+			
+			<!-- <div class="invalid-msg text-center" *ngIf="noHabF">
+				<div>{{noHabF}}</div>
+			</div> -->
+			<br>
+			<div class="invalid-msg text-center">
+				<div *ngIf="errorMessage != ''" class="text-danger font-weight-bold">{{errorMessage}}</div>
+			</div>
+			<input type="hidden" id="form3Example1" class="form-control" placeholder="Libelle" formControlName="id" />
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+		
+						<label class="form-label" for="form3Example1">Libelle <span style="color: red;">*</span></label>
+		
+						<input type="text" id="form3Example1" class="form-control" placeholder="Libelle" formControlName="libelle" [ngClass]="{ 'is-invalid': submitted && f?.libelle?.errors }" />
+						<div class="invalid-feedback">
+							Le libelle est obligatoire !
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-outline">
+		
+						<label class="form-label" for="form3Example2">Role <span style="color: red;">*</span></label>
+		
+						<input type="text" id="form3Example2" placeholder="Role" class="form-control" formControlName="code" [ngClass]="{ 'is-invalid': submitted && f?.code?.errors }" />
+						<div class="invalid-feedback">
+							Le role est obligatoire !
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="form3Example1">Habilitations <span style="color: red;">*</span></label> <br>
+		
+						<ng-multiselect-dropdown 
+							[placeholder]="'Selectionner une habilitation'" 
+							[settings]="dropdownSettings" 
+							[data]="habilitations" 
+							formControlName="habilitations" 
+							[ngClass]="{ 'is-invalid': submitted && f?.habilitation?.errors }">
+						</ng-multiselect-dropdown>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn bgc-secondary" (click)="modal.close('Save click')">Annuler</button>
+			<button type="submit" class="btn bgc-primary" >Ajouter</button>
+		</div>
+	</form>
+</ng-template>
+
+
+
+<ng-template #detail let-modal>
+    <div class="modal-header">
+        <h1> <img src="/assets/user.png" alt=""> Details de profil
+        </h1>
+    </div>
+
+    <div class="modal-body">
+        <table class="table detail">
+            <tbody>
+                <tr>
+                    <th>Libellé</th>
+                    <td>{{ profil.libelle }}</td>
+                </tr>
+                <tr>
+                    <th>Rôle</th>
+                    <td>{{ profil.code}}</td>
+                </tr>
+                <tr>
+                    <th>Habilitations</th>
+                    <td>
+                        <ul class="no-styled-list no-p-left">
+                            <li *ngFor="let habilitation of profil?.habilitations">{{ habilitation.libelle }}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="buttons" class="display-modal-button">
+            <button type="button" class="btn bgc-primary" (click)="modal.close('Save click')">Fermer</button>
+        </div>
+    </div>
+</ng-template> 

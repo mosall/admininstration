@@ -1,0 +1,232 @@
+ <div class="">
+	 <br>
+	 <div id="gadd-user">
+		 <h3><img src="/assets/list-text.png" alt=""> Liste des utilisateurs</h3>
+		 <div (click)="addUser()" id="addbutton">
+			 <span> <img src="/assets/plus.png" alt=""></span> Ajouter
+			</div>
+		</div>
+	<!--   
+    <div id="gsearch-user">
+		<h4 (click)="refresh()"><img src="/assets/refresh.png" alt=""> Actualiser</h4>
+        <div id="searchfield">
+			<div class="has-search">
+				<img src="/assets/search.png" alt="">
+                <input #search type="search" class="form-control" placeholder="Rechercher" (keyup)="onSearch(search.value)">
+            </div>
+        </div>
+    </div>
+	
+-->
+    <table class="table row-border hover">
+        <thead style="background-color: lightgray;">
+            <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Profil</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Options</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user?.identifiant }}</td>
+                <td>{{ user?.prenom }}</td>
+                <td>{{ user?.nom }}</td>
+                <td>{{ user?.email }}</td>
+                <td>{{ user?.profil?.libelle }}</td>
+                <td class="toggle">
+                    <ng-toggle [value]="user.actif  " [color]="{
+                      unchecked: 'red',
+                      checked: 'green'
+                    }" (change)="statusChanged(user?.id)"></ng-toggle>
+                </td>
+                <td class="icons">
+                    <img src="/assets/view.png" alt="" (click)="showDetails(user?.id)">
+                    <img src="/assets/edit.png" *ngIf="user.actif == 1" alt="" (click)="editUser(user?.id)">
+                    <img src="/assets/lock.png" *ngIf="user.actif == 0" alt="utilisateur désactivé">
+
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    <!-- <app-pagination [items]="users" (changePage)="onChangePage($event)"></app-pagination> -->
+</div> 
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+	<img src="/assets/user.png" alt="">
+    <h4 class="modal-title" id="modal-basic-title">Ajout utilisateur</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+		<div id="form-msg">
+            Veuillez remplir soigneusement le formulaire ci-dessous.
+        </div>
+
+        <div class="invalid-msg text-center">
+            <div *ngIf="errorMessage != ''">{{errorMessage}}</div>
+        </div>
+            <input type="hidden" id="form3Exampleid" class="form-control" placeholder="Id" formControlName="id" />
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example1">Prénom <span style="color: red;">*</span></label>
+
+                        <input type="text" id="form3Example1" class="form-control" placeholder="Prénom" formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && f?.prenom?.errors }" />
+                        <div class="invalid-feedback">
+							Le prenom est obligatoire
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example2">Nom <span style="color: red;">*</span></label>
+
+                        <input type="text" id="form3Example2" placeholder="Nom" class="form-control" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f?.nom?.errors }" />
+                        <div class="invalid-feedback">
+                            Le nom est obligatoire
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example3">Identifiant <span style="color: red;">*</span></label>
+
+                        <input type="text" id="form3Example3" placeholder="Identifiant" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f?.username?.errors }" />
+                        <div class="invalid-feedback">
+                            L'identifiant est obligatoire
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example4">Email <span style="color: red;">*</span></label>
+
+                        <input type="text" ngbPopover="L'Email doit être comme suit : mamadou@gmail.com." triggers="focus" id="form3Example4" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f?.email?.errors }" />
+                        <div class="invalid-feedback">
+                            L'Email est obligatoire et doit suivre le format indiqué.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mb-4" *ngIf="!edit">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="password-id">Mot de passe <span style="color: red;">*</span></label>
+
+                        <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir un caractère spécial, un chiffre, une majuscule et doit contenir au moins 8 caractères." triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
+                        <div class="invalid-feedback">
+                            Le mot de passe est obligatoire
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="confirmePassword">Confirmation de mot du passe <span style="color: red;">*</span></label>
+
+                        <input type="password" id="confirmePassword" placeholder="Confirmation de mot du passe" class="form-control" formControlName="confirmePassword" [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
+                        <div class="invalid-feedback">
+                            La confirmation du mot de passe est obligatoire
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example1">Profil <span style="color: red;">*</span></label> <br>
+
+                        <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil?.errors || f?.profil?.value == 0) }">
+                            <option selected [value]="0">Selectionner un profil</option>
+                            <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.libelle }}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Le profil est obligatoire
+                        </div>
+                    </div>
+                </div>
+                <div class="col printPassword-container">
+
+                    <div class="printPassword" style="width: 100%;">
+                        <span><input (change)="togglePasswordView('password-id');togglePasswordView('confirmePassword');" type="checkbox"> </span> <span>Afficher les mots de passe </span>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn bgc-secondary" (click)="modal.close('Save click')">Annuler</button>
+			<button type="submit" class="btn bgc-primary">Ajouter</button>
+		</div>
+	</form>
+</ng-template>
+
+
+
+<ng-template #details let-modal>
+    <div class="modal-header">
+        <h1> <img src="/assets/user.png" alt=""> Details utilisateur
+        </h1>
+    </div>
+
+    <div class="modal-body">
+        <div class="detail-user">
+            <div class="row detail">
+                <div class="icon">
+                    <img src="/assets/profil.png" alt="Informations personnelles" />
+                </div>
+                <div class="infos">
+                    <table class="table">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <th>Prenom</th>
+                                <td>{{ user?.prenom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ user?.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Matricule</th>
+                                <td>{{ user?.identifiant }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ user?.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Profil</th>
+                                <td>{{ user?.profil?.libelle }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn bgc-primary" (click)="modal.close('Save click')">Fermer</button>
+    </div>
+</ng-template> 
