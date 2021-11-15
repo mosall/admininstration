@@ -89,10 +89,11 @@ export class AdminMenuComponent implements OnInit {
       newPassword: this.updatePasswordForm.get('newPassword').value,
       newPasswordConfirm: this.updatePasswordForm.get('newPasswordConfirm').value,
     }
-
+    console.log(this.updatePasswordForm);
+    
     this.userService.updatePassword(this.user?.id, data, [
       (data: any) => {
-        this.content.close('');
+        this.addModal.close('');
         this.showSuccessMessage('Modification de mot de passe', 'Votre mot de passe a été modifié avec succès.');
         this.logout();
       },

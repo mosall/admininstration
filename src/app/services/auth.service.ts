@@ -58,4 +58,11 @@ export class AuthService {
   me(cbs: any){
     this.http.get(`${AppSettings.UM_URL}/me`, AppSettings.httpOptions).subscribe(...cbs);
   }
+
+  logout(){
+    const token = sessionStorage.getItem('connectedUser');
+    if (token != null){
+      sessionStorage.removeItem("connectedUser");
+    }
+  }
 }

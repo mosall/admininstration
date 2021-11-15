@@ -168,11 +168,11 @@
         <img src="/assets/user.png" alt="">
         <h4 class="modal-title" id="modal-basic-title">Modification de mot passe</h4>
     </div>
+    <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()">
     <div class="modal-body">
         <div id="form-msg">
             Veuillez remplir soigneusement le formulaire ci-dessous.
         </div>
-        <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()">
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
@@ -225,11 +225,11 @@
                 </div>
             </div>
                 
-        </form>
-        
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
-        <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
-    </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
+            <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
+        </div>
+    </form>
 </ng-template>
