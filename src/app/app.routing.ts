@@ -45,7 +45,17 @@ const appRoutes: Routes = [
 			component: ProfilsComponent
 		}
 		]
-	}
+	},
+	{
+		path: '',
+		children: [
+		  {
+			path: 'ci-pme',
+			loadChildren: () =>
+			  import('./components/ci-pme/ci-pme.module').then(m => m.CiPmeModule)
+		  }
+		]
+	  },
 ];
 
 export default appRoutes;

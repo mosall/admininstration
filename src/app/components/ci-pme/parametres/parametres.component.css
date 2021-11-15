@@ -1,0 +1,12 @@
+.nav-link {
+  color: #212529;
+}
+.nav-link.active {
+  color: #000000;
+  background-color: rgba(247, 131, 0, .25);
+}
+
+tr.parent {
+  background-color: rgba(0, 106, 37, .1) !important;
+}
+
