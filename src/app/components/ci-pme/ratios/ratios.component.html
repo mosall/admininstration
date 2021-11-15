@@ -1,0 +1,36 @@
+<div class="row mt-5">
+  <div class="col-sm-11">
+    <h3><i class="fas fa-folder mr-2 fa-1x"></i> Liste des ratios financiers</h3>
+  </div>
+
+  <div class="container mt-4">
+    <div class="card p-2">
+      <div class="card-body">
+        <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
+               datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+          <thead class="text-black">
+          <tr class="text-center">
+            <th>Libellé</th>
+            <th style="width: 50%;">Formules</th>
+            <th style="width: 20%">Pondération</th>
+            <th style="width: 7%">Calibrage</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center" *ngFor="let ratio of listRatios">
+            <td>{{ratio.libelle}}</td>
+            <td>{{ratio.formule}}</td>
+            <td>
+              <input type="text" class="small pound-input mr-3" id="ponderation" [value]="ratio.ponderation + '%'" (input)="showValidateIcon = ratio.id; getPonderationValue($event)">
+              <button class="btn btn-sm mt-n2" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Enregistrer" *ngIf="showValidateIcon == ratio.id" (click)="savePondaration(ratio.id, ratio.code, ratio.libelle, ratio.formule)"><i class="fas fa-check small text-success"></i></button>
+            </td>
+            <td (click)="goto('/ci-pme/ratios/calibrage/' + ratio.id)">
+              <i class="fas fa-arrows-alt mr-2" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
