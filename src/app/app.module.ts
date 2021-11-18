@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ConfirmComponent } from './components/auth/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
     AdminMenuComponent,
     PaginationComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RegisterComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

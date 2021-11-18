@@ -65,4 +65,12 @@ export class AuthService {
       sessionStorage.removeItem("connectedUser");
     }
   }
+
+  register(data: any, cbs: any){
+    this.http.post(`${AppSettings.UM_URL}/register`, data, AppSettings.httpOptions).subscribe(...cbs);
+  }
+
+  confirm(token: string, cbs: any){
+    this.http.get(`${AppSettings.UM_URL}/users/confirm?token=${token}`, AppSettings.httpOptions).subscribe(...cbs);
+  }
 }
