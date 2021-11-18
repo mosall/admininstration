@@ -126,7 +126,7 @@ export class UsersComponent implements OnInit {
     }
     const data: Body = {
       id: this.addUserForm.get('id')?.value,
-      identifiant: this.addUserForm.get('username')?.value,
+      username: this.addUserForm.get('username')?.value,
       email: this.addUserForm.get('email')?.value,
       prenom: this.addUserForm.get('prenom')?.value,
       nom: this.addUserForm.get('nom')?.value,
@@ -134,8 +134,8 @@ export class UsersComponent implements OnInit {
     };
    
     if(!data.id){
-      data.motDePasse = this.addUserForm.get('password')?.value;
-      data.confirmationMotDePasse = this.addUserForm.get('confirmePassword')?.value;
+      data.password = this.addUserForm.get('password')?.value;
+      data.confirmationPassword = this.addUserForm.get('confirmePassword')?.value;
     }
     // if(this.addUserForm.get('id')?.value !== 0)
     //   data.id = this.addUserForm.get('id')?.value;
