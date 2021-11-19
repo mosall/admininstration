@@ -28,6 +28,7 @@ export class ProfilsComponent implements OnInit {
 
   addProfilForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
+  edit: boolean = false;
 
   dropdownSettings: IDropdownSettings = {};
   
@@ -87,11 +88,13 @@ export class ProfilsComponent implements OnInit {
 
   addProfil(){
     this.submitted = false;
+    this.edit = false;
     this.initForm(null);
     this.open(this.content);
   }
   
   editProfil(id: number){
+    this.edit = true;
     this.profilService.getProfil(id, [
       (data: any) => {
         this.initForm(data);
