@@ -1,72 +1,3 @@
-<!-- <div id="gcontainer">
-    <div id="gsidebar">
-        <div class="image-container">
-            <img src="/assets/Logo02.png" alt="">
-        </div>
-        <div id="gsidebar-header">
-            <h3>administration</h3>
-        </div>
-
-        <div id="gsidebar-list">
-            <div class="item" [class.active]="currentRoute == '/admin/users'" (click)="navigateTo('users')">
-                <img src="/assets/user.png" alt="">
-                <h2 >Utilisateur</h2>
-            </div>
-            <div class="item" [class.active]="currentRoute == '/admin/profils'" (click)="navigateTo('profils')">
-                <img src="/assets/profil.png" alt="">
-
-                <h2 > Profil</h2>
-            </div>
-
-        </div>
-    </div>
-    <div id="gmain">
-        <div id="gmain-navbar">
-            <div class="title">
-                 <img src="/assets/senegal-flag.png" alt="">
-                <h4>Ministére des finances et du budget</h4> 
-            </div>
-
-            <div class="user-data">
-                <h4> <img src="/assets/profile.png" alt="">{{user?.prenom}} {{user?.nom}}
-                    <div class="row">
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle></button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                    <div class="user-infos">
-                                        <ul>
-
-                                            <li> <span> Identifiant</span> <br> <span>{{user?.identifiant}} </span> </li>
-                                            <li> <span> Profil  </span> <br> <span> {{user?.profil?.libelle}}</span> </li>
-                                        </ul>
-                                        <hr>
-                                    </div>
-                                    <button ngbDropdownItem (click)="openModal()">Modifier mot de passe</button>
-                                    <button ngbDropdownItem (click)="logout()">Se déconnecter</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </h4>
-
-            </div>
-        </div>
-
-        <div id="gcomponent-container">
-            <router-outlet></router-outlet>
-        </div>
-
-    </div>
-
-    <div id="gfooter">
-        copyright agile way international
-    </div>
-
-
-</div> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,11 +41,11 @@
     <li class="nav-item">
         <div ngbDropdown>
             <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right" >
                 <div class="user-infos">
                     <ul>
 
-                        <li> <span> Identifiant</span> <br> <span>{{user?.identifiant}} </span> </li>
+                        <li> <span> Identifiant</span> <br> <span>{{user?.username}} </span> </li>
                         <li> <span> Profil  </span> <br> <span> {{user?.profil?.libelle}}</span> </li>
                     </ul>
                     <hr>
@@ -178,14 +109,18 @@
                     <div class="form-outline">
 
                         <label class="form-label" for="form3Example1">Mot de passe courant <span style="color: red;">*</span></label>
-                        <div class="input-two-icons">
-                            <span>
-                                <img src="/assets/key.png" alt="">
-                            </span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
+                                </span>
+                            </div>
                             <input type="password" id="current-password" class="form-control" placeholder="Mot de passe" formControlName="password" />
-                            <span (click)="togglePasswordView('current-password')">
-                                <img src="/assets/view.png" alt="">
-                            </span>
+                            <div class="input-group-prepend" (click)="togglePasswordView('current-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,14 +130,18 @@
                     <div class="form-outline">
 
                         <label class="form-label" for="form3Example2">Nouveau mot de passe <span style="color: red;">*</span></label>
-                        <div class="input-two-icons">
-                            <span>
-                                    <img src="/assets/key.png" alt="">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
                                 </span>
+                            </div>
                             <input type="password" id="new-password" placeholder="Nouveau mot du passe" class="form-control" formControlName="newPassword" />
-                            <span (click)="togglePasswordView('new-password')">
-                                <img src="/assets/view.png" alt="">
-                            </span>
+                            <div class="input-group-prepend" (click)="togglePasswordView('new-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,14 +151,18 @@
                     <div class="form-outline">
 
                         <label class="form-label" for="form3Example2">Confirmation du nouveau mot du passe <span style="color: red;">*</span></label>
-                        <div class="input-two-icons">
-                            <span>
-                                        <img src="/assets/key.png" alt="">
-                                    </span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
+                                </span>
+                            </div>
                             <input type="password" id="confirm-password" placeholder="Confirmation du nouveau mot du passe" class="form-control" formControlName="newPasswordConfirm" />
-                            <span (click)="togglePasswordView('confirm-password')">
-                                        <img src="/assets/view.png" alt="">
-                                    </span>
+                            <div class="input-group-prepend" (click)="togglePasswordView('confirm-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
