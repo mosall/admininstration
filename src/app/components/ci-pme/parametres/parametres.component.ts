@@ -82,6 +82,7 @@ export class ParametresComponent implements OnInit {
     this.parametresService.getParameter().subscribe(
       data => {
         this.listParameters = data;
+        this.listParameters.sort((a: any, b: any) => a.id > b.id);
         this.getQuestion(1);
       }
     );
