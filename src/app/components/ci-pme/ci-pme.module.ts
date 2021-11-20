@@ -11,6 +11,7 @@ import { PonderationScoreComponent } from './ponderation-score/ponderation-score
 import { CalibrageComponent } from './ratios/calibrage/calibrage.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DataTablesModule} from "angular-datatables";
+import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {DataTablesModule} from "angular-datatables";
     ReactiveFormsModule,
     FormsModule,
     DataTablesModule,
+    NgbModule
   ]
 })
 export class CiPmeModule { }
