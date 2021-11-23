@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import AppSettings from 'src/app/app.settings';
 import { AuthService } from 'src/app/services/auth.service';
-import { ROLE_ADMIN, ROLE_ADMIN_FONC } from 'src/app/utils/constante';
+import { ROLE_ADMIN, ROLE_ADMIN_FONC, ROLE_ENTR } from 'src/app/utils/constante';
 
 @Component({
   selector: 'app-login',
@@ -33,9 +33,11 @@ export class LoginComponent implements OnInit {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
                 break;
-                
+              case ROLE_ADMIN_FONC :
+                this.router.navigate(['/ci-pme']);
+                break;
               default:
-                this.router.navigate(['/admin/users']);
+                window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
                 break;
             }
           },
@@ -78,7 +80,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               default:
-                this.router.navigate(['/admin/users']);
+                window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
                 break;
             }
             sessionStorage.removeItem('token');
