@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     if(user !== null){
       this.auth.me([
           (user: any) => {
+            console.log(user);
+            
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
@@ -85,7 +87,12 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               default:
-                window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                if(user?.entrepriseId){
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
+                }
+                else{
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                }
                 break;
             }
             sessionStorage.removeItem('token');
