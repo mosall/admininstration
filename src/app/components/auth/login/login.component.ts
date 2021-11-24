@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               default:
-                window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                this.router.navigate(['/']);
+                // window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
                 break;
             }
             sessionStorage.removeItem('token');
