@@ -1,0 +1,97 @@
+<div class="page-content">
+		<div class="form-v4-content">
+			<div class="form-left">
+				<!-- <h2>INFOMATION</h2> -->
+				<img src="/assets/Logo02.png" alt="">
+				<!-- <p class="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.</p>
+				<p class="text-2"><span>Eu ultrices:</span> Vitae auctor eu augue ut. Malesuada nunc vel risus commodo viverra. Praesent elementum facilisis leo vel.</p> -->
+				<div class="form-left-last">
+					<button class="account"  >
+						<a routerLink="/">
+							J'ai un compte
+						</a>
+					</button>
+				</div>
+			</div>
+			<form class="form-detail" id="myform" [formGroup]="registrationForm" (submit)="onSubmit()">
+				<h2>Nouveau compte</h2>
+				<div class="error-msg" *ngIf="statusCode != 200">{{errorMsg}}</div>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<label for="first_name">Prenom</label>
+						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="Prenom" formControlName="prenom">
+						<div class="input-error" *ngIf="submitted && f?.prenom?.errors">
+							<span class="">Le prenom est obligatoire.</span>
+						</div>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="last_name">Nom</label>
+						<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Nom" formControlName="nom">
+						<div class="input-error" *ngIf="submitted && f?.nom?.errors">
+							<span class="">Le nom est obligatoire.</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<label for="username">Nom d'utilisateur</label>
+						<input type="text" name="your_email" id="username" class="input-text" required  placeholder="Nom d'utilisateur" formControlName="username">
+						<div class="input-error" *ngIf="submitted && f?.username?.errors">
+							<span class="">le nom d'utilisateur est obligatoire.</span>
+						</div>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="your_email">Email</label>
+						<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" formControlName="email">
+						<div class="input-error" *ngIf="submitted && f?.email?.errors">
+							<span class="">L'adresse mail est obligatoire.</span>
+						</div>
+					</div>
+
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1 ">
+						<label for="password">Mot de passe</label>
+						<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password">
+						<div class="input-error" *ngIf="submitted && f?.password.error">
+							<span class="">Le mot de passe est obligatoire.</span>
+						</div>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="comfirm-password">Comfirmez votre mot de passe</label>
+						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword">
+						<div class="input-error" *ngIf="submitted && f?.confirmationPassword?.errors">
+							<span class="">Les mots de passe ne sont pas identiques</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<label for="">Telephone</label>
+						<input type="text" class="input-text" placeholder="Numero de telephone mobile" formControlName="mobile">
+						<div class="input-error" *ngIf="submitted && f?.mobile?.errors">
+							<span class="">le numero de telephone est obligatoire.</span>
+						</div>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="">Fonction occupe</label>
+						<input type="text" class="input-text" placeholder="Fonction occupe" formControlName="fonction">
+						<div class="input-error" *ngIf="submitted && f?.fonction?.errors">
+							<span class="">La fonction occupe est obligatoire.</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-row form-row-1">
+					<label for="">Nom de l'entreprise</label>
+					<input type="text" class="input-text" placeholder="Nom d'entreprise" formControlName="entrepriseLibelle">
+					<div class="input-error" *ngIf="submitted && f?.entrepriseLibelle?.errors">
+						<span class="">Le nom de l'entreprise est obligtoire.</span>
+					</div>
+				</div>
+			
+				<div class="form-row-last">
+					<button type="submit" class="register" >S'enregistrer</button>
+				</div>
+			</form>
+		</div>
+	</div>

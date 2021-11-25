@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import AppSettings from 'src/app/app.settings';
 import { AuthService } from 'src/app/services/auth.service';
-import { ROLE_ADMIN } from 'src/app/utils/constante';
+import { ROLE_ADMIN, ROLE_ADMIN_FONC } from 'src/app/utils/constante';
 
 @Component({
   selector: 'app-login',
@@ -33,13 +33,13 @@ export class LoginComponent implements OnInit {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
                 break;
-                
+
               default:
                 this.router.navigate(['/admin/users']);
                 break;
             }
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
     }
     this.initForm();
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.signInForm);
-    
+
     if(this.signInForm.inValid)
       return;
 
@@ -69,20 +69,22 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('token', JSON.stringify(res));
         this.auth.me([
           (user: any) => {
+            sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
+            sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
-                sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
                 this.router.navigate(['/admin/users']);
                 break;
-                
+              case ROLE_ADMIN_FONC :
+                this.router.navigate(['/ci-pme']);
+                break;
               default:
-                sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
                 this.router.navigate(['/admin/users']);
                 break;
             }
             sessionStorage.removeItem('token');
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
       },
       (err: HttpErrorResponse) => {
@@ -97,7 +99,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Identifiant ou mot de passe incorrect';
         }
         console.log(err)
-      }      
+      }
     ]);
   }
 
@@ -105,7 +107,7 @@ export class LoginComponent implements OnInit {
   togglePasswordView(id: string) {
     const passInput = document.getElementById(id) as HTMLInputElement;
     (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
-  
+
   }
 
 }

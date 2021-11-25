@@ -27,6 +27,7 @@ export class AdminMenuComponent implements OnInit {
   disableCloseModal: boolean = false;
 
   currentRoute: string = '/admin/users';
+  isShowing: boolean = true;
   
   constructor(
     private auth: AuthService,
@@ -88,10 +89,11 @@ export class AdminMenuComponent implements OnInit {
       newPassword: this.updatePasswordForm.get('newPassword').value,
       newPasswordConfirm: this.updatePasswordForm.get('newPasswordConfirm').value,
     }
-
+    console.log(this.updatePasswordForm);
+    
     this.userService.updatePassword(this.user?.id, data, [
       (data: any) => {
-        this.content.close('');
+        this.addModal.close('');
         this.showSuccessMessage('Modification de mot de passe', 'Votre mot de passe a été modifié avec succès.');
         this.logout();
       },
@@ -138,5 +140,9 @@ export class AdminMenuComponent implements OnInit {
 
   showSuccessMessage(title: string, text: string){
     Swal.fire({title, text, timer: 3000});
+  }
+
+  toggleSidenav() {
+    this.isShowing = !this.isShowing;
   }
 }

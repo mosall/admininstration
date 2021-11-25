@@ -6,7 +6,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url('/portailMFB/assets/login-bg-edted.png');
+    background-image: url('/assets/login-bg-edted.png');
     background-position: center;
     background-size: cover;
     display: flex;
@@ -34,7 +34,7 @@
     align-items: center;
     justify-content: center;
     background-color: $primary/*#3C8DBC*/;
-    background-image: url('/portailMFB/assets/side-text-bg.png');
+    // background-image: url('/assets/side-text-bg.png');
     background-size: cover;
     background-position: bottom right;
     border-radius: 5pt;
@@ -43,25 +43,25 @@
 #login-extras h2 {
     text-align: left;
     color: white;
-    padding-left: 5%;
-    width: 70%;
+    // padding-left: 5%;
+    // width: 70%;
     font-size: 2.5em;
     font-weight: bold;
 }
 
 #login-extras p {
     color: rgba(255, 255, 255, 0.575);
-    padding-left: 5%;
-    width: 60%;
+    // padding-left: 5%;
+    width: 100%;
     font-size: 1.5em;
     text-align: left;
 }
 
 #login-extras img {
     display: inline-block;
-    height: 15%;
-    width: 30%;
-    margin-bottom: 4%;
+    // height: 15%;
+    width: inherit;
+    // margin-bottom: 4%;
 }
 
 #login-form-container {
@@ -287,4 +287,9 @@ screen and (max-height: 700px) {
 
 .color-primary{
     color: $primary;
+}
+
+.register-link{
+    color: $secondary;
+    font-weight: bold;
 }

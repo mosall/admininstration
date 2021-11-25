@@ -61,6 +61,7 @@ export class ResetPasswordComponent implements OnInit {
     this.auth.resetPassword(param, [
     (data: any) => {
       this.showSuccessMessage('', 'Votre mot de passe a été mis à jour.');
+      this.auth.logout();
       this.router.navigate(['/'])
     },
     (err: HttpErrorResponse) => console.log(err)
