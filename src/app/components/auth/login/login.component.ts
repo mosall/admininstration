@@ -35,9 +35,13 @@ export class LoginComponent implements OnInit {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
                 break;
+<<<<<<< HEAD
+
+=======
               case ROLE_ADMIN_FONC :
                 this.router.navigate(['/ci-pme']);
                 break;
+>>>>>>> ccfa7758879c772e903ba1a4e03adf09ec9f30c1
               default:
                 if(user?.entrepriseId){
                   window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
@@ -48,7 +52,7 @@ export class LoginComponent implements OnInit {
                 break;
             }
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
     }
     this.initForm();
@@ -63,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.signInForm);
-    
+
     if(this.signInForm.inValid)
       return;
 
@@ -79,6 +83,7 @@ export class LoginComponent implements OnInit {
         this.auth.me([
           (user: any) => {
             sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
+            sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
@@ -97,7 +102,7 @@ export class LoginComponent implements OnInit {
             }
             sessionStorage.removeItem('token');
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
       },
       (err: HttpErrorResponse) => {
@@ -112,7 +117,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Identifiant ou mot de passe incorrect';
         }
         console.log(err)
-      }      
+      }
     ]);
   }
 
@@ -120,7 +125,7 @@ export class LoginComponent implements OnInit {
   togglePasswordView(id: string) {
     const passInput = document.getElementById(id) as HTMLInputElement;
     (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
-  
+
   }
 
 }

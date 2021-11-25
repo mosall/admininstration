@@ -12,15 +12,13 @@
         <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2"
                datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead class="text-black">
-          <tr class="text-center">
-            <th>Code</th>
-            <th style="width: 65%;">Libellé</th>
+          <tr>
+            <th>Libellé</th>
             <th style="width: 15%;">Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr class="text-center" *ngFor="let question of listQuestions">
-            <td>{{question.code}}</td>
+          <tr *ngFor="let question of listQuestions">
             <td>{{question.libelle}}</td>
             <td>
               <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(question.id)"><i class="fas fa-edit"></i></button>

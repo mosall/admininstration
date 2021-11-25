@@ -18,10 +18,10 @@
 				<div class="error-msg" *ngIf="statusCode != 200">{{errorMsg}}</div>
 				<div class="form-group">
 					<div class="form-row form-row-1">
-						<label for="first_name">Prenom</label>
-						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="Prenom" formControlName="prenom">
+						<label for="first_name">Prénom</label>
+						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="Prénom" formControlName="prenom">
 						<div class="input-error" *ngIf="submitted && f?.prenom?.errors">
-							<span class="">Le prenom est obligatoire.</span>
+							<span class="">Le prénom est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
@@ -37,7 +37,7 @@
 						<label for="username">Nom d'utilisateur</label>
 						<input type="text" name="your_email" id="username" class="input-text" required  placeholder="Nom d'utilisateur" formControlName="username">
 						<div class="input-error" *ngIf="submitted && f?.username?.errors">
-							<span class="">le nom d'utilisateur est obligatoire.</span>
+							<span class="">Le nom d'utilisateur est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="form-row form-row-1">
-						<label for="comfirm-password">Comfirmez votre mot de passe</label>
+						<label for="comfirm-password">Confirmez votre mot de passe</label>
 						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword">
 						<div class="input-error" *ngIf="submitted && f?.confirmationPassword?.errors">
 							<span class="">Les mots de passe ne sont pas identiques</span>
@@ -67,23 +67,23 @@
 				</div>
 				<div class="form-group">
 					<div class="form-row form-row-1">
-						<label for="">Telephone</label>
+						<label for="">Téléphone</label>
 						<input type="text" class="input-text" placeholder="Numero de telephone mobile" formControlName="mobile">
 						<div class="input-error" *ngIf="submitted && f?.mobile?.errors">
-							<span class="">le numero de telephone est obligatoire.</span>
+							<span class="">Le numéro de telephone est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
-						<label for="">Fonction occupe</label>
-						<input type="text" class="input-text" placeholder="Fonction occupe" formControlName="fonction">
+						<label for="">Fonction occupée</label>
+						<input type="text" class="input-text" placeholder="Fonction occupée" formControlName="fonction">
 						<div class="input-error" *ngIf="submitted && f?.fonction?.errors">
-							<span class="">La fonction occupe est obligatoire.</span>
+							<span class="">La fonction occupée est obligatoire.</span>
 						</div>
 					</div>
 				</div>
 				<div class="form-row form-row-1">
 					<label for="">Nom de l'entreprise</label>
-					<input type="text" class="input-text" placeholder="Nom d'entreprise" formControlName="entrepriseLibelle">
+					<input type="text" class="input-text" placeholder="Nom de l'entreprise" formControlName="entrepriseLibelle">
 					<div class="input-error" *ngIf="submitted && f?.entrepriseLibelle?.errors">
 						<span class="">Le nom de l'entreprise est obligtoire.</span>
 					</div>

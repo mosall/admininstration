@@ -14,6 +14,6 @@ export default class AppSettings {
         'Access-Control-Allow-Origin': '*',
       })
     };
-    
+
 }
 
