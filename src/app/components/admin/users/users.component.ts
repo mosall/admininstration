@@ -24,9 +24,9 @@ export class UsersComponent implements OnInit {
   user: any;
 
   errorMessage: string = '';
-  addUserForm: any; 
-  
-  
+  addUserForm: any;
+
+
   submitted: boolean = false;
   edit: boolean = false;
 
@@ -43,14 +43,14 @@ export class UsersComponent implements OnInit {
     this.fetchUsers();
     this.initForm(null);
   }
-  
+
   fetchProfils(){
     this.profilService.getProfils([
       (data: any) => {this.profils = data;},
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
-  
+
   fetchUsers(){
     this.userService.getUsers([
       (data: any) => {this.users = data;},
@@ -117,7 +117,7 @@ export class UsersComponent implements OnInit {
   onSubmit(){
     this.submitted = true;
     console.log(this.addUserForm);
-    
+
     if(!this.addUserForm.valid)
       return;
 
@@ -132,7 +132,7 @@ export class UsersComponent implements OnInit {
       nom: this.addUserForm.get('nom')?.value,
       profil: this.addUserForm.get('profil')?.value,
     };
-   
+
     if(!data.id){
       data.password = this.addUserForm.get('password')?.value;
       data.confirmationPassword = this.addUserForm.get('confirmePassword')?.value;
@@ -145,19 +145,19 @@ export class UsersComponent implements OnInit {
         this.fetchUsers();
       },
       (err: HttpErrorResponse) =>{
-        console.log(err);        
+        console.log(err);
       }
     ];
     if(!data.id){
       this.userService.createUser(data, cbs);
       this.showSuccessMessage('', 'L\'utilisateur a été ajouté avec succès.');
-    } 
-    
+    }
+
     else{
-      this.userService.editUser(data.id, data, cbs); 
+      this.userService.editUser(data.id, data, cbs);
       this.showSuccessMessage('', 'L\'utilisateur a été modifié avec succès.');
 
-    } 
+    }
 
     this.addModal.close('');
   }
@@ -195,6 +195,6 @@ export class UsersComponent implements OnInit {
   //end modal
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 }

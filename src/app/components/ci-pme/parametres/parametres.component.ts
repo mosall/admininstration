@@ -265,7 +265,7 @@ export class ParametresComponent implements OnInit {
       icon: 'success',
       text: msg,
       showConfirmButton: false,
-      timer: 1500
+      timer: 5000
     }).then(
       ()=> window.location.reload()
     );
@@ -276,7 +276,7 @@ export class ParametresComponent implements OnInit {
       icon: 'warning',
       text: msg,
       showConfirmButton: false,
-      timer: 2500
+      timer: 5000
     });
   }
 

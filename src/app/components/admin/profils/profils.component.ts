@@ -31,7 +31,7 @@ export class ProfilsComponent implements OnInit {
   edit: boolean = false;
 
   dropdownSettings: IDropdownSettings = {};
-  
+
 
   constructor(
     private profilService: ProfilService,
@@ -55,12 +55,12 @@ export class ProfilsComponent implements OnInit {
       searchPlaceholderText: 'Rechercher'
     };
     this.initForm(null);
-    
+
   }
-  
+
   fetchHabilitations(){
     this.habilitationService.getHabilitations([
-      (data: any) =>{          
+      (data: any) =>{
         this.habilitations = data;
       },
       (err: HttpErrorResponse) =>{console.log(err);},
@@ -92,7 +92,7 @@ export class ProfilsComponent implements OnInit {
     this.initForm(null);
     this.open(this.content);
   }
-  
+
   editProfil(id: number){
     this.edit = true;
     this.profilService.getProfil(id, [
@@ -103,7 +103,7 @@ export class ProfilsComponent implements OnInit {
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
-  
+
   showDetails(id: number){
     this.profilService.getProfil(id, [
       (data: any) => {
@@ -119,7 +119,7 @@ export class ProfilsComponent implements OnInit {
     this.submitted = true;
     if(!this.addProfilForm.valid)
       return;
-    
+
       interface Body{
         [key: string]: any;
       }
@@ -131,13 +131,13 @@ export class ProfilsComponent implements OnInit {
         habilitations: (this.addProfilForm.get('habilitations')?.value).map((d: any) => d.id),
       }
       console.log(data);
-      
+
       const cbs = [
         (data: any) => {
           this.fetchProfils();
         },
         (err: HttpErrorResponse) => {console.log(err);},
-      ];     
+      ];
 
       if(data.id){
         this.profilService.editUser(data.id, data, cbs);
@@ -147,11 +147,11 @@ export class ProfilsComponent implements OnInit {
         this.profilService.createUser(data, cbs);
         this.showSuccessMessage('', 'Le profil a été ajouté avec succès.');
       }
-      
+
       this.addModal.close("");
-      
+
     }
-    
+
     statusChanged(elt: any){
       this.profilService.switchStatus(elt, [
         (data: any) => {
@@ -159,7 +159,7 @@ export class ProfilsComponent implements OnInit {
         },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
-    
+
   }
 
  // bootstrap modal
@@ -194,6 +194,6 @@ export class ProfilsComponent implements OnInit {
   }
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 }

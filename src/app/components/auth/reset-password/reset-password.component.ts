@@ -33,7 +33,7 @@ export class ResetPasswordComponent implements OnInit {
       (err: HttpErrorResponse) => {
         console.log(err);
         this.router.navigate(['/account/password_recovery']);
-      }     
+      }
     ]);
   }
 
@@ -70,10 +70,10 @@ export class ResetPasswordComponent implements OnInit {
 
   togglePasswordView(id: string) {
       const passInput = document.getElementById(id) as HTMLInputElement;
-    (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';   
+    (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
     }
-    
+
     showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
     }
 }

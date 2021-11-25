@@ -33,13 +33,9 @@ export class LoginComponent implements OnInit {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
                 break;
-<<<<<<< HEAD
-
-=======
               case ROLE_ADMIN_FONC :
                 this.router.navigate(['/ci-pme']);
                 break;
->>>>>>> ccfa7758879c772e903ba1a4e03adf09ec9f30c1
               default:
                 if(user?.entrepriseId){
                   window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'

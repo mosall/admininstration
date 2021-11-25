@@ -15,8 +15,8 @@
   </a>
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
-       
-  
+
+
     <li class="nav-item">
         <div ngbDropdown>
             <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
@@ -46,20 +46,20 @@
 			</div>
 		</ngb-alert>
 		</p> -->
-		<div class="center ">
-			<div class="box" [ngClass]="rsConfirm == 'success' ? 'success' : 'warning'">
+		<div class="center">
+			<div class="box p-4" [ngClass]="rsConfirm == 'success' ? 'success' : 'warning'">
 				<div class="icon">
 					<i *ngIf="rsConfirm == 'success'" class="far fa-5x fa-check-circle"></i>
 					<i *ngIf="rsConfirm == 'error'" class="fas fa-5x fa-exclamation-circle"></i>
 				</div>
-				<div class="content">
+				<div class="content text-center">
 					<div *ngIf="rsConfirm == 'error'">
 						<strong >Error!</strong> Votre compte n'a pas pu être vérifié.
 						<p></p>
 					</div>
 					<div *ngIf="rsConfirm == 'success'">
 						<strong >Succes!</strong> Votre compte a été bien vérifié.
-						<p>Pour vous connecter à votre compte, cliquez le bouton ci-dessous : </p>
+						<p class="small">Pour vous connecter à votre compte, cliquez le bouton ci-dessous : </p>
 						<a class="btn bgc-secondary" routerLink="/">Se connecter</a>
 					</div>
 				</div>

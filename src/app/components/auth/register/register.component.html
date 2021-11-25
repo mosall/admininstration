@@ -8,7 +8,7 @@
 				<div class="form-left-last">
 					<button class="account"  >
 						<a routerLink="/">
-							J'ai un compte
+							J'ai déja un compte
 						</a>
 					</button>
 				</div>
@@ -81,14 +81,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-row form-row-1">
-					<label for="">Nom de l'entreprise</label>
-					<input type="text" class="input-text" placeholder="Nom de l'entreprise" formControlName="entrepriseLibelle">
-					<div class="input-error" *ngIf="submitted && f?.entrepriseLibelle?.errors">
-						<span class="">Le nom de l'entreprise est obligtoire.</span>
-					</div>
-				</div>
-			
+
 				<div class="form-row-last">
 					<button type="submit" class="register" >S'enregistrer</button>
 				</div>
