@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -27,16 +28,23 @@
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="/ci-pme/ponderation-score">Pondération des scores</a>
     </li>
-
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="#!">Settings</a></li>
-        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
-      </ul>
+        <div ngbDropdown>
+            <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right" >
+                <div class="user-infos">
+                    <ul>
+                        <li> <span> Identifiant</span> <br> <span>{{user?.username}} </span> </li>
+                        <li> <span> Profil  </span> <br> <span> {{user?.profil?.libelle}}</span> </li>
+                    </ul>
+                    <hr>
+                </div>
+                <button ngbDropdownItem (click)="openModal()">Modifier mot de passe</button>
+                <button ngbDropdownItem (click)="logout()">Se déconnecter</button>
+            </div>
+        </div>
     </li>
+    
   </ul>
 </nav>
 
@@ -85,3 +93,89 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
+
+
+<ng-template #content  let-modal>
+    <div class="modal-header">
+        <img src="/assets/user.png" alt="">
+        <h4 class="modal-title" id="modal-basic-title">Modification de mot passe</h4>
+    </div>
+    <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+        <div id="form-msg">
+            Veuillez remplir soigneusement le formulaire ci-dessous.
+        </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example1">Mot de passe courant <span style="color: red;">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
+                                </span>
+                            </div>
+                            <input type="password" id="current-password" class="form-control" placeholder="Mot de passe" formControlName="password" />
+                            <div class="input-group-prepend" (click)="togglePasswordView('current-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example2">Nouveau mot de passe <span style="color: red;">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
+                                </span>
+                            </div>
+                            <input type="password" id="new-password" placeholder="Nouveau mot du passe" class="form-control" formControlName="newPassword" />
+                            <div class="input-group-prepend" (click)="togglePasswordView('new-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+
+                        <label class="form-label" for="form3Example2">Confirmation du nouveau mot du passe <span style="color: red;">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="/assets/key.png" alt="">   
+                                </span>
+                            </div>
+                            <input type="password" id="confirm-password" placeholder="Confirmation du nouveau mot du passe" class="form-control" formControlName="newPasswordConfirm" />
+                            <div class="input-group-prepend" (click)="togglePasswordView('confirm-password')">
+                                <span class="input-group-text">
+                                    <img src="/assets/view.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bgc-secondary btn-lg" [disabled]="disableCloseModal" (click)="modal.close('Closed')">Annuler</button>
+            <button type="submit" class="btn bgc-primary btn-lg">Envoyer</button>
+        </div>
+    </form>
+</ng-template>
+
+
