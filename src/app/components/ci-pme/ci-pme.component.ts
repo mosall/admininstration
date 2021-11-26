@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,8 +16,6 @@ export class CiPmeComponent implements OnInit {
 
   isShowing = true;
   updatePasswordForm: any;
-  router: any;
-  userService: any;
   user: any;
   addModal: any;
   closeResult: string = '';
@@ -26,7 +26,9 @@ export class CiPmeComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router,
+    private userService: UserService
   ) {
   }
 
