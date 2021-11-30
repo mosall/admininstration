@@ -6,6 +6,8 @@ import { ProfilService } from 'src/app/services/profil.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
+const FILTER_PAG_REGEX = /[^0-9]/g;
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -19,7 +21,7 @@ export class UsersComponent implements OnInit {
   closeResult = '';
   addModal: any;
 
-  users: any = [];
+  users: any[] = [];
   profils: any = [];
   user: any;
 
@@ -30,6 +32,8 @@ export class UsersComponent implements OnInit {
   submitted: boolean = false;
   edit: boolean = false;
 
+  page = 1;
+  pageSize = 5;
 
   constructor(
     private userService: UserService,
@@ -132,7 +136,7 @@ export class UsersComponent implements OnInit {
       nom: this.addUserForm.get('nom')?.value,
       profil: this.addUserForm.get('profil')?.value,
     };
-
+    
     if(!data.id){
       data.password = this.addUserForm.get('password')?.value;
       data.confirmationPassword = this.addUserForm.get('confirmePassword')?.value;
@@ -146,19 +150,17 @@ export class UsersComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log(err);
+        this.fetchUsers();
       }
     ];
     if(!data.id){
       this.userService.createUser(data, cbs);
       this.showSuccessMessage('', 'L\'utilisateur a été ajouté avec succès.');
     }
-
     else{
       this.userService.editUser(data.id, data, cbs);
       this.showSuccessMessage('', 'L\'utilisateur a été modifié avec succès.');
-
     }
-
     this.addModal.close('');
   }
 
@@ -196,5 +198,19 @@ export class UsersComponent implements OnInit {
 
   showSuccessMessage(title: string, text: string){
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
+  }
+
+  // Pagination
+  
+  getPageSymbol(current: number) {
+    return ['A', 'B', 'C', 'D', 'E', 'F', 'G'][current - 1];
+  }
+
+  selectPage(page: string) {
+    this.page = parseInt(page, 10) || 1;
+  }
+
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(FILTER_PAG_REGEX, '');
   }
 }

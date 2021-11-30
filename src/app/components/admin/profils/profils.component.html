@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let role of profils">
+            <tr *ngFor="let role of profils| slice: (page-1) * pageSize : page * pageSize">
 				<td>{{ role.libelle }}</td>
                 <td>{{ role.code }}</td>
                 <td>
@@ -57,7 +57,38 @@
 			
         </tbody>
     </table>
-	
+	<ngb-pagination [collectionSize]="profils.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize">
+        <ng-template ngbPaginationPrevious class="bgc-secondary">Précédant</ng-template>
+        <ng-template ngbPaginationNext class="bgc-secondary">Suivant</ng-template>
+        <ng-template ngbPaginationFirst class="bgc-secondary">Première</ng-template>
+        <ng-template ngbPaginationLast class="bgc-secondary">Dernière</ng-template>
+        <ng-template ngbPaginationPages let-page let-pages="pages">
+            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                <div class="form-group d-flex flex-nowrap px-2">
+                <label
+                    id="paginationInputLabel"
+                    for="paginationInput"
+                    class="col-form-label mr-2 ml-1"
+                >Page</label>
+                <input #i
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="form-control custom-pages-input"
+                    id="paginationInput"
+                    [value]="page"
+                    (keyup.enter)="selectPage(i.value)"
+                    (blur)="selectPage(i.value)"
+                    (input)="formatInput($any($event).target)"
+                    aria-labelledby="paginationInputLabel paginationDescription"
+                    style="width: 2.5rem"
+                />
+                <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                    / {{pages.length}}</span>
+                </div>
+            </li>
+        </ng-template>
+    </ngb-pagination>
     <!-- <app-pagination [items]="profils" (changePage)="onChangePage($event)"></app-pagination> -->
 </div>
 

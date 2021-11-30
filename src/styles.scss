@@ -43,3 +43,11 @@
 	background: $secondary !important;
 	max-width: unset !important;
 }
+
+.pagination{
+    .page-item{
+        .page-link{
+            color: $primary !important;
+        }
+    }     
+}
