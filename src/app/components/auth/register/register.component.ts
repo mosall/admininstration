@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
     this.registrationForm = this.fb.group({
       prenom: [data?.prenom, [Validators.required]],
       nom: [data?.nom, [Validators.required]],
-      username: [data?.username, [Validators.required]],
+      // username: [data?.username, [Validators.required]],
       email: [data?.email, [Validators.required]],
       password: [data?.password, [Validators.required]],
       confirmationPassword: [data?.confirmationPassword, [Validators.required]],
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
     const data: any = {
       // id: this.addUserForm.get('id')?.value,
-      username: this.registrationForm.get('username')?.value,
+      username: this.registrationForm.get('email')?.value,
       email: this.registrationForm.get('email')?.value,
       prenom: this.registrationForm.get('prenom')?.value,
       nom: this.registrationForm.get('nom')?.value,
