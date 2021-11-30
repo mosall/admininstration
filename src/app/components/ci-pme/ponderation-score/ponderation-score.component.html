@@ -52,7 +52,7 @@
           </thead>
           <tbody>
           <tr class="text-center" *ngFor="let ponderation of listPonderation">
-            <td>{{ponderation.parametreDTO?.libelle}}</td>
+            <td>{{ponderation.typeScore}}</td>
             <td>{{ponderation.ponderation}}</td>
             <td>
               <button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateScoreClick(ponderation.id)"><i class="fas fa-edit"></i></button>
