@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     if(user !== null){
       this.auth.me([
           (user: any) => {
+            console.log(user);
+            
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
@@ -37,11 +39,16 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               default:
-                window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                if(user?.entrepriseId){
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
+                }
+                else{
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                }
                 break;
             }
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
     }
     this.initForm();
@@ -56,7 +63,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.signInForm);
-    
+
     if(this.signInForm.inValid)
       return;
 
@@ -72,6 +79,7 @@ export class LoginComponent implements OnInit {
         this.auth.me([
           (user: any) => {
             sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
+            sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
@@ -80,13 +88,17 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               default:
-                this.router.navigate(['/']);
-                // window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                if(user?.entrepriseId){
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
+                }
+                else{
+                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                }
                 break;
             }
             sessionStorage.removeItem('token');
           },
-          (err: HttpErrorResponse) => console.log(err)          
+          (err: HttpErrorResponse) => console.log(err)
         ]);
       },
       (err: HttpErrorResponse) => {
@@ -101,7 +113,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Identifiant ou mot de passe incorrect';
         }
         console.log(err)
-      }      
+      }
     ]);
   }
 
@@ -109,7 +121,7 @@ export class LoginComponent implements OnInit {
   togglePasswordView(id: string) {
     const passInput = document.getElementById(id) as HTMLInputElement;
     (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
-  
+
   }
 
 }

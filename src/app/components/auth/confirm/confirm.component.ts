@@ -21,8 +21,8 @@ export class ConfirmComponent implements OnInit {
   ngOnInit(): void {
     let token = this.activatedRoute.snapshot.queryParamMap.get('token');
     Swal.fire({
-      title: 'Veuillez patienter ...', 
-      allowEscapeKey: false, 
+      title: 'Veuillez patienter ...',
+      allowEscapeKey: false,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -38,7 +38,7 @@ export class ConfirmComponent implements OnInit {
         Swal.close();
       },
       (err: HttpErrorResponse) => {
-        console.log(err); 
+        console.log(err);
         this.rsConfirm = 'danger';
       }
     ];

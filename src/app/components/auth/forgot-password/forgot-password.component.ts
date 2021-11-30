@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit(){
     if(this.forgetPasswordForm.inValid)
       return;
-    
+
     const data = {
       emailOrUsername: this.forgetPasswordForm.get('email').value
     }
@@ -49,7 +49,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 
 }

@@ -106,7 +106,7 @@ export class CalibrageComponent implements OnInit {
       icon: 'success',
       text: msg,
       showConfirmButton: false,
-      timer: 1500
+      timer: 5000
     }).then(
       ()=> window.location.reload()
     );
@@ -117,7 +117,7 @@ export class CalibrageComponent implements OnInit {
       icon: 'warning',
       text: msg,
       showConfirmButton: false,
-      timer: 2500
+      timer: 5000
     });
   }
 

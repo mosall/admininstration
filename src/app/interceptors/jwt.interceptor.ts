@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (req.url.endsWith("login") && req.url.endsWith("forgot_password") && req.url.endsWith("reset_password") && req.url.endsWith("/oauth/token")){
+    if (req.url.endsWith("login") || req.url.endsWith("forgot_password") || req.url.endsWith("reset_password") || req.url.endsWith("/oauth/token") || req.url.endsWith("register")){
       return next.handle(req);
     }
     let token = "";

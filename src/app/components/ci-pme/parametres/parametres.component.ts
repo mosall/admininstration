@@ -82,6 +82,7 @@ export class ParametresComponent implements OnInit {
     this.parametresService.getParameter().subscribe(
       data => {
         this.listParameters = data;
+        this.listParameters.sort((a: any, b: any) => a.id > b.id);
         this.getQuestion(1);
       }
     );
@@ -264,7 +265,7 @@ export class ParametresComponent implements OnInit {
       icon: 'success',
       text: msg,
       showConfirmButton: false,
-      timer: 1500
+      timer: 5000
     }).then(
       ()=> window.location.reload()
     );
@@ -275,7 +276,7 @@ export class ParametresComponent implements OnInit {
       icon: 'warning',
       text: msg,
       showConfirmButton: false,
-      timer: 2500
+      timer: 5000
     });
   }
 

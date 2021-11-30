@@ -28,7 +28,7 @@ export class AdminMenuComponent implements OnInit {
 
   currentRoute: string = '/admin/users';
   isShowing: boolean = true;
-  
+
   constructor(
     private auth: AuthService,
     private userService: UserService,
@@ -45,13 +45,13 @@ export class AdminMenuComponent implements OnInit {
           this.currentRoute = ''+event.url;
        }
      );
-    
+
     this.auth.me([
       (data: any) => {
         this.user = data;
         if(data.actif == 0){
           this.ngbModalOptions = {
-            ...this.ngbModalOptions, 
+            ...this.ngbModalOptions,
             backdrop : 'static',
             keyboard : false
           };
@@ -75,7 +75,7 @@ export class AdminMenuComponent implements OnInit {
   navigateTo(url: string){
     this.router.navigate(["/admin/" + url]);
   }
-  
+
   openModal(){
     this.open(this.content);
   }
@@ -90,7 +90,7 @@ export class AdminMenuComponent implements OnInit {
       newPasswordConfirm: this.updatePasswordForm.get('newPasswordConfirm').value,
     }
     console.log(this.updatePasswordForm);
-    
+
     this.userService.updatePassword(this.user?.id, data, [
       (data: any) => {
         this.addModal.close('');
@@ -139,7 +139,7 @@ export class AdminMenuComponent implements OnInit {
   //end modal
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 
   toggleSidenav() {

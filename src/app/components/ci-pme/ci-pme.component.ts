@@ -27,8 +27,8 @@ export class CiPmeComponent implements OnInit {
     private auth: AuthService,
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
   }
 

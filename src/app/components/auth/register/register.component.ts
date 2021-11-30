@@ -38,20 +38,18 @@ export class RegisterComponent implements OnInit {
       confirmationPassword: [data?.confirmationPassword, [Validators.required]],
       mobile: [data?.mobile, [Validators.required]],
       fonction: [data?.fonction, [Validators.required]],
-      entrepriseLibelle: [data?.entrepriseLibelle, [Validators.required]],
     });
   }
 
   get f() {return this.registrationForm.controls;}
 
-
   onSubmit(){
     this.submitted = true;
     console.log(this.registrationForm);
-    
+
     if(this.registrationForm.invalid)
       return;
-    
+
     const data: any = {
       // id: this.addUserForm.get('id')?.value,
       username: this.registrationForm.get('username')?.value,
@@ -63,9 +61,8 @@ export class RegisterComponent implements OnInit {
       confirmationPassword: this.registrationForm.get('confirmationPassword')?.value,
       mobile: this.registrationForm.get('mobile').value,
       fonction: this.registrationForm.get('fonction').value,
-      entrepriseLibelle: this.registrationForm.get('entrepriseLibelle').value,
     };
-   
+
     const cbs: any = [
       (data: any) =>{
         this.showSuccessMessage('Nouveau compte', 'Un mail de confirmation a été envoyé à votre adresse mail.');
@@ -83,7 +80,7 @@ export class RegisterComponent implements OnInit {
   }
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 
 }
