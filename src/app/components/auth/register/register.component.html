@@ -32,23 +32,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<!-- <div class="form-row form-row-1">
-						<label for="username">Nom d'utilisateur</label>
-						<input type="text" name="your_email" id="username" class="input-text" required  placeholder="Nom d'utilisateur" formControlName="username">
-						<div class="input-error" *ngIf="submitted && f?.username?.errors">
-							<span class="">Le nom d'utilisateur est obligatoire.</span>
-						</div>
-					</div> -->
-					<div class="form-row ">
-						<label for="your_email">Email</label>
-						<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" formControlName="email">
-						<div class="input-error" *ngIf="submitted && f?.email?.errors">
-							<span class="">L'adresse mail est obligatoire.</span>
-						</div>
+					
+				<div class="form-row ">
+					<label for="your_email">Email</label>
+					<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" formControlName="email">
+					<div class="input-error" *ngIf="submitted && f?.email?.errors">
+						<span class="">L'adresse mail est obligatoire.</span>
 					</div>
-
 				</div>
+
 				<div class="form-group">
 					<div class="form-row form-row-1 ">
 						<label for="password">Mot de passe</label>
