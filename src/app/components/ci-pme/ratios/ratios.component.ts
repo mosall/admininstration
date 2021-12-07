@@ -5,7 +5,6 @@ import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {DatatableSettings} from "../../../settings/datatable.settings";
 import Swal from "sweetalert2";
-import {$e} from "@angular/compiler/src/chars";
 declare var $: any;
 
 @Component({

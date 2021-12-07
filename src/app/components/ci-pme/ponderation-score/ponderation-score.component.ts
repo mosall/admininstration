@@ -27,6 +27,10 @@ export class PonderationScoreComponent implements OnInit {
   valeur: any = null;
   idPonderation: any = null;
 
+  showValidateIcon = false;
+  ponderation = null;
+
+
   constructor(private formBuilder: FormBuilder, private ponderationService: ScoreService) { }
 
   ngOnInit(): void {
@@ -34,37 +38,24 @@ export class PonderationScoreComponent implements OnInit {
     this.getPonderation();
   }
 
-  savePonderation(){
-    this.submitted = true;
-    console.log(this.idParametre);
-
-    if (this.code == '' || isNaN(this.idParametre) || this.idParametre == null || isNaN(this.valeur) || this.valeur == null ){
-      return;
+  savePonderation(id: any, idParametre: any, ponderation: any, typeScore: any){
+    // @ts-ignore
+    if(isNaN(parseInt(this.ponderation.trim()))){
+      this.errorMsgBox('Veuillez saisir une valeur correcte.')
     }
     else {
       const data = {
-        code_score: this.code,
-        idParametre: this.idParametre,
-        ponderation: this.valeur
-      }
-
-
-
-      if(this.idPonderation != null){
+        id,
+        idParametre,
         // @ts-ignore
-        data.id = this.idPonderation;
+        ponderation: parseInt(this.ponderation.trim()),
+        typeScore
       }
 
-      // @ts-ignore
-      const msg = data.id ? "La pondération a été modifiée avec succès." : "La pondération a été enregistrée avec succès."
-
-      this.ponderationService.savePonderation(data).subscribe(
-        data => this.successMsgBox(msg),
+      this.ponderationService.updatePonderation(data).subscribe(
+        data => this.successMsgBox("Pondération mise à jour !"),
         error => this.errorMsgBox(error.error),
       );
-
-
-
     }
   }
 
@@ -72,10 +63,13 @@ export class PonderationScoreComponent implements OnInit {
     this.ponderationService.getPonderation().subscribe(
       data => {
         this.listPonderation = data;
-        console.log(data);
         this.dtTrigger.next();
       }
     );
+  }
+
+  getPonderationValue(event: any){
+    this.ponderation = event.target.value;
   }
 
   deletePonderation(idQuestion: any){
@@ -99,15 +93,6 @@ export class PonderationScoreComponent implements OnInit {
     });
   }
 
-
-  onUpdateScoreClick(id: any){
-    const ponderation = this.listPonderation.find((param: { id: any; }) => param.id == id);
-    this.code = ponderation.code_score;
-    this.idParametre = ponderation.parametreDTO.id;
-    this.valeur = ponderation.ponderation;
-    this.idPonderation = id;
-  }
-
   successMsgBox(msg: any){
     Swal.fire({
       icon: 'success',
@@ -126,10 +111,6 @@ export class PonderationScoreComponent implements OnInit {
       showConfirmButton: false,
       timer: 2500
     });
-  }
-
-  isNan(value: any){
-    return isNaN(value);
   }
 
 }
