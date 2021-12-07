@@ -6,7 +6,7 @@
 			 <span> <img src="/assets/plus.png" alt=""></span> Ajouter
 			</div>
 		</div>
-	<!--   
+	<!--
     <div id="gsearch-user">
 		<h4 (click)="refresh()"><img src="/assets/refresh.png" alt=""> Actualiser</h4>
         <div id="searchfield">
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-	
+
 -->
     <table class="table row-border hover">
         <thead style="background-color: lightgray;">
@@ -56,7 +56,7 @@
         </tbody>
     </table>
     <ngb-pagination [collectionSize]="users.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize">
-        <ng-template ngbPaginationPrevious class="bgc-secondary">Précédant</ng-template>
+        <ng-template ngbPaginationPrevious class="bgc-secondary">Précédent</ng-template>
         <ng-template ngbPaginationNext class="bgc-secondary">Suivant</ng-template>
         <ng-template ngbPaginationFirst class="bgc-secondary">Première</ng-template>
         <ng-template ngbPaginationLast class="bgc-secondary">Dernière</ng-template>
@@ -88,7 +88,7 @@
         </ng-template>
     </ngb-pagination>
     <!-- <app-pagination [items]="users" (changePage)="onChangePage($event)"></app-pagination> -->
-</div> 
+</div>
 
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -262,4 +262,4 @@
     <div class="modal-footer">
         <button type="button" class="btn bgc-primary" (click)="modal.close('Save click')">Fermer</button>
     </div>
-</ng-template> 
+</ng-template>

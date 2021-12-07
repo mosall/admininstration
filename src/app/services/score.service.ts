@@ -17,7 +17,7 @@ export class ScoreService {
     return this.http.get(AppSettings.CIPME_ADMINISTRATION_API_URL + `/api/ponderations`, AppSettings.httpOptions);
   }
 
-  updatPonderationr(payload: any){
+  updatePonderation(payload: any){
     return this.http.put(AppSettings.CIPME_ADMINISTRATION_API_URL + `/api/ponderations/update`, payload, AppSettings.httpOptions);
   }
 
