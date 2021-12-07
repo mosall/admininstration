@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
                 break;
               default:
                 if(user?.entrepriseId){
-                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
+                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/accueil'
                 }
                 else{
-                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/identification'
                 }
                 break;
             }
@@ -89,10 +89,10 @@ export class LoginComponent implements OnInit {
                 break;
               default:
                 if(user?.entrepriseId){
-                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/accueil'
+                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/accueil'
                 }
                 else{
-                  window.location.href = 'http://217.182.185.176/scoring/ci-pme/identification'
+                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/identification'
                 }
                 break;
             }
