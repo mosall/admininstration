@@ -141,7 +141,12 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "La question a été modifiée avec succès." : "La question a été enregistrée avec succès."
 
       this.parametresService.saveQuestion(data).subscribe(
-        data => this.successMsgBox(msg),
+        data => {
+          this.successMsgBox(msg);
+          this.getQuestion(idParametre);
+          this.submittedQ = false;
+          this.libelleQuestion = '';
+        },
         error => this.errorMsgBox(error.error),
       );
     }
@@ -260,6 +265,10 @@ export class ParametresComponent implements OnInit {
 
   updateReponse(){}
 
+  activateTab(id: any){
+    $('a[href="p'+id+'"]').trigger('click');
+  }
+
   successMsgBox(msg: any){
     Swal.fire({
       icon: 'success',
@@ -267,7 +276,7 @@ export class ParametresComponent implements OnInit {
       showConfirmButton: false,
       timer: 5000
     }).then(
-      ()=> window.location.reload()
+      // ()=> window.location.reload()
     );
   }
 
