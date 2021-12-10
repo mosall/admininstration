@@ -71,7 +71,7 @@
                     <td>{{q.code}}</td>
                     <td>{{q.libelle}}</td>
                     <td>
-                      <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q.id)"><i class="fas fa-comments small"></i></button>
+                      <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
                       <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
                       <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
                     </td>
@@ -126,7 +126,7 @@
         </div>
         <div class="modal-footer border-0">
           <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
-          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveParam()">Enregistrer</button>
+          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveParam()" data-dismiss="modal">Enregistrer</button>
         </div>
     </div>
   </div>
@@ -162,7 +162,7 @@
         </div>
         <div class="modal-footer border-0">
           <button type="button" class="btn" style="background-color: #f78300; color: #ebeef2" data-dismiss="modal">Annuler</button>
-          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveReponse()">Enregistrer</button>
+          <button type="submit" class="btn" style="background-color: #006a25; color: #ebeef2" (click)="saveReponse()" data-dismiss="modal" >Enregistrer</button>
         </div>
     </div>
   </div>
