@@ -70,7 +70,10 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "Le paramètre a été modifié avec succès." : "Le paramètre a été enregistré avec succès."
 
       this.parametresService.saveParameter(data).subscribe(
-        data => this.successMsgBox(msg),
+        data => {
+          this.successMsgBox(msg);
+          this.getParameters();
+        },
         error => this.errorMsgBox(error.error),
       );
 
