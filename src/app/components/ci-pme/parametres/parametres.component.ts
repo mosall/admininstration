@@ -71,10 +71,9 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "Le paramètre a été modifié avec succès." : "Le paramètre a été enregistré avec succès."
 
       this.parametresService.saveParameter(data).subscribe(
-        (data: any) => {          
+        (data: any) => { 
           this.listParameters.push(data);
-          // this.activateTab(data.code);
-          
+          this.getQuestion(data.id);
           this.libelle = '';
           this.nbQuestion = 0;
           this.submitted = false;
@@ -169,7 +168,7 @@ export class ParametresComponent implements OnInit {
     );
   }
 
-  deleteQuestion(idQuestion: any){
+  deleteQuestion(question: any){
     Swal.fire({
       title: 'Suppression',
       text: 'Êtes vous sûr de vouloir supprimer cette question ?',
@@ -182,8 +181,11 @@ export class ParametresComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         // tslint:disable-next-line:triple-equals
-        this.parametresService.deleteQuestion(idQuestion).subscribe(
-          data => this.successMsgBox("La question a été supprimée."),
+        this.parametresService.deleteQuestion(question.id).subscribe(
+          data => {
+            this.getQuestion(question?.parametreDTO?.id);
+            this.successMsgBox("La question a été supprimée.")
+        },
           error => this.errorMsgBox(error.error),
         );
       }
@@ -251,7 +253,7 @@ export class ParametresComponent implements OnInit {
     );
   }
 
-  deleteReponse(idReponse: any){
+  deleteReponse(reponse: any){
     Swal.fire({
       title: 'Suppression',
       text: 'Êtes vous sûr de vouloir supprimer cette réponse ?',
@@ -264,8 +266,11 @@ export class ParametresComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         // tslint:disable-next-line:triple-equals
-        this.parametresService.deleteReponse(idReponse).subscribe(
-          data => this.successMsgBox("La réponse a été supprimée."),
+        this.parametresService.deleteReponse(reponse.id).subscribe(
+          data => {
+            this.getQuestion(reponse?.questionDTO?.parametreDTO?.id);
+            this.successMsgBox("La réponse a été supprimée.")
+        },
           error => this.errorMsgBox(error.error),
         );
       }

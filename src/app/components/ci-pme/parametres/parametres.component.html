@@ -73,7 +73,7 @@
                     <td>
                       <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
                       <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q.id)"><i class="fas fa-trash small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q)"><i class="fas fa-trash small"></i></button>
                     </td>
                   </tr>
 
@@ -83,7 +83,7 @@
                     <td>{{r.libelle}}</td>
                     <td class="small">
                       <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la réponse" (click)="onUpdateReponseClick(r.id, r.score, r.code, r.libelle, q.id)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la réponse" (click)="deleteReponse(r.id)"><i class="fas fa-trash small"></i></button>
+                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la réponse" (click)="deleteReponse(r)"><i class="fas fa-trash small"></i></button>
                     </td>
                   </tr>
                 </ng-template>
