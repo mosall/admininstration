@@ -55,7 +55,7 @@
             <td>{{ponderation.typeScore}}</td>
             <td>
               <input type="text" class="small pound-input mr-3" id="ponderation" [value]="ponderation.ponderation + '%'" (input)="showValidateIcon = ponderation.id; getPonderationValue($event)">
-              <button class="btn btn-sm mt-n2" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Enregistrer" *ngIf="showValidateIcon == ponderation.id" (click)="savePonderation(ponderation.id, ponderation.parametreDTO.id, ponderation.ponderation, ponderation.typeScore)"><i class="fas fa-check small text-success"></i></button>
+              <button class="btn btn-sm mt-n2" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Enregistrer" *ngIf="showValidateIcon == ponderation.id" (click)="savePonderation(ponderation.id, ponderation.parametreDTO?.id, ponderation.ponderation, ponderation.typeScore)"><i class="fas fa-check small text-success"></i></button>
             </td>
             <td>
               <!--<button class="btn btn-sm" style="cursor: pointer; color: #f78300" (click)="onUpdateScoreClick(ponderation.id)"><i class="fas fa-edit"></i></button>-->

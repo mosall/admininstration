@@ -46,10 +46,14 @@ export class PonderationScoreComponent implements OnInit {
     else {
       const data = {
         id,
-        idParametre,
         // @ts-ignore
         ponderation: parseInt(this.ponderation.trim()),
         typeScore
+      }
+
+      if (idParametre){
+        // @ts-ignore
+        data.idParametre = idParametre;
       }
 
       this.ponderationService.updatePonderation(data).subscribe(
