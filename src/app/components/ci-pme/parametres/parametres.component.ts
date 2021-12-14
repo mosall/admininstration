@@ -32,6 +32,7 @@ export class ParametresComponent implements OnInit {
   libelleReponse = '';
   scoreReponse: any = '';
   idReponse = null;
+  question: any;
 
   constructor(private formBuilder: FormBuilder, private parametresService: ParametresService) { }
 
@@ -70,7 +71,15 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "Le paramètre a été modifié avec succès." : "Le paramètre a été enregistré avec succès."
 
       this.parametresService.saveParameter(data).subscribe(
-        data => this.successMsgBox(msg),
+        (data: any) => {          
+          this.listParameters.push(data);
+          // this.activateTab(data.code);
+          
+          this.libelle = '';
+          this.nbQuestion = 0;
+          this.submitted = false;
+          this.successAddParametre(msg, data.code);
+        },
         error => this.errorMsgBox(error.error),
       );
 
@@ -87,7 +96,7 @@ export class ParametresComponent implements OnInit {
       }
     );
   }
-
+  
   deleteParameter(idParameter: any){
     Swal.fire({
       title: 'Suppression',
@@ -141,7 +150,12 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "La question a été modifiée avec succès." : "La question a été enregistrée avec succès."
 
       this.parametresService.saveQuestion(data).subscribe(
-        data => this.successMsgBox(msg),
+        data => {
+          this.successMsgBox(msg);
+          this.getQuestion(idParametre);
+          this.submittedQ = false;
+          this.libelleQuestion = '';
+        },
         error => this.errorMsgBox(error.error),
       );
     }
@@ -183,8 +197,9 @@ export class ParametresComponent implements OnInit {
     this.idQuestion = question.id;
   }
 
-  onAddReponseClick(id: any){
-    this.idQuestion = id;
+  onAddReponseClick(q: any){
+    this.question = q;
+    this.idQuestion = q.id;
     $('#addReponseModal').modal('show');
   }
 
@@ -213,7 +228,15 @@ export class ParametresComponent implements OnInit {
       const msg = data.id ? "La réponse a été modifiée avec succès." : "La réponse a été enregistrée avec succès."
 
       this.parametresService.saveReponse(data).subscribe(
-        data => this.successMsgBox(msg),
+        data => {
+          this.successMsgBox(msg);
+          console.log('Q', this.question);
+          
+          this.getQuestion(this.question?.parametreDTO?.id);
+          this.submittedR = false;
+          this.libelleReponse = '';
+          this.scoreReponse = '';
+        },
         error => this.errorMsgBox(error.error),
       );
     }
@@ -260,6 +283,10 @@ export class ParametresComponent implements OnInit {
 
   updateReponse(){}
 
+  activateTab(id: any){    
+    $('a[href*="#'+id+'"]').trigger('click');
+  }
+
   successMsgBox(msg: any){
     Swal.fire({
       icon: 'success',
@@ -267,7 +294,17 @@ export class ParametresComponent implements OnInit {
       showConfirmButton: false,
       timer: 5000
     }).then(
-      ()=> window.location.reload()
+      // ()=> window.location.reload()
+    );
+  }
+  successAddParametre(msg: any, id: any){
+    Swal.fire({
+      icon: 'success',
+      text: msg,
+      showConfirmButton: false,
+      timer: 5000
+    }).then(
+      ()=> this.activateTab(id)
     );
   }
 
