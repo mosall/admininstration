@@ -110,7 +110,10 @@ export class ParametresComponent implements OnInit {
       if (result.isConfirmed) {
         // tslint:disable-next-line:triple-equals
         this.parametresService.deleteParameter(idParameter).subscribe(
-          data => this.successMsgBox("Le paramètre a été supprimé."),
+          data => {
+            this.successMsgBox("Le paramètre a été supprimé.");
+            window.location.reload();
+          },
           error => this.errorMsgBox(error.error),
         );
       }
