@@ -150,7 +150,7 @@ export class ParametresComponent implements OnInit {
 
       // @ts-ignore
       const msg = data.id ? "La question a été modifiée avec succès." : "La question a été enregistrée avec succès."
-
+            
       this.parametresService.saveQuestion(data).subscribe(
         data => {
           this.successMsgBox(msg);
@@ -185,7 +185,7 @@ export class ParametresComponent implements OnInit {
       if (result.isConfirmed) {
         // tslint:disable-next-line:triple-equals
         this.parametresService.deleteQuestion(question.id).subscribe(
-          data => {
+          data => {            
             this.getQuestion(question?.parametreDTO?.id);
             this.successMsgBox("La question a été supprimée.")
         },
@@ -241,6 +241,7 @@ export class ParametresComponent implements OnInit {
           this.submittedR = false;
           this.libelleReponse = '';
           this.scoreReponse = '';
+          this.idQuestion = null;
         },
         error => this.errorMsgBox(error.error),
       );
