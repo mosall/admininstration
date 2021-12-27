@@ -1,12 +1,23 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { map, startWith, tap } from 'rxjs/operators';
 import { ProfilService } from 'src/app/services/profil.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
+
+function search(data: any, text: string, pipe: PipeTransform): any[] {
+  return data.filter((d: any) => {
+    const term = text.toLowerCase();
+    return d.email.toLowerCase().includes(term)
+        || pipe.transform(d.prenom).includes(term)
+        || pipe.transform(d.nom).includes(term)
+        || pipe.transform(d?.profil?.libelle).includes(term);
+  });
+}
 
 @Component({
   selector: 'app-users',
@@ -34,13 +45,27 @@ export class UsersComponent implements OnInit {
 
   page = 1;
   pageSize = 5;
+  usersBkp: any[] = [];
+  currentPage: any;
+  filter = new FormControl('');
+  currentPageOnSearch: any = 1;
+  filterValue: any;
 
   constructor(
     private userService: UserService,
     private profilService: ProfilService,
     private modalService: NgbModal,
     private fb: FormBuilder
-  ) { }
+  ) {
+    const observable = this.filter.valueChanges.pipe(
+          startWith(''),
+          tap(input => this.filterValue = input),
+          map(text => this.search(this.users, text)),
+        );
+      observable.subscribe(
+        data => this.users = data
+      );
+   }
 
   ngOnInit(): void {
     this.fetchProfils();
@@ -57,7 +82,10 @@ export class UsersComponent implements OnInit {
 
   fetchUsers(){
     this.userService.getUsers([
-      (data: any) => {this.users = data;},
+      (data: any) => {
+        this.users = data;
+        this.usersBkp = data;
+      },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
@@ -67,7 +95,6 @@ export class UsersComponent implements OnInit {
   initForm(user: any){
     this.addUserForm = this.fb.group({
       id: [user?.id],
-      username: [user?.username, [Validators.required]],
       prenom: [user?.prenom, [Validators.required]],
       nom: [user?.nom, [Validators.required]],
       email: [user?.email, [Validators.required, Validators.pattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")]],
@@ -128,38 +155,43 @@ export class UsersComponent implements OnInit {
     interface Body{
       [key: string]: any
     }
-    const data: Body = {
+    const payload: Body = {
       id: this.addUserForm.get('id')?.value,
-      username: this.addUserForm.get('username')?.value,
+      username: this.addUserForm.get('email')?.value,
       email: this.addUserForm.get('email')?.value,
       prenom: this.addUserForm.get('prenom')?.value,
       nom: this.addUserForm.get('nom')?.value,
       profil: this.addUserForm.get('profil')?.value,
     };
     
-    if(!data.id){
-      data.password = this.addUserForm.get('password')?.value;
-      data.confirmationPassword = this.addUserForm.get('confirmePassword')?.value;
+    if(!payload.id){
+      payload.password = this.addUserForm.get('password')?.value;
+      payload.confirmationPassword = this.addUserForm.get('confirmePassword')?.value;
     }
     // if(this.addUserForm.get('id')?.value !== 0)
     //   data.id = this.addUserForm.get('id')?.value;
-    console.log(data);
+    console.log(payload);
     const cbs: any[] = [
       (data: any) => {
         this.fetchUsers();
+        !payload?.id ? 
+        this.showSuccessMessage('Ajout utilisateur', 'L\'utilisateur a été ajouté avec succès.') :
+        this.showSuccessMessage('Modification utilisateur', 'L\'utilisateur a été modifié avec succès.')
+        ;
       },
       (err: HttpErrorResponse) =>{
         console.log(err);
+        this.showErrorMessage('Ajout/Modification utilisateur', err.error);
         this.fetchUsers();
+        this.initForm(null);
+        this.submitted = false;
       }
     ];
-    if(!data.id){
-      this.userService.createUser(data, cbs);
-      this.showSuccessMessage('', 'L\'utilisateur a été ajouté avec succès.');
+    if(!payload.id){
+      this.userService.createUser(payload, cbs);
     }
     else{
-      this.userService.editUser(data.id, data, cbs);
-      this.showSuccessMessage('', 'L\'utilisateur a été modifié avec succès.');
+      this.userService.editUser(payload.id, payload, cbs);
     }
     this.addModal.close('');
   }
@@ -199,18 +231,52 @@ export class UsersComponent implements OnInit {
   showSuccessMessage(title: string, text: string){
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
+  showErrorMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
+  }
 
   // Pagination
   
   getPageSymbol(current: number) {
     return ['A', 'B', 'C', 'D', 'E', 'F', 'G'][current - 1];
   }
-
+  
   selectPage(page: string) {
     this.page = parseInt(page, 10) || 1;
+    this.currentPage = page;
   }
-
+  
   formatInput(input: HTMLInputElement) {
     input.value = input.value.replace(FILTER_PAG_REGEX, '');
   }
+
+  onPageChange(page: any){    
+    this.currentPage = page;
+    if(page != 1 ){
+      this.currentPageOnSearch = page;
+    }
+  }
+
+  //Filtering
+   search(data: any, text: string): any[] {
+    data =  data.slice(((this.currentPage - 1) * this.pageSize), (this.currentPage * this.pageSize));
+    
+    if(this.filterValue == ''){
+      data =  this.usersBkp;
+      this.page = this.currentPageOnSearch;
+    }
+    if(this.filterValue != ''){
+      data =  this.usersBkp.slice(((this.currentPageOnSearch - 1) * this.pageSize), (this.currentPageOnSearch * this.pageSize));
+    }
+    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch);
+    
+    return data.filter((user: any) => {
+      const term = text.toLowerCase();
+      return user?.prenom.toLowerCase().includes(term)
+          || user?.nom?.toLowerCase().includes(term)
+          || user?.profil?.libelle?.toLowerCase().includes(term)
+          || user?.email?.toLowerCase().includes(term);
+    });
+  }
+
 }

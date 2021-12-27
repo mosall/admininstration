@@ -7,15 +7,11 @@
         </div>
     </div>
 
-    <!-- <div id="gsearch-user">
-        <h4 (click)="refresh()"><img src="/assets/refresh.png" alt=""> Actualiser</h4>
-        <div id="searchfield">
-            <div class="form-group has-search">
-                <img src="/assets/search.png" alt="">
-                <input #search type="text" class="form-control" placeholder="Rechercher" (keyup)="onSearch(search.value)">
-            </div>
+    <form class="w-100">
+        <div class="form-group form-inline w-100">
+            Rechercher: <input class="form-control ml-2 w-45" type="text" [formControl]="filter"/>
         </div>
-    </div> -->
+    </form>
 
 
 
@@ -57,7 +53,7 @@
 			
         </tbody>
     </table>
-	<ngb-pagination [collectionSize]="profils.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize">
+	<ngb-pagination [collectionSize]="profils.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize" (pageChange)="onPageChange(page)">
         <ng-template ngbPaginationPrevious class="bgc-secondary">Précédant</ng-template>
         <ng-template ngbPaginationNext class="bgc-secondary">Suivant</ng-template>
         <ng-template ngbPaginationFirst class="bgc-secondary">Première</ng-template>

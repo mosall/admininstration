@@ -51,3 +51,9 @@
         }
     }     
 }
+
+@for $i from 1 to 20 {
+	.w-#{$i*5} {
+		width: #{$i*5%} !important;
+	}
+}

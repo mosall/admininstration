@@ -6,22 +6,19 @@
 			 <span> <img src="/assets/plus.png" alt=""></span> Ajouter
 			</div>
 		</div>
-	<!--
-    <div id="gsearch-user">
-		<h4 (click)="refresh()"><img src="/assets/refresh.png" alt=""> Actualiser</h4>
-        <div id="searchfield">
-			<div class="has-search">
-				<img src="/assets/search.png" alt="">
-                <input #search type="search" class="form-control" placeholder="Rechercher" (keyup)="onSearch(search.value)">
-            </div>
-        </div>
-    </div>
+	
 
--->
+
+    <form class="w-100">
+    <div class="form-group form-inline w-100">
+        Rechercher: <input class="form-control ml-2 w-45" type="text" [formControl]="filter"/>
+    </div>
+    </form>
+
+
     <table class="table row-border hover">
         <thead style="background-color: lightgray;">
             <tr>
-                <th scope="col">Identifiant</th>
                 <th scope="col">Prenom</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Email</th>
@@ -32,8 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users | slice: (page-1) * pageSize : page * pageSize">
-                <td>{{ user?.username }}</td>
+            <tr *ngFor="let user of users |slice: (page-1) * pageSize : page * pageSize">
                 <td>{{ user?.prenom }}</td>
                 <td>{{ user?.nom }}</td>
                 <td>{{ user?.email }}</td>
@@ -55,7 +51,7 @@
 
         </tbody>
     </table>
-    <ngb-pagination [collectionSize]="users.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize">
+    <ngb-pagination [collectionSize]="users.length" [(page)]="page" [boundaryLinks]="true" [pageSize]="pageSize" (pageChange)="onPageChange(page)">
         <ng-template ngbPaginationPrevious class="bgc-secondary">Précédent</ng-template>
         <ng-template ngbPaginationNext class="bgc-secondary">Suivant</ng-template>
         <ng-template ngbPaginationFirst class="bgc-secondary">Première</ng-template>
@@ -135,17 +131,6 @@
             </div>
 
             <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-
-                        <label class="form-label" for="form3Example3">Identifiant <span style="color: red;">*</span></label>
-
-                        <input type="text" id="form3Example3" placeholder="Identifiant" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f?.username?.errors }" />
-                        <div class="invalid-feedback">
-                            L'identifiant est obligatoire
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="form-outline">
 

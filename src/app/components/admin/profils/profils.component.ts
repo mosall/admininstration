@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { map, startWith, tap } from 'rxjs/operators';
 import { HabilitationService } from 'src/app/services/habilitation.service';
 import { ProfilService } from 'src/app/services/profil.service';
 import Swal from 'sweetalert2';
@@ -36,13 +37,27 @@ export class ProfilsComponent implements OnInit {
   
   page = 1;
   pageSize = 5;
+ profilsBkp: any[] = [];
+  currentPage: any;
+  filter = new FormControl('');
+  currentPageOnSearch: any = 1;
+  filterValue: any;
 
   constructor(
     private profilService: ProfilService,
     private habilitationService: HabilitationService,
     private modalService: NgbModal,
     private fb: FormBuilder
-  ) { }
+  ) { 
+    const observable = this.filter.valueChanges.pipe(
+      startWith(''),
+      tap(input => this.filterValue = input),
+      map(text => this.search(this.profils, text)),
+    );
+    observable.subscribe(
+      data => this.profils = data
+    );
+  }
 
   ngOnInit(): void {
     this.fetchProfils();
@@ -213,5 +228,34 @@ export class ProfilsComponent implements OnInit {
 
   formatInput(input: HTMLInputElement) {
     input.value = input.value.replace(FILTER_PAG_REGEX, '');
+  }
+
+  onPageChange(page: any){    
+    this.currentPage = page;
+    if(page != 1 ){
+      this.currentPageOnSearch = page;
+    }
+  }
+
+  //Filtering
+   search(data: any, text: string): any[] {
+    data =  data.slice(((this.currentPage - 1) * this.pageSize), (this.currentPage * this.pageSize));
+    
+    if(this.filterValue == ''){
+      data =  this.profilsBkp;
+      this.page = this.currentPageOnSearch;
+    }
+    if(this.filterValue != ''){
+      data =  this.profilsBkp.slice(((this.currentPageOnSearch - 1) * this.pageSize), (this.currentPageOnSearch * this.pageSize));
+    }
+    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch);
+    
+    return data.filter((user: any) => {
+      const term = text.toLowerCase();
+      return user?.prenom.toLowerCase().includes(term)
+          || user?.nom?.toLowerCase().includes(term)
+          || user?.profil?.libelle?.toLowerCase().includes(term)
+          || user?.email?.toLowerCase().includes(term);
+    });
   }
 }
