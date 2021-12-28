@@ -1,0 +1,31 @@
+body {
+  background-image: linear-gradient(to bottom, #e0e0e0 , #9e9d9d);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Bahnschrift';
+  height: 100vh;
+}
+
+.top-footer {
+  background-color: #f78300;
+  width: 25%;
+  border-radius: 0 20px 0 0 !important;
+  color: #ffffff
+}
+
+a {
+  color: #656464FF;
+  text-decoration: none;
+}
+
+ul.social li:hover a i {
+  font-size:50px;
+  margin-top:-10px;
+}
+ul.social li a{
+  color: #6c757d;
+  font-size:20px;
+}
+ul.social li a:hover{
+  color:#eeeeee;
+}

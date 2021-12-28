@@ -20,6 +20,7 @@ import { ForgotPasswordComponent } from './components/auth/forgot-password/forgo
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ConfirmComponent } from './components/auth/confirm/confirm.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ConfirmComponent } from './components/auth/confirm/confirm.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     RegisterComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
