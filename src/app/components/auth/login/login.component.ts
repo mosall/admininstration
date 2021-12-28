@@ -39,14 +39,14 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/liste-pme'
+                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.entrepriseId){
-                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/accueil'
+                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/identification'
+                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }
@@ -91,14 +91,14 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/liste-pme'
+                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.entrepriseId){
-                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/accueil'
+                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/identification'
+                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }

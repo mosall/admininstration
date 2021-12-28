@@ -7,6 +7,8 @@ export default class AppSettings {
 	public static UM_URL: string = AppSettings.BACK_URL+"/administration/api/auth";
 	public static UM_REFERENTIEL: string = AppSettings.BACK_URL+"/administration/api";
 	public static UM_TOKEN_URL: string = AppSettings.BACK_URL+"/administration/oauth/token";
+  
+	public static URL_SCORING_HOME: string = AppSettings.BACK_URL+"/scoring-awi/ci-pme";
 
 	public static httpOptions = {
       headers: new HttpHeaders({
