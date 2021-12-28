@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import AppSettings from 'src/app/app.settings';
 import { AuthService } from 'src/app/services/auth.service';
-import { ROLE_ADMIN, ROLE_ADMIN_FONC, ROLE_ENTR } from 'src/app/utils/constante';
+import { ROLE_ADMIN, ROLE_ADMIN_FONC, ROLE_ENTR, ROLE_EXP_PME } from 'src/app/utils/constante';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
                 break;
               case ROLE_ADMIN_FONC :
                 this.router.navigate(['/ci-pme']);
+                break;
+              case ROLE_EXP_PME :
+                window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/liste-pme'
                 break;
               default:
                 if(user?.entrepriseId){
@@ -86,6 +89,9 @@ export class LoginComponent implements OnInit {
                 break;
               case ROLE_ADMIN_FONC :
                 this.router.navigate(['/ci-pme']);
+                break;
+              case ROLE_EXP_PME :
+                window.location.href = 'http://217.182.185.176/scoring-awi/ci-pme/liste-pme'
                 break;
               default:
                 if(user?.entrepriseId){
