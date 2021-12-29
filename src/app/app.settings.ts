@@ -2,7 +2,7 @@ import { HttpHeaders } from "@angular/common/http";
 
 export default class AppSettings {
 
-  private static BACK_URL = "http://217.182.185.176";
+  private static BACK_URL = "http://localhost";
 	 
 	public static UM_URL: string = AppSettings.BACK_URL+":3000/administration/api/auth";
 	public static UM_REFERENTIEL: string = AppSettings.BACK_URL+":3000/administration/api";

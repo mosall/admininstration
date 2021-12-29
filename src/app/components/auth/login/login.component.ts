@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import AppSettings from 'src/app/app.settings';
 import { AuthService } from 'src/app/services/auth.service';
 import { ROLE_ADMIN, ROLE_ADMIN_FONC, ROLE_ENTR, ROLE_EXP_PME } from 'src/app/utils/constante';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,10 @@ export class LoginComponent implements OnInit {
                 window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
+                if(user?.confirme == 0){
+                  this.showErrorMessage("Connexion", "Veuillez confirmer votre e-mail pour vous connecter.")
+                  this.logout();
+                }
                 if(user?.entrepriseId){
                   window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
@@ -83,6 +88,7 @@ export class LoginComponent implements OnInit {
           (user: any) => {
             sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
             sessionStorage.setItem('connectedUserData', JSON.stringify(user));
+            sessionStorage.removeItem('token');
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);
@@ -94,6 +100,11 @@ export class LoginComponent implements OnInit {
                 window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
+                if(user?.confirme == 0){
+                  this.showErrorMessage("Connexion", "Veuillez confirmer votre e-mail pour vous connecter.")
+                  this.logout();
+                  return;
+                }
                 if(user?.entrepriseId){
                   window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
@@ -102,7 +113,6 @@ export class LoginComponent implements OnInit {
                 }
                 break;
             }
-            sessionStorage.removeItem('token');
           },
           (err: HttpErrorResponse) => console.log(err)
         ]);
@@ -123,11 +133,24 @@ export class LoginComponent implements OnInit {
     ]);
   }
 
+  logout(){
+    const token = sessionStorage.getItem('connectedUser');
+    if (token != null){
+      sessionStorage.removeItem("connectedUser");
+      sessionStorage.removeItem("connectedUserData");
+      this.router.navigate(['/login'])
+    }
+  }
+
   //Extra
   togglePasswordView(id: string) {
     const passInput = document.getElementById(id) as HTMLInputElement;
     (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
 
+  }
+
+  showErrorMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
   }
 
 }
