@@ -7,18 +7,22 @@ import { ForgotPasswordComponent } from "./components/auth/forgot-password/forgo
 import { LoginComponent } from "./components/auth/login/login.component";
 import { RegisterComponent } from "./components/auth/register/register.component";
 import { ResetPasswordComponent } from "./components/auth/reset-password/reset-password.component";
+import {HomeComponent} from "./components/home/home.component";
 
 
 const appRoutes: Routes = [
-	{
+  {
     path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'login',
     component: LoginComponent,
-    
 	},
 	{
     path: 'register',
     component: RegisterComponent,
-    
+
 	},
 	{
 		path: 'account',
@@ -44,7 +48,7 @@ const appRoutes: Routes = [
 	{
 		path: 'admin',
 		component: AdminMenuComponent,
-		// canActivate: [AuthGuard, RoleBaseGuard], 
+		// canActivate: [AuthGuard, RoleBaseGuard],
 		children:[
 		{
 			path:'users',

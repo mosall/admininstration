@@ -59,7 +59,7 @@
               <thead>
               <tr class="text-center">
                 <th style="width: 3%"></th>
-                <th style="width: 10%">Code</th>
+                <!--<th style="width: 10%">Code</th>-->
                 <th style="width: 70%">Libellé</th>
                 <th style="width: 17%;">Actions</th>
               </tr>
@@ -68,7 +68,7 @@
                 <ng-template  ngFor let-q [ngForOf]="listQuestions" >
                   <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code">
                     <td><i class="fas fa-chevron-right small text-black-50" *ngIf="q.listReponsesDTO.length != 0"></i></td>
-                    <td>{{q.code}}</td>
+                    <!--<td>{{q.code}}</td>-->
                     <td>{{q.libelle}}</td>
                     <td>
                       <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
@@ -79,7 +79,7 @@
 
                   <tr *ngFor="let r of q.listReponsesDTO" class="text-center small collapse" id="{{q.code}}">
                     <td></td>
-                    <td>{{r.code}}</td>
+                    <!--<td>{{r.code}}</td>-->
                     <td>{{r.libelle}}</td>
                     <td class="small">
                       <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la réponse" (click)="onUpdateReponseClick(r.id, r.score, r.code, r.libelle, q.id)"><i class="fas fa-edit small"></i></button>
