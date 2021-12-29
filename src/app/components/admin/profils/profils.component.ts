@@ -37,8 +37,8 @@ export class ProfilsComponent implements OnInit {
   
   page = 1;
   pageSize = 5;
- profilsBkp: any[] = [];
-  currentPage: any;
+  profilsBkp: any[] = [];
+  currentPage: any = 1;
   filter = new FormControl('');
   currentPageOnSearch: any = 1;
   filterValue: any;
@@ -52,7 +52,7 @@ export class ProfilsComponent implements OnInit {
     const observable = this.filter.valueChanges.pipe(
       startWith(''),
       tap(input => this.filterValue = input),
-      map(text => this.search(this.profils, text)),
+      map(text => this.search(this.profilsBkp, text)),
     );
     observable.subscribe(
       data => this.profils = data
@@ -88,7 +88,10 @@ export class ProfilsComponent implements OnInit {
 
   fetchProfils(){
     this.profilService.getProfils([
-      (data: any) => {this.profils = data;},
+      (data: any) => {
+        this.profils = data;
+        this.profilsBkp = data;
+      },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
@@ -232,30 +235,25 @@ export class ProfilsComponent implements OnInit {
 
   onPageChange(page: any){    
     this.currentPage = page;
-    if(page != 1 ){
+    if(this.filterValue == '' ){
       this.currentPageOnSearch = page;
     }
   }
 
   //Filtering
-   search(data: any, text: string): any[] {
-    data =  data.slice(((this.currentPage - 1) * this.pageSize), (this.currentPage * this.pageSize));
-    
+   search(data: any, text: string): any[] {    
     if(this.filterValue == ''){
       data =  this.profilsBkp;
       this.page = this.currentPageOnSearch;
     }
     if(this.filterValue != ''){
-      data =  this.profilsBkp.slice(((this.currentPageOnSearch - 1) * this.pageSize), (this.currentPageOnSearch * this.pageSize));
+      this.page = this.currentPage;
     }
-    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch);
     
-    return data.filter((user: any) => {
+    return data.filter((profil: any) => {
       const term = text.toLowerCase();
-      return user?.prenom.toLowerCase().includes(term)
-          || user?.nom?.toLowerCase().includes(term)
-          || user?.profil?.libelle?.toLowerCase().includes(term)
-          || user?.email?.toLowerCase().includes(term);
+      return profil?.code.toLowerCase().includes(term)
+          || profil?.libelle?.toLowerCase().includes(term);
     });
   }
 }

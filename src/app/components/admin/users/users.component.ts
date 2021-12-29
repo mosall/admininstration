@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
   page = 1;
   pageSize = 5;
   usersBkp: any[] = [];
-  currentPage: any;
+  currentPage: any = 1;
   filter = new FormControl('');
   currentPageOnSearch: any = 1;
   filterValue: any;
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
     const observable = this.filter.valueChanges.pipe(
           startWith(''),
           tap(input => this.filterValue = input),
-          map(text => this.search(this.users, text)),
+          map(text => this.search(this.usersBkp, text)),
         );
       observable.subscribe(
         data => this.users = data
@@ -252,23 +252,21 @@ export class UsersComponent implements OnInit {
 
   onPageChange(page: any){    
     this.currentPage = page;
-    if(page != 1 ){
+    if(this.filterValue == ''){
       this.currentPageOnSearch = page;
     }
   }
 
   //Filtering
    search(data: any, text: string): any[] {
-    data =  data.slice(((this.currentPage - 1) * this.pageSize), (this.currentPage * this.pageSize));
-    
     if(this.filterValue == ''){
       data =  this.usersBkp;
       this.page = this.currentPageOnSearch;
     }
     if(this.filterValue != ''){
-      data =  this.usersBkp.slice(((this.currentPageOnSearch - 1) * this.pageSize), (this.currentPageOnSearch * this.pageSize));
+      this.page = this.currentPage;
     }
-    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch);
+    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch, 'COntains ::', data[0]?.prenom.includes(''));
     
     return data.filter((user: any) => {
       const term = text.toLowerCase();

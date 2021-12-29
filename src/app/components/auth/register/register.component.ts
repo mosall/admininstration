@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
     const cbs: any = [
       (data: any) =>{
         this.showSuccessMessage('Nouveau compte', 'Un mail de confirmation a été envoyé à votre adresse mail.');
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
 
       },
       (err: HttpErrorResponse) =>{
