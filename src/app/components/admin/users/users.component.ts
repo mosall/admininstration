@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, startWith, tap } from 'rxjs/operators';
 import { ProfilService } from 'src/app/services/profil.service';
@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
   page = 1;
   pageSize = 5;
   usersBkp: any[] = [];
-  currentPage: any;
+  currentPage: any = 1;
   filter = new FormControl('');
   currentPageOnSearch: any = 1;
   filterValue: any;
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
     const observable = this.filter.valueChanges.pipe(
           startWith(''),
           tap(input => this.filterValue = input),
-          map(text => this.search(this.users, text)),
+          map(text => this.search(this.usersBkp, text)),
         );
       observable.subscribe(
         data => this.users = data
@@ -178,13 +178,16 @@ export class UsersComponent implements OnInit {
         this.showSuccessMessage('Ajout utilisateur', 'L\'utilisateur a été ajouté avec succès.') :
         this.showSuccessMessage('Modification utilisateur', 'L\'utilisateur a été modifié avec succès.')
         ;
+        this.addModal.close('');
       },
       (err: HttpErrorResponse) =>{
-        console.log(err);
-        this.showErrorMessage('Ajout/Modification utilisateur', err.error);
-        this.fetchUsers();
-        this.initForm(null);
-        this.submitted = false;
+        const error = err.error;
+        const field = error.fieldName.toLowerCase();
+        console.log('Field ::', this.addUserForm.get(field));
+        this.addUserForm.controls[field].setErrors({
+          serverError: error.errorMessage
+        });
+ 
       }
     ];
     if(!payload.id){
@@ -193,7 +196,6 @@ export class UsersComponent implements OnInit {
     else{
       this.userService.editUser(payload.id, payload, cbs);
     }
-    this.addModal.close('');
   }
 
   togglePasswordView(field: string){
@@ -229,7 +231,7 @@ export class UsersComponent implements OnInit {
   //end modal
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'}).then(()=> window.location.reload());
   }
   showErrorMessage(title: string, text: string){
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
@@ -252,23 +254,21 @@ export class UsersComponent implements OnInit {
 
   onPageChange(page: any){    
     this.currentPage = page;
-    if(page != 1 ){
+    if(this.filterValue == ''){
       this.currentPageOnSearch = page;
     }
   }
 
   //Filtering
    search(data: any, text: string): any[] {
-    data =  data.slice(((this.currentPage - 1) * this.pageSize), (this.currentPage * this.pageSize));
-    
     if(this.filterValue == ''){
       data =  this.usersBkp;
       this.page = this.currentPageOnSearch;
     }
     if(this.filterValue != ''){
-      data =  this.usersBkp.slice(((this.currentPageOnSearch - 1) * this.pageSize), (this.currentPageOnSearch * this.pageSize));
+      this.page = this.currentPage;
     }
-    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch);
+    console.log('Data ::: ', data, 'Current :: ',this.currentPage, 'OnSearch', this.currentPageOnSearch, 'COntains ::', data[0]?.prenom.includes(''));
     
     return data.filter((user: any) => {
       const term = text.toLowerCase();
