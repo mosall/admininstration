@@ -112,7 +112,7 @@
                         <label class="form-label" for="form3Example1">Prénom <span style="color: red;">*</span></label>
 
                         <input type="text" id="form3Example1" class="form-control" placeholder="Prénom" formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && f?.prenom?.errors }" />
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="f?.prenom?.errors?.['required']">
 							Le prenom est obligatoire
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                         <label class="form-label" for="form3Example2">Nom <span style="color: red;">*</span></label>
 
                         <input type="text" id="form3Example2" placeholder="Nom" class="form-control" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f?.nom?.errors }" />
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="f?.nom?.errors?.['required']">
                             Le nom est obligatoire
                         </div>
                     </div>
@@ -137,8 +137,8 @@
                         <label class="form-label" for="form3Example4">Email <span style="color: red;">*</span></label>
 
                         <input type="text" ngbPopover="L'Email doit être comme suit : mamadou@gmail.com." triggers="focus" id="form3Example4" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f?.email?.errors }" />
-                        <div class="invalid-feedback">
-                            L'Email est obligatoire et doit suivre le format indiqué.
+                        <div class="invalid-feedback" *ngIf="f?.email?.errors?.['required']">
+                            L'Email est obligatoire et doit suivre le format indiqué. 
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
 
                         <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir un caractère spécial, un chiffre, une majuscule et doit contenir au moins 8 caractères." triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
                             [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="f?.confirmePassword?.errors?.['required']">
                             Le mot de passe est obligatoire
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                         <label class="form-label" for="confirmePassword">Confirmation de mot du passe <span style="color: red;">*</span></label>
 
                         <input type="password" id="confirmePassword" placeholder="Confirmation de mot du passe" class="form-control" formControlName="confirmePassword" [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="f?.confirmePassword?.errors?.['required']">
                             La confirmation du mot de passe est obligatoire
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                             <option selected [value]="0">Selectionner un profil</option>
                             <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.libelle }}</option>
                         </select>
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="f?.profil?.errors?.['required']">
                             Le profil est obligatoire
                         </div>
                     </div>
