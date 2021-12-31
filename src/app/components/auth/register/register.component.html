@@ -7,7 +7,7 @@
 				<p class="text-2"><span>Eu ultrices:</span> Vitae auctor eu augue ut. Malesuada nunc vel risus commodo viverra. Praesent elementum facilisis leo vel.</p> -->
 				<div class="form-left-last">
 					<button class="account"  >
-						<a routerLink="/">
+						<a routerLink="/login">
 							J'ai déja un compte
 						</a>
 					</button>
@@ -15,19 +15,19 @@
 			</div>
 			<form class="form-detail" id="myform" [formGroup]="registrationForm" (submit)="onSubmit()">
 				<h2>Nouveau compte</h2>
-				<div class="error-msg" *ngIf="statusCode != 200">{{errorMsg}}</div>
+				<div class="error-msg" *ngIf="statusCode != 200">{{errorMessage}}</div>
 				<div class="form-group">
 					<div class="form-row form-row-1">
 						<label for="first_name">Prénom</label>
-						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="Prénom" formControlName="prenom">
-						<div class="input-error" *ngIf="submitted && f?.prenom?.errors">
+						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="Prénom" formControlName="prenom" [ngClass]="{'is-invalid' : submitted && f?.prenom?.errors}">
+						<div class="input-error" *ngIf="submitted && f?.prenom?.errors?.['required']">
 							<span class="">Le prénom est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
 						<label for="last_name">Nom</label>
-						<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Nom" formControlName="nom">
-						<div class="input-error" *ngIf="submitted && f?.nom?.errors">
+						<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Nom" formControlName="nom" [ngClass]="{'is-invalid' : submitted && f?.nom?.errors}">
+						<div class="input-error" *ngIf="submitted && f?.nom?.errors?.['required']">
 							<span class="">Le nom est obligatoire.</span>
 						</div>
 					</div>
@@ -35,8 +35,8 @@
 					
 				<div class="form-row pr-8">
 					<label for="your_email">Email</label>
-					<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" formControlName="email">
-					<div class="input-error" *ngIf="submitted && f?.email?.errors">
+					<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid' : submitted && f?.email?.errors}">
+					<div class="input-error" *ngIf="submitted && f?.email?.errors?.['required']">
 						<span class="">L'adresse mail est obligatoire.</span>
 					</div>
 				</div>
@@ -44,15 +44,15 @@
 				<div class="form-group">
 					<div class="form-row form-row-1 ">
 						<label for="password">Mot de passe</label>
-						<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password">
+						<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password" [ngClass]="{'is-invalid' : submitted && f?.password?.errors}">
 						<div class="input-error" *ngIf="submitted && f?.password.error">
 							<span class="">Le mot de passe est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
 						<label for="comfirm-password">Confirmez votre mot de passe</label>
-						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword">
-						<div class="input-error" *ngIf="submitted && f?.confirmationPassword?.errors">
+						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword" [ngClass]="{'is-invalid' : submitted && f?.confirmationPassword?.errors}">
+						<div class="input-error" *ngIf="submitted && f?.confirmationPassword?.errors?.['required']">
 							<span class="">Les mots de passe ne sont pas identiques</span>
 						</div>
 					</div>
@@ -60,15 +60,15 @@
 				<div class="form-group">
 					<div class="form-row form-row-1">
 						<label for="">Téléphone</label>
-						<input type="text" class="input-text" placeholder="Numero de téléphone mobile" formControlName="mobile">
-						<div class="input-error" *ngIf="submitted && f?.mobile?.errors">
+						<input type="text" class="input-text" placeholder="Numero de téléphone mobile" formControlName="mobile" [ngClass]="{'is-invalid' : submitted && f?.mobile?.errors}">
+						<div class="input-error" *ngIf="submitted && f?.mobile?.errors?.['required']">
 							<span class="">Le numéro de téléphone est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
 						<label for="">Fonction occupée</label>
-						<input type="text" class="input-text" placeholder="Fonction occupée" formControlName="fonction">
-						<div class="input-error" *ngIf="submitted && f?.fonction?.errors">
+						<input type="text" class="input-text" placeholder="Fonction occupée" formControlName="fonction" [ngClass]="{'is-invalid' : submitted && f?.fonction?.errors}">
+						<div class="input-error" *ngIf="submitted && f?.fonction?.errors?.['required']">
 							<span class="">La fonction occupée est obligatoire.</span>
 						</div>
 					</div>

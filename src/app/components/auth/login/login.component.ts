@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
+                // window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.confirme == 0){
@@ -48,10 +48,10 @@ export class LoginComponent implements OnInit {
                   this.logout();
                 }
                 if(user?.entrepriseId){
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
+                  // window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
+                  // window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }
@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
+                // window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.confirme == 0){
@@ -106,10 +106,10 @@ export class LoginComponent implements OnInit {
                   return;
                 }
                 if(user?.entrepriseId){
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
+                  // window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
+                  // window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }

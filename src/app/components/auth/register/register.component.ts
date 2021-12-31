@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registrationForm: any;
   submitted: boolean = false;
 
-  errorMsg: string = '';
+  errorMessage: string = '';
   statusCode: number = 200;
 
   constructor(
@@ -72,7 +72,15 @@ export class RegisterComponent implements OnInit {
       (err: HttpErrorResponse) =>{
         console.log(err);
         this.statusCode = err.status;
-        this.errorMsg = err.error;
+        // this.errorMsg = err.error;
+
+        const error = err.error;
+        const field = error.fieldName[0].toLowerCase()+ error.fieldName.slice(1);
+        this.errorMessage = error.errorMessage;
+        console.log('Field ::', this.registrationForm.get(field), field);
+        this.registrationForm.controls[field].setErrors({
+          serverError: error.errorMessage
+        });
       },
     ];
 

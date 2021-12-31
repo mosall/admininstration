@@ -183,7 +183,7 @@ export class UsersComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         const error = err.error;
-        const field = error.fieldName.toLowerCase();
+        const field = error.fieldName[0].toLowerCase()+ error.fieldName.slice(1);
         this.errorMessage = error.errorMessage;
         console.log('Field ::', this.addUserForm.get(field));
         this.addUserForm.controls[field].setErrors({

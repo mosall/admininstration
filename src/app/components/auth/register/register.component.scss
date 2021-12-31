@@ -284,7 +284,7 @@
 	padding: .3125rem;
 }
 .form-v4-content .form-detail .register:hover {
-	background: #2f73a3;
+	background: #f78300;
 }
 .form-v4-content .form-detail .form-row-last input {
 	padding: 12.5px;
@@ -333,8 +333,13 @@
 .error-msg{
 	color: red;
 	font-weight: bold;
+	margin-bottom: .625rem;
 }
 
 .pr-8{
 	padding-right: 8px;
+}
+
+.is-invalid{
+    border-color: #dc3545 !important;
 }
