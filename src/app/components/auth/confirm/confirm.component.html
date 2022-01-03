@@ -21,7 +21,7 @@
         <div ngbDropdown>
             <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
-                <a routerLink="/" ngbDropdownItem >Se connecter</a>
+                <a routerLink="/login" ngbDropdownItem >Se connecter</a>
                 <a routerLink="/register" ngbDropdownItem >S'enregistrer</a>
             </div>
         </div>
@@ -60,7 +60,7 @@
 					<div *ngIf="rsConfirm == 'success'">
 						<strong >Succes!</strong> Votre compte a été bien vérifié.
 						<p class="small">Pour vous connecter à votre compte, cliquez le bouton ci-dessous : </p>
-						<a class="btn bgc-secondary" routerLink="/">Se connecter</a>
+						<a class="btn bgc-secondary" routerLink="/login">Se connecter</a>
 					</div>
 				</div>
 			</div>
