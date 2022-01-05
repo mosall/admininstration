@@ -75,7 +75,7 @@ export class UsersComponent implements OnInit {
 
   fetchProfils(){
     this.profilService.getProfils([
-      (data: any) => {this.profils = data;},
+      (data: any) => {this.profils = data.filter((profil: any) => profil.id != 2);},
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
@@ -83,7 +83,7 @@ export class UsersComponent implements OnInit {
   fetchUsers(){
     this.userService.getUsers([
       (data: any) => {
-        this.users = data;
+        this.users = data.filter( (user: any) => user?.profil?.id != 0);;
         this.usersBkp = data;
       },
       (err: HttpErrorResponse) => {console.log(err);},
