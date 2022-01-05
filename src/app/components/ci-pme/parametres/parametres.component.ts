@@ -296,6 +296,21 @@ export class ParametresComponent implements OnInit {
     $('a[href*="#'+id+'"]').trigger('click');
   }
 
+  changeArrow(qcode: string){
+    let elt = $('tr[data-target*="#'+qcode+'"] > td > .icon')
+    let classes = elt.attr('class');
+    if(classes.includes('fa-chevron-right')){
+      elt.removeClass('fa-chevron-right');
+      elt.addClass('fa-chevron-down');
+    }
+    else if(classes.includes('fa-chevron-down')){
+      elt.removeClass('fa-chevron-down');
+      elt.addClass('fa-chevron-right');
+    }
+    console.log("Element :: ", elt);
+    
+  }
+
   successMsgBox(msg: any){
     Swal.fire({
       icon: 'success',

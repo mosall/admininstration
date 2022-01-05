@@ -66,10 +66,10 @@
               </thead>
               <tbody>
                 <ng-template  ngFor let-q [ngForOf]="listQuestions" >
-                  <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code">
-                    <td><i class="fas fa-chevron-right small text-black-50" *ngIf="q.listReponsesDTO.length != 0"></i></td>
+                  <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code" (click)="changeArrow(q.code)" >
+                    <td><i class="fas fa-chevron-right small text-black-50 icon" *ngIf="q.listReponsesDTO.length != 0"></i></td>
                     <!--<td>{{q.code}}</td>-->
-                    <td>{{q.libelle}}</td>
+                    <td>{{q.libelle}}</td>  
                     <td>
                       <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
                       <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
