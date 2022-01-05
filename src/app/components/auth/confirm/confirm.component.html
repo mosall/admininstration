@@ -55,7 +55,15 @@
 				<div class="content text-center">
 					<div *ngIf="rsConfirm == 'error'">
 						<strong >Error!</strong> Votre compte n'a pas pu être vérifié.
-						<p></p>
+						<p>Renvoyez un mail d'activation de votre compte</p>
+						<a class="btn bgc-secondary" (click)="setActivation()">Renvoyer le mail d'activation</a>
+					</div>
+					<div *ngIf="rsConfirm == 'resend'">
+						<strong >Activation!</strong> Pour renvoyer un mail d'activation de votre compte, entrez votre e-mail et cliquez sur le bouton 'Envoyer'.
+						<p class="w-100 mt-4">
+							<input type="text" class="form-control" [(ngModel)]="email">
+						</p>
+						<a class="btn bgc-secondary" (click)="sendActivationMail()">Envoyer</a>
 					</div>
 					<div *ngIf="rsConfirm == 'success'">
 						<strong >Succes!</strong> Votre compte a été bien vérifié.

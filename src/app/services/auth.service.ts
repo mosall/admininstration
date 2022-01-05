@@ -73,4 +73,9 @@ export class AuthService {
   confirm(token: string, cbs: any){
     this.http.get(`${AppSettings.UM_URL}/users/confirm?token=${token}`, AppSettings.httpOptions).subscribe(...cbs);
   }
+  
+  sendActivationMail(payload: any ) {    
+    return this.http.post(`${AppSettings.UM_URL}/users/confirmation_mail`, payload, AppSettings.httpOptions);
+  }
+
 }

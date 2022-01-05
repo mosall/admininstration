@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,14 +12,18 @@ import Swal from 'sweetalert2';
 export class ConfirmComponent implements OnInit {
 
   rsConfirm: string = '';
+  token: string | null;
+  email: string = '';
 
   constructor(
     private auth: AuthService,
-    private activatedRoute: ActivatedRoute
-  ) { }
-
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.token = this.activatedRoute.snapshot.queryParamMap.get('token');
+  }
+  
   ngOnInit(): void {
-    let token = this.activatedRoute.snapshot.queryParamMap.get('token');
     Swal.fire({
       title: 'Veuillez patienter ...',
       allowEscapeKey: false,
@@ -28,7 +32,7 @@ export class ConfirmComponent implements OnInit {
         Swal.showLoading();
       }
     });
-    this.confirm(token);
+    this.confirm(this.token);
   }
 
   confirm(token: any){
@@ -39,11 +43,41 @@ export class ConfirmComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         console.log(err);
-        this.rsConfirm = 'danger';
+        this.rsConfirm = 'error';
+        Swal.close();
       }
     ];
 
     this.auth.confirm(token, cbs);
+  }
+
+  sendActivationMail(){
+    const payload = {
+      email: this.email,
+      token: this.token
+    };
+    this.auth.sendActivationMail(payload).subscribe(
+      data => {
+        this.showSuccessMessage('Activation de compte', 'Un mail d\'activation a été envoyé à votre address mail.');
+        this.router.navigate(['/login']);
+      },
+      err => {
+        this.showErrorMessage('Activation de compte', 'Un mail d\'activation n\'a pas été envoyé à votre address mail.');
+        console.log(err);
+      }        
+    )
+    
+  }
+
+  setActivation(){
+    this.rsConfirm = 'resend';
+  }
+
+  showSuccessMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'}).then(()=> {});
+  }
+  showErrorMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
   }
 
 }
