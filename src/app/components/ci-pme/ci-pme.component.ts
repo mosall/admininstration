@@ -85,7 +85,10 @@ export class CiPmeComponent implements OnInit {
         this.showSuccessMessage('Modification de mot de passe', 'Votre mot de passe a été modifié avec succès.');
         this.logout();
       },
-      (err: HttpErrorResponse) => console.log(err)
+      (err: HttpErrorResponse) => {
+        this.showErrorMessage('Modification de mot de passe', err.error);
+        console.log(err);
+      }
     ]);
 
   }
@@ -127,7 +130,10 @@ export class CiPmeComponent implements OnInit {
   //end modal
 
   showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 3000});
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'}).then(()=> {});
+  }
+  showErrorMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
   }
 
   toggleSidenav() {
