@@ -91,4 +91,9 @@ export class RegisterComponent implements OnInit {
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 
+  togglePasswordView(field: string){
+    const passInput = document.getElementById(field) as HTMLInputElement;
+    (passInput.type === 'password') ? ( passInput.type = 'text') :   passInput.type = 'password';
+  }
+
 }

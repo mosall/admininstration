@@ -43,15 +43,26 @@
 
 				<div class="form-group">
 					<div class="form-row form-row-1 ">
-						<label for="password">Mot de passe</label>
-						<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password" [ngClass]="{'is-invalid' : submitted && f?.password?.errors}">
+						<label for="password">Mot de passe</label>	
+						<div class="input">
+							<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password" [ngClass]="{'is-invalid' : submitted && f?.password?.errors}">
+							<div class="input-icon" (click)="togglePasswordView('password')">
+								<i class="fa fa-eye" aria-hidden="true"></i>
+							</div>
+						</div>
+						  
 						<div class="input-error" *ngIf="submitted && f?.password.error">
 							<span class="">Le mot de passe est obligatoire.</span>
 						</div>
 					</div>
 					<div class="form-row form-row-1">
 						<label for="comfirm-password">Confirmez votre mot de passe</label>
-						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword" [ngClass]="{'is-invalid' : submitted && f?.confirmationPassword?.errors}">
+						<div class="input">
+							<input type="password" name="comfirm_password" id="confirm_password" class="input-text" required placeholder="Confirmation de mot de passe" formControlName="confirmationPassword" [ngClass]="{'is-invalid' : submitted && f?.confirmationPassword?.errors}">
+							<div class="input-icon" (click)="togglePasswordView('confirm_password')">
+								<i class="fa fa-eye" aria-hidden="true"></i>
+							</div>
+						</div>
 						<div class="input-error" *ngIf="submitted && f?.confirmationPassword?.errors?.['required']">
 							<span class="">Les mots de passe ne sont pas identiques</span>
 						</div>
