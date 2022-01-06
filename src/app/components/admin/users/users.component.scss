@@ -377,13 +377,13 @@ div.detail-user {
 
 .detail-user .table th {
     font-size: .8em;
-    color: #3D6286;
-    border-color: #3C8DBC;
+    color: $primary;
+    border-color: $secondary;
 }
 
 .detail-user .table td {
     font-size: .8em;
-    border-color: #3C8DBC;
+    border-color: $secondary;
 }
 
 div.icon {

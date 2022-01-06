@@ -485,9 +485,9 @@ table td.icons img {
     align-items: center;
 }
 
-modal-header h1 img {
-    height: 30px;
-    width: 30px;
+.modal-header  img {
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 #buttons {
@@ -495,7 +495,6 @@ modal-header h1 img {
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
-    background-color: #D8D7D7;
     padding-top: .5em;
     padding-bottom: .5em;
 }
@@ -674,7 +673,7 @@ screen and (max-height: 700px) {
         font-weight: bold;
         padding-bottom: 0;
         padding-top: .5em;
-        background-color: #3D6286 !important;
+        background-color: $primary !important;
         border: none;
         box-shadow: none;
         height: 2vw !important;
@@ -683,13 +682,13 @@ screen and (max-height: 700px) {
 
 .table.detail th {
     font-size: .8em;
-    color: #3D6286;
-    border-color: #3C8DBC;
+    color: $primary;
+    border-color: $secondary;
 }
 
 .table.detail td {
     font-size: .8em;
-    border-color: #3C8DBC;
+    border-color: $secondary;
 }
 
 #buttons.display-modal-button {
@@ -698,12 +697,8 @@ screen and (max-height: 700px) {
 }
 
 #buttons.display-modal-button button {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
+    padding: 1em;
     font-size: .8em;
-    height: 2.5vw;
-    padding-top: .1em;
 }
 
 td ul {

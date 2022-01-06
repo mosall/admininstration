@@ -159,8 +159,8 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h1> <img src="/assets/user.png" alt=""> Details de profil
-        </h1>
+        <img src="/assets/user.png" alt="">
+        <h4>Details de profil </h4>
     </div>
 
     <div class="modal-body">
@@ -184,8 +184,8 @@
                 </tr>
             </tbody>
         </table>
-        <div id="buttons" class="display-modal-button">
-            <button type="button" class="btn bgc-primary" (click)="modal.close('Save click')">Fermer</button>
-        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn bgc-primary" (click)="modal.close('Save click')">Fermer</button>
     </div>
 </ng-template> 
