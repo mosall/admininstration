@@ -297,17 +297,42 @@ export class ParametresComponent implements OnInit {
   }
 
   changeArrow(qcode: string){
-    let elt = $('tr[data-target*="#'+qcode+'"] > td > .icon')
-    let classes = elt.attr('class');
-    if(classes.includes('fa-chevron-right')){
-      elt.removeClass('fa-chevron-right');
-      elt.addClass('fa-chevron-down');
-    }
-    else if(classes.includes('fa-chevron-down')){
-      elt.removeClass('fa-chevron-down');
-      elt.addClass('fa-chevron-right');
-    }
-    console.log("Element :: ", elt);
+    // let elt = $('tr[data-target*="#'+qcode+'"] > td > .icon')
+    // let classes = elt.attr('class');
+    // if(classes.includes('fa-chevron-right')){
+    //   elt.removeClass('fa-chevron-right');
+    //   elt.addClass('fa-chevron-down');
+    // }
+    // else if(classes.includes('fa-chevron-down')){
+    //   elt.removeClass('fa-chevron-down');
+    //   elt.addClass('fa-chevron-right');
+    // }
+    // console.log("Element :: ", elt);
+
+    $('.collapse').each(function(index: number, elt: HTMLElement){
+      let id = $(elt).attr('id');
+      if(id !== qcode){
+        $(elt).removeClass('show')
+      }
+    });
+
+    $('.icon').each(function(index:number, elt: HTMLElement) {
+      let parent = elt.parentElement?.parentElement;      
+      if(parent?.getAttribute('data-target') != '#'+qcode){
+        $(elt).removeClass('fa-chevron-down');
+        $(elt).addClass('fa-chevron-right');
+      }
+      else if(parent?.getAttribute('data-target') == '#'+qcode) {
+        if($(elt).hasClass('fa-chevron-right')){
+          $(elt).removeClass('fa-chevron-right');
+          $(elt).addClass('fa-chevron-down');
+        }
+        else if($(elt).hasClass('fa-chevron-down')){
+          $(elt).removeClass('fa-chevron-down');
+          $(elt).addClass('fa-chevron-right');
+        }
+      }
+    })
     
   }
 

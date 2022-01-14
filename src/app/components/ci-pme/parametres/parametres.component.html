@@ -1,4 +1,4 @@
-<div class="row pt-5 px-4">
+<div class="row mt-5">
   <div class="col-sm-11">
     <h3><i class="fas fa-folder mr-2 fa-1x"></i> Liste des paramètres qualitatifs</h3>
   </div>
@@ -8,91 +8,99 @@
 </div>
 
 <div class="mt-4">
-  <div class="row mx-3" data-widget="tab-slider">
-    <div class="col-sm-2 card p-3 m-2">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a *ngFor="let p of listParameters" [ngClass]="{'active': p.id == 1}" class="nav-link"
-           data-toggle="pill" href="#{{p.code}}" role="tab" aria-controls="v-pills-home" aria-selected="true"
-            (click)="getQuestion(p.id)">
-          <div class="row">
-            <div class="col-sm-1"><i class="fas fa-folder" style="color: #006a25"></i></div>
-            <div class="col-sm-10">{{p.libelle}}</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-sm-9 card p-3">
-      <div class="tab-content" id="v-pills-tabContent">
-
-        <div *ngFor="let p of listParameters" [ngClass]="{'active': p.id == 1}" class="tab-pane fade show" id="{{p.code}}">
-          <div class="row px-2">
-            <div class="col-sm-10"><h5>{{p.libelle}}</h5></div>
-            <div class="col-sm-2">
-              <button class="btn small" style="cursor: pointer; color: #f78300" (click)="onUpdateParameterClick(p.id)" data-toggle="tooltip" data-placement="bottom" title="Modifier le paramètre"><i class="fas fa-edit"></i></button>
-              <button class="btn small ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteParameter(p.id)"><i class="fas fa-trash" data-toggle="tooltip" data-placement="bottom" title="Supprimer le paramètre"></i></button>
+  <div class="card">
+    <div class="card-body">
+      <div class="row " data-widget="tab-slider">
+        <div class="col-sm-2 ">
+          <div class="card p-3 mr-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a *ngFor="let p of listParameters" [ngClass]="{'active': p.id == 1}" class="nav-link"
+                 data-toggle="pill" href="#{{p.code}}" role="tab" aria-controls="v-pills-home" aria-selected="true"
+                  (click)="getQuestion(p.id)">
+                <div class="row">
+                  <div class="col-sm-1"><i class="fas fa-folder" style="color: #006a25"></i></div>
+                  <div class="col-sm-10">{{p.libelle}}</div>
+                </div>
+              </a>
             </div>
           </div>
-
-          <div class="row card m-2 p-3">
-            <h5 style="font-size: 1.2rem;">Ajouter / Modifier une question</h5>
-              <div class="form-row align-items-center">
-                <div class="col-sm-10">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Libellé"
-                    [(ngModel)]="libelleQuestion" [ngClass]="{ 'is-invalid': submittedQ && libelleQuestion == '' }">
-
-                    <div *ngIf="submittedQ && libelleQuestion == ''" class="invalid-feedback">Le champ est obligatoire.</div>
+        </div>
+        <div class="col-sm-10">
+          <div class="card p-3">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div *ngFor="let p of listParameters" [ngClass]="{'active': p.id == 1}" class="tab-pane fade show" id="{{p.code}}" >
+                <div class="row px-2">
+                  <div class="col-sm-10"><h5>{{p.libelle}}</h5></div>
+                  <div class="col-sm-2">
+                    <button class="btn small" style="cursor: pointer; color: #f78300" (click)="onUpdateParameterClick(p.id)" data-toggle="tooltip" data-placement="bottom" title="Modifier le paramètre"><i class="fas fa-edit"></i></button>
+                    <button class="btn small ml-lg-n2" style="cursor: pointer; color: #dc3545;" (click)="deleteParameter(p.id)"><i class="fas fa-trash" data-toggle="tooltip" data-placement="bottom" title="Supprimer le paramètre"></i></button>
                   </div>
                 </div>
-
-                <div class="col-sm-2" [ngClass]="{'mt-n4': submittedQ && libelleQuestion == ''}">
-                  <button type="submit" (click)="saveQuestion(p.id)" class="btn" style="color: #000000; background-color: rgba(247, 131, 0, .25)"><i class="fas fa-check small"></i> Enregistrer</button>
+      
+                <div class="row card m-2 p-3">
+                  <h5 style="font-size: 1.2rem;">Ajouter / Modifier une question</h5>
+                    <div class="form-row align-items-center">
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Libellé"
+                          [(ngModel)]="libelleQuestion" [ngClass]="{ 'is-invalid': submittedQ && libelleQuestion == '' }">
+      
+                          <div *ngIf="submittedQ && libelleQuestion == ''" class="invalid-feedback">Le champ est obligatoire.</div>
+                        </div>
+                      </div>
+      
+                      <div class="col-sm-2" [ngClass]="{'mt-n4': submittedQ && libelleQuestion == ''}">
+                        <button type="submit" (click)="saveQuestion(p.id)" class="btn" style="color: #000000; background-color: rgba(247, 131, 0, .25)"><i class="fas fa-check small"></i> Enregistrer</button>
+                      </div>
+                    </div>
                 </div>
+      
+                <div class="card text-muted m-2 p-3" style="color: #f78300 !important; font-size: 1.1rem" *ngIf="listQuestions.length == 0">La liste des questions est vide.</div>
+                <div class="row card m-2 p-3" *ngIf="listQuestions.length != 0">
+                  <h6 class="mb-4" style="font-size: 1.2rem">Liste des questions</h6>
+      
+                  <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
+                    <thead>
+                    <tr class="text-center">
+                      <th style="width: 3%"></th>
+                      <!--<th style="width: 10%">Code</th>-->
+                      <th style="width: 70%">Libellé</th>
+                      <th style="width: 17%;">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <ng-template  ngFor let-q [ngForOf]="listQuestions" >
+                        <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code" (click)="changeArrow(q.code)" >
+                          <td><i class="fas fa-chevron-right small text-black-50 icon" *ngIf="q.listReponsesDTO.length != 0"></i></td>
+                          <!--<td>{{q.code}}</td>-->
+                          <td>{{q.libelle}}</td>  
+                          <td>
+                            <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
+                            <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
+                            <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q)"><i class="fas fa-trash small"></i></button>
+                          </td>
+                        </tr>
+      
+                        <tr *ngFor="let r of q.listReponsesDTO" class="text-center small collapse" id="{{q.code}}">
+                          <td></td>
+                          <!--<td>{{r.code}}</td>-->
+                          <td>{{r.libelle}}</td>
+                          <td class="small">
+                            <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la réponse" (click)="onUpdateReponseClick(r.id, r.score, r.code, r.libelle, q.id)"><i class="fas fa-edit small"></i></button>
+                            <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la réponse" (click)="deleteReponse(r)"><i class="fas fa-trash small"></i></button>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </tbody>
+                  </table>
+                </div>
+      
               </div>
+            </div>
           </div>
-
-          <div class="card text-muted m-2 p-3" style="color: #f78300 !important; font-size: 1.1rem" *ngIf="listQuestions.length == 0">La liste des questions est vide.</div>
-          <div class="row card m-2 p-3" *ngIf="listQuestions.length != 0">
-            <h6 class="mb-4" style="font-size: 1.2rem">Liste des questions</h6>
-
-            <table class="table table-hover small" id="example" style="width:100%; border: .5px solid #ebeef2">
-              <thead>
-              <tr class="text-center">
-                <th style="width: 3%"></th>
-                <!--<th style="width: 10%">Code</th>-->
-                <th style="width: 70%">Libellé</th>
-                <th style="width: 17%;">Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-                <ng-template  ngFor let-q [ngForOf]="listQuestions" >
-                  <tr class="text-center parent" data-toggle="collapse" [attr.data-target]="'#'+q.code" (click)="changeArrow(q.code)" >
-                    <td><i class="fas fa-chevron-right small text-black-50 icon" *ngIf="q.listReponsesDTO.length != 0"></i></td>
-                    <!--<td>{{q.code}}</td>-->
-                    <td>{{q.libelle}}</td>  
-                    <td>
-                      <button class="btn btn-sm" style="cursor: pointer; color: #006a25;" data-toggle="tooltip" data-placement="bottom" title="Ajouter une réponse" (click)="onAddReponseClick(q)"><i class="fas fa-comments small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la question" (click)="onUpdateQuestionClick(q.id)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la question" (click)="deleteQuestion(q)"><i class="fas fa-trash small"></i></button>
-                    </td>
-                  </tr>
-
-                  <tr *ngFor="let r of q.listReponsesDTO" class="text-center small collapse" id="{{q.code}}">
-                    <td></td>
-                    <!--<td>{{r.code}}</td>-->
-                    <td>{{r.libelle}}</td>
-                    <td class="small">
-                      <button class="btn btn-sm" style="cursor: pointer; color: #f78300" data-toggle="tooltip" data-placement="bottom" title="Modifier la réponse" (click)="onUpdateReponseClick(r.id, r.score, r.code, r.libelle, q.id)"><i class="fas fa-edit small"></i></button>
-                      <button class="btn btn-sm ml-lg-n2" style="cursor: pointer; color: #dc3545;" data-toggle="tooltip" data-placement="bottom" title="Supprimer la réponse" (click)="deleteReponse(r)"><i class="fas fa-trash small"></i></button>
-                    </td>
-                  </tr>
-                </ng-template>
-              </tbody>
-            </table>
-          </div>
-
         </div>
       </div>
+      
     </div>
   </div>
 </div>
