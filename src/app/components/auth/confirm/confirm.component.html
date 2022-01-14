@@ -15,12 +15,10 @@
   </a>
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
-
-
     <li class="nav-item">
         <div ngbDropdown>
             <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user fa-fw"></i></a>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
                 <a routerLink="/login" ngbDropdownItem >Se connecter</a>
                 <a routerLink="/register" ngbDropdownItem >S'enregistrer</a>
             </div>
@@ -29,27 +27,13 @@
   </ul>
 </nav>
 
-
-
   <div id="layoutSidenav_content">
     <main>
       <div class="container-fluid px-4 myContent">
-        <!-- <p class="mt-2rem">
-		<ngb-alert [type]="rsConfirm" [dismissible]="false" *ngIf="rsConfirm">
-			<div *ngIf="rsConfirm == 'error'">
-				<strong >Error!</strong> Votre compte n'a pas pu être vérifié.
-				<p></p>
-			</div>
-			<div *ngIf="rsConfirm == 'success'">
-				<strong >Succes!</strong> Votre compte a été bien vérifié.
-				<p>Veuillez vous connecter à votre compte. <a routerLink="/">Se connecter</a></p>
-			</div>
-		</ngb-alert>
-		</p> -->
 		<div class="center">
-			<div class="box p-4" [ngClass]="rsConfirm == 'success' ? 'success' : 'warning'">
+			<div class="box p-4" [ngClass]="rsConfirm == 'success' || rsConfirm == 'confirmed' ? 'success' : 'warning'">
 				<div class="icon">
-					<i *ngIf="rsConfirm == 'success'" class="far fa-5x fa-check-circle"></i>
+					<i *ngIf="rsConfirm == 'success' || rsConfirm == 'confirmed' " class="far fa-5x fa-check-circle"></i>
 					<i *ngIf="rsConfirm == 'error'" class="fas fa-5x fa-exclamation-circle"></i>
 				</div>
 				<div class="content text-center">
@@ -69,6 +53,11 @@
 						<strong >Succes!</strong> Votre compte a été bien vérifié.
 						<p class="small">Pour vous connecter à votre compte, cliquez le bouton ci-dessous : </p>
 						<a class="btn bgc-secondary" routerLink="/login">Se connecter</a>
+					</div>
+					<div *ngIf="rsConfirm == 'confirmed'">
+						<strong >Allert!</strong> Votre compte est déjà activé.
+						<!-- <p class="small">Pour vous connecter à votre compte, cliquez le bouton ci-dessous : </p>
+						<a class="btn bgc-secondary" routerLink="/login">Se connecter</a> -->
 					</div>
 				</div>
 			</div>
