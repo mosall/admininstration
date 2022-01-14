@@ -38,7 +38,12 @@ export class ConfirmComponent implements OnInit {
   confirm(token: any){
     const cbs = [
       (data: any) => {
-        this.rsConfirm = 'success';
+        if(data == 1){
+          this.rsConfirm = 'confirmed'
+        }
+        else if(data == 2){
+          this.rsConfirm = 'success';
+        }
         Swal.close();
       },
       (err: HttpErrorResponse) => {
