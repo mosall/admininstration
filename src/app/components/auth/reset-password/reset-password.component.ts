@@ -62,9 +62,12 @@ export class ResetPasswordComponent implements OnInit {
     (data: any) => {
       this.showSuccessMessage('', 'Votre mot de passe a été mis à jour.');
       this.auth.logout();
-      this.router.navigate(['/'])
+      this.router.navigate(['/login'])
     },
-    (err: HttpErrorResponse) => console.log(err)
+    (err: HttpErrorResponse) => {
+      console.log(err)
+      this.showErrorMessage('Reinitialisation mot de passe', err.error);
+    }
     ]);
   }
 
@@ -74,6 +77,10 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     showSuccessMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
+      Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
+    }
+
+    showErrorMessage(title: string, text: string){
+      Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
     }
 }

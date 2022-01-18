@@ -182,6 +182,8 @@ export class UsersComponent implements OnInit {
         this.addModal.close('');
       },
       (err: HttpErrorResponse) =>{
+        console.log('Err :: ', err);
+        
         const error = err.error;
         const field = error.fieldName[0].toLowerCase()+ error.fieldName.slice(1);
         this.errorMessage = error.errorMessage;
