@@ -66,7 +66,7 @@ export class ResetPasswordComponent implements OnInit {
     },
     (err: HttpErrorResponse) => {
       console.log(err)
-      this.showErrorMessage('Reinitialisation mot de passe', err.error);
+      this.showErrorMessage('Reinitialisation mot de passe', err.error.message);
     }
     ]);
   }
