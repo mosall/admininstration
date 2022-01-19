@@ -50,6 +50,7 @@ export class UsersComponent implements OnInit {
   filter = new FormControl('');
   currentPageOnSearch: any = 1;
   filterValue: any;
+  disableSelectProfil: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -75,7 +76,9 @@ export class UsersComponent implements OnInit {
 
   fetchProfils(){
     this.profilService.getProfils([
-      (data: any) => {this.profils = data.filter((profil: any) => profil.id != 2);},
+      (data: any) => {
+        this.profils = data.map((profil: any) => ({...profil, disabled: profil.id == 2 }));
+      },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
   }
@@ -98,7 +101,7 @@ export class UsersComponent implements OnInit {
       prenom: [user?.prenom, [Validators.required]],
       nom: [user?.nom, [Validators.required]],
       email: [user?.email, [Validators.required, Validators.pattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")]],
-      profil: [user?.profil?.id, [Validators.required]],
+      profil: [{value: user?.profil?.id, disabled: this.disableSelectProfil}, [Validators.required]],
       password: ['' ],
       confirmePassword: ['' ],
     });
@@ -117,8 +120,16 @@ export class UsersComponent implements OnInit {
 
   editUser(id: number){
     this.edit = true;
+    this.profils = this.profils.map((profil: any) => {
+      if(profil.id == 2){
+        profil.disabled = false;
+      }
+      return profil;
+    })
     this.userService.getUser(id, [
       (data: any) =>{
+        this.disableSelectProfil = data.profil.id == 2 && this.edit
+        this.user = data;
         this.initForm(data);
         this.open(this.content)
       },

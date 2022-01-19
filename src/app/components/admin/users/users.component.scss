@@ -366,7 +366,10 @@ screen and (max-height: 700px) {
 }
 
 .printPassword span {
-    margin-right: .5%;
+    margin-right: 2%;
+}
+.printPassword label {
+    margin-bottom: 0;
 }
 
 div.detail-user {

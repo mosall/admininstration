@@ -176,9 +176,9 @@
 
                         <label class="form-label" for="form3Example1">Profil <span style="color: red;">*</span></label> <br>
 
-                        <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil?.errors || f?.profil?.value == 0) }">
+                        <select class="form-select form-control" aria-label="Default select example" formControlName="profil" [ngClass]="{ 'is-invalid': submitted && (f?.profil?.errors || f?.profil?.value == 0) }"    >
                             <option selected [value]="0">Selectionner un profil</option>
-                            <option  *ngFor="let profil of profils" [value]="profil.id">{{ profil.libelle }}</option>
+                            <option  *ngFor="let profil of profils" [value]="profil.id" [disabled]="profil.disabled">{{ profil.libelle }}</option>
                         </select>
                         <div class="invalid-feedback" *ngIf="f?.profil?.errors?.['required']">
                             Le profil est obligatoire
@@ -188,7 +188,7 @@
                 <div class="col printPassword-container">
 
                     <div class="printPassword" style="width: 100%;">
-                        <span><input (change)="togglePasswordView('password-id');togglePasswordView('confirmePassword');" type="checkbox"> </span> <span>Afficher les mots de passe </span>
+                        <span><input id="togglePwd" (change)="togglePasswordView('password-id');togglePasswordView('confirmePassword');" type="checkbox"> </span> <label for="togglePwd">Afficher les mots de passe </label>
                     </div>
                 </div>
             </div>
