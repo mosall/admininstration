@@ -150,7 +150,7 @@
 
                         <label class="form-label" for="password-id">Mot de passe <span style="color: red;">*</span></label>
 
-                        <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir un caractère spécial, un chiffre, une majuscule et doit contenir au moins 8 caractères." triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
+                        <input id="password-id" type="password" ngbPopover="Le mot de passe doit contenir au minimum 8 caractères composés de minuscules, majuscule, chiffres et de caractères spéciaux [@ . ! * & ?]" triggers="focus" class="form-control" placeholder="Mot de passe" formControlName="password"
                             [ngClass]="{ 'is-invalid': submitted && f?.confirmePassword?.errors }" />
                         <div class="invalid-feedback" *ngIf="f?.confirmePassword?.errors?.['required']">
                             Le mot de passe est obligatoire
@@ -187,7 +187,7 @@
                 </div>
                 <div class="col printPassword-container">
 
-                    <div class="printPassword" style="width: 100%;">
+                    <div class="printPassword" style="width: 100%;" *ngIf="!edit">
                         <span><input id="togglePwd" (change)="togglePasswordView('password-id');togglePasswordView('confirmePassword');" type="checkbox"> </span> <label for="togglePwd">Afficher les mots de passe </label>
                     </div>
                 </div>
