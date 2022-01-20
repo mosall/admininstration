@@ -45,7 +45,9 @@
 					<div class="form-row form-row-1 ">
 						<label for="password">Mot de passe</label>	
 						<div class="input">
-							<input type="password" name="password" id="password" class="input-text" required placeholder="Mot de passe" formControlName="password" [ngClass]="{'is-invalid' : submitted && f?.password?.errors}">
+							<input type="password" name="password" id="password" class="input-text" 
+							ngbPopover="Le mot de passe doit contenir au minimum 8 caractères composés de minuscules, majuscule, chiffres et de caractères spéciaux [@ . ! * & ?]"
+							required placeholder="Mot de passe" formControlName="password" [ngClass]="{'is-invalid' : submitted && f?.password?.errors}">
 							<div class="input-icon" (click)="togglePasswordView('password')">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</div>
