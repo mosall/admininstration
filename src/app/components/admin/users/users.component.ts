@@ -140,9 +140,12 @@ export class UsersComponent implements OnInit {
   statusChanged(id: number){
     this.userService.switchSatus(id, [
       (data: any) => {
-        this.showSuccessMessage('', 'L\'action est effectué avec succès.')
+        this.showSuccessMessage('Activation/Désactivation utilisateur', 'L\'action est effectué avec succès.')
       },
-      (err: HttpErrorResponse) => {console.log(err)},
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.showErrorMessage('Activation/Désactivation utilisateur', err.error);
+      },
     ]);
   }
 
@@ -249,7 +252,8 @@ export class UsersComponent implements OnInit {
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'}).then(()=> window.location.reload());
   }
   showErrorMessage(title: string, text: string){
-    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
+       
+        Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'}).then(() =>  window.location.reload());
   }
 
   // Pagination
