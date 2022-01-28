@@ -51,6 +51,7 @@ export class UsersComponent implements OnInit {
   currentPageOnSearch: any = 1;
   filterValue: any;
   disableSelectProfil: boolean = false;
+  idUserToDelete: number = 0;
 
   constructor(
     private userService: UserService,
@@ -149,8 +150,8 @@ export class UsersComponent implements OnInit {
     ]);
   }
 
-  deleteUser(id: number){
-    this.userService.deleteUser(id, [
+  deleteUser(){
+    this.userService.deleteUser(this.idUserToDelete, [
       (data: any) => {
         this.showSuccessMessage('Suppression utilisateur', 'L\'utilisateur est supprimé avec succès.')
       },
@@ -159,6 +160,7 @@ export class UsersComponent implements OnInit {
         this.showErrorMessage('Suppression utilisateur', err.error);
       },
     ]);
+    this.idUserToDelete = 0;
   }
 
   showDetails(id: number){
@@ -169,6 +171,10 @@ export class UsersComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {console.log(err)}
     ]);
+  }
+
+  showDeleteModal(id: number){
+    this.idUserToDelete = id;
   }
 
   onSubmit(){

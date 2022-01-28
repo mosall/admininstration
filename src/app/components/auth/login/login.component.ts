@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             sessionStorage.removeItem('token');
             if(user?.actif == -1){
-              this.showErrorMessage("Connexion", "Votre compte est désactivé.")
+              this.showErrorMessage("Connexion", "Votre compte a été supprimé.")
               this.logout();
               return;
             }
