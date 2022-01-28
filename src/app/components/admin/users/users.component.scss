@@ -240,7 +240,7 @@ td.toggle {
 
 .icons {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
 }
 
 modal-header h1 {
@@ -295,7 +295,7 @@ screen and (max-height: 700px) {
     }
     .icons {
         display: flex;
-        justify-content: space-around;
+        // justify-content: space-around;
     }
     .icons img {
         transform: scale(0.6);
@@ -406,4 +406,11 @@ div.icon {
     padding-top: .1em;
 }
 
+
+.toggle-x{
+    pointer-events: none;
+}
  
+.icons  img{
+    margin-right: 10% !important;
+}

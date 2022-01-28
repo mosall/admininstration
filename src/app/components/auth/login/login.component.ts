@@ -89,6 +89,11 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
             sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             sessionStorage.removeItem('token');
+            if(user?.actif == -1){
+              this.showErrorMessage("Connexion", "Votre compte est désactivé.")
+              this.logout();
+              return;
+            }
             switch (user?.profil?.code) {
               case ROLE_ADMIN :
                 this.router.navigate(['/admin/users']);

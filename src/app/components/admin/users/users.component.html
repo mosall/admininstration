@@ -38,12 +38,16 @@
                     <ng-toggle [value]="user.actif  " [color]="{
                       unchecked: 'red',
                       checked: 'green'
-                    }" (change)="statusChanged(user?.id)"></ng-toggle>
+                    }" 
+                    class="toggle-x"
+                    ></ng-toggle>
+                    <!-- (change)="statusChanged(user?.id)" -->
                 </td>
                 <td class="icons">
                     <img src="/assets/view.png" alt="" (click)="showDetails(user?.id)">
                     <img src="/assets/edit.png" *ngIf="user.actif == 1" alt="" (click)="editUser(user?.id)">
                     <img src="/assets/lock.png" *ngIf="user.actif == 0" alt="utilisateur désactivé">
+                    <img src="/assets/bin.png" *ngIf="user.actif == 1" alt="utilisateur désactivé" (click)="deleteUser(user?.id)">
 
                 </td>
             </tr>
