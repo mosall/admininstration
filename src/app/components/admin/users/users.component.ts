@@ -86,8 +86,8 @@ export class UsersComponent implements OnInit {
   fetchUsers(){
     this.userService.getUsers([
       (data: any) => {
-        this.users = data.filter( (user: any) => user?.profil?.id != 0);;
-        this.usersBkp = data;
+        this.users = data.filter( (user: any) => user?.profil?.id != 0 && user?.actif != -1);
+        this.usersBkp = this.users;
       },
       (err: HttpErrorResponse) => {console.log(err);},
     ]);
@@ -145,6 +145,18 @@ export class UsersComponent implements OnInit {
       (err: HttpErrorResponse) => {
         console.log(err);
         this.showErrorMessage('Activation/Désactivation utilisateur', err.error);
+      },
+    ]);
+  }
+
+  deleteUser(id: number){
+    this.userService.deleteUser(id, [
+      (data: any) => {
+        this.showSuccessMessage('Suppression utilisateur', 'L\'utilisateur est supprimé avec succès.')
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.showErrorMessage('Suppression utilisateur', err.error);
       },
     ]);
   }
