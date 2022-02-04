@@ -42,9 +42,12 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.auth.forgotPassword(data, [
       (data: any) => {
-        this.showSuccessMessage('','Un email vous a été envoyé.');
+        this.showSuccessMessage('Mot de passe oublié','Un email vous a été envoyé.');
       },
-      (err: HttpErrorResponse) => console.log(err)
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.showErrorMessage('Mot de passe oublié','Cet email n\'est pas  associé à un compte.');
+      }
     ]);
   }
 
@@ -52,4 +55,7 @@ export class ForgotPasswordComponent implements OnInit {
     Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'success'});
   }
 
+  showErrorMessage(title: string, text: string){
+    Swal.fire({title, text, timer: 5000, showConfirmButton: false, icon: 'error'});
+  }
 }
