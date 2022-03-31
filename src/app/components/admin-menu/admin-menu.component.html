@@ -11,7 +11,7 @@
 
   <!-- Navbar Brand-->
   <a class="navbar-brand mt-1 ps-3" href="index.html">
-    <img src="/assets/Logo01.png" alt="logo" style="width: 150px;">
+    <img src="/administration/assets/Logo01.png" alt="logo" style="width: 150px;">
   </a>
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -80,7 +80,7 @@
 
 <ng-template #content  let-modal>
     <div class="modal-header">
-        <img src="/assets/user.png" alt="">
+        <img src="/administration/assets/user.png" alt="">
         <h4 class="modal-title" id="modal-basic-title">Modification de mot passe</h4>
     </div>
     <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()">
@@ -96,13 +96,13 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <img src="/assets/key.png" alt="">   
+                                    <img src="/administration/assets/key.png" alt="">   
                                 </span>
                             </div>
                             <input type="password" id="current-password" class="form-control" placeholder="Mot de passe" formControlName="password" />
                             <div class="input-group-prepend" (click)="togglePasswordView('current-password')">
                                 <span class="input-group-text">
-                                    <img src="/assets/view.png" alt="">
+                                    <img src="/administration/assets/view.png" alt="">
                                 </span>
                             </div>
                         </div>
@@ -117,13 +117,13 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <img src="/assets/key.png" alt="">   
+                                    <img src="/administration/assets/key.png" alt="">   
                                 </span>
                             </div>
                             <input type="password" id="new-password" placeholder="Nouveau mot du passe" class="form-control" formControlName="newPassword" />
                             <div class="input-group-prepend" (click)="togglePasswordView('new-password')">
                                 <span class="input-group-text">
-                                    <img src="/assets/view.png" alt="">
+                                    <img src="/administration/assets/view.png" alt="">
                                 </span>
                             </div>
                         </div>
@@ -138,13 +138,13 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <img src="/assets/key.png" alt="">   
+                                    <img src="/administration/assets/key.png" alt="">   
                                 </span>
                             </div>
                             <input type="password" id="confirm-password" placeholder="Confirmation du nouveau mot du passe" class="form-control" formControlName="newPasswordConfirm" />
                             <div class="input-group-prepend" (click)="togglePasswordView('confirm-password')">
                                 <span class="input-group-text">
-                                    <img src="/assets/view.png" alt="">
+                                    <img src="/administration/assets/view.png" alt="">
                                 </span>
                             </div>
                         </div>

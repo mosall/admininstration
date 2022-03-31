@@ -1,9 +1,9 @@
 <div class="">
     <br>
     <div id="gadd-user">
-        <h3><img src="/assets/list-text.png" alt=""> Liste des profils</h3>
+        <h3><img src="/administration/assets/list-text.png" alt=""> Liste des profils</h3>
         <div (click)="addProfil()" id="addbutton">
-            <span> <img src="/assets/plus.png" alt=""></span> Ajouter
+            <span> <img src="/administration/assets/plus.png" alt=""></span> Ajouter
         </div>
     </div>
 
@@ -45,8 +45,8 @@
                     </ng-toggle>
                 </td>
                 <td class="icons">
-					<img src="/assets/view.png" alt="" (click)="showDetails(role.id)">
-                    <img src="/assets/edit.png" alt="" (click)="editProfil(role.id)">
+					<img src="/administration/assets/view.png" alt="" (click)="showDetails(role.id)">
+                    <img src="/administration/assets/edit.png" alt="" (click)="editProfil(role.id)">
                 </td>
             </tr>
 			
@@ -90,7 +90,7 @@
 
 <ng-template #content let-modal>
 	<div class="modal-header">
-		<img src="/assets/user.png" alt="">
+		<img src="/administration/assets/user.png" alt="">
 		<h4 *ngIf="!edit" class="modal-title" id="modal-basic-title">Ajout profil</h4>
 		<h4 *ngIf="edit" class="modal-title" id="modal-basic-title">Modification profil</h4>
 	</div>
@@ -159,7 +159,7 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <img src="/assets/user.png" alt="">
+        <img src="/administration/assets/user.png" alt="">
         <h4>Details de profil </h4>
     </div>
 

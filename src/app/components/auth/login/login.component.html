@@ -1,7 +1,7 @@
 <div id="login-container">
     <div>
         <div id="login-extras">
-            <img src="/assets/Logo02.png" />
+            <img src="/administration/assets/Logo02.png" />
             <h2>Agence Côte d'Ivoire PME</h2>
             <!-- <p>Bienvenue sur la plateforme applicative de gestion des courriers.</p> -->
 
@@ -11,7 +11,7 @@
             <div id="form">
                 <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                     <div class="form-head">
-                        <!-- <img src="/assets/user.png" alt=""> -->
+                        <!-- <img src="/administration/assets/user.png" alt=""> -->
                         <h3>Connectez vous à Notre plateforme</h3>
 
 
@@ -24,18 +24,18 @@
                     <div class="form-inputs">
                         <div class="input-one-icon">
                             <span>
-                                <img src="/assets/user.png" alt="">
+                                <img src="/administration/assets/user.png" alt="">
                             </span>
                             <input type="text" placeholder="Identifiant ou email" formControlName="login">
                         </div>
                         <div class="input-two-icons">
                             <span>
-                                <img src="/assets/key.png" alt="">
+                                <img src="/administration/assets/key.png" alt="">
                             </span>
                             <input type="password" id="password" placeholder="Mot de passe" formControlName="password">
 
                             <span (click)="togglePasswordView('password')">
-                                <img src="/assets/view.png" alt="">
+                                <img src="/administration/assets/view.png" alt="">
     </span>
                         </div>
                         <div class="remember_me">
