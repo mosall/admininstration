@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   errorCode: number = 400;
 
   signInForm: any;
+  loginFormSubmitted: boolean = false;
 
   constructor(
     private auth: AuthService,
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.loginFormSubmitted = true;
     console.log(this.signInForm);
 
     if(this.signInForm.inValid)
@@ -89,6 +91,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('connectedUser', JSON.stringify({token: accessToken, role: user?.profil?.code}));
             sessionStorage.setItem('connectedUserData', JSON.stringify(user));
             sessionStorage.removeItem('token');
+            this.loginFormSubmitted = false;
             if(user?.actif == -1){
               this.showErrorMessage("Connexion", "Votre compte a été supprimé.")
               this.logout();
@@ -119,7 +122,10 @@ export class LoginComponent implements OnInit {
                 break;
             }
           },
-          (err: HttpErrorResponse) => console.log(err)
+          (err: HttpErrorResponse) => {
+            console.log(err);
+            this.loginFormSubmitted = false;
+          }
         ]);
       },
       (err: HttpErrorResponse) => {
@@ -133,7 +139,8 @@ export class LoginComponent implements OnInit {
         else{
           this.errorMessage = 'Identifiant ou mot de passe incorrect';
         }
-        console.log(err)
+        console.log(err);
+        this.loginFormSubmitted = false;
       }
     ]);
   }

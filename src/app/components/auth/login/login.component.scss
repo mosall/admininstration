@@ -199,6 +199,7 @@
     background-color: $secondary/*#3C8DBC*/;
     margin-top: 5%;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 #login-form-container #form .login-btn+a {
@@ -292,4 +293,8 @@ screen and (max-height: 700px) {
 .register-link{
     color: $secondary;
     font-weight: bold;
+}
+
+.disable-login-btn{
+    pointer-events: none;
 }

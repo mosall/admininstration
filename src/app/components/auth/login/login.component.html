@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="login-btn">
+                        <button type="submit" class="login-btn" [ngClass]="{'disable-login-btn': loginFormSubmitted}">
                         Se connecter
                     </button>
                     </div>
