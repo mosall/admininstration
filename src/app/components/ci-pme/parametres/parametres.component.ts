@@ -34,7 +34,7 @@ export class ParametresComponent implements OnInit {
   idReponse = null;
   question: any;
   editParametre: boolean = false;
-  // editResponse: boolean = false;
+  editResponse: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private parametresService: ParametresService) { }
 
@@ -261,6 +261,7 @@ export class ParametresComponent implements OnInit {
         error => this.errorMsgBox(error.error),
       );
     }
+    this.editResponse = false;
   }
 
   getReponse(idQuestion: any){
@@ -302,6 +303,7 @@ export class ParametresComponent implements OnInit {
     this.scoreReponse = score;
     this.idReponse = idReponse;
     this.idQuestion = idQuestion;
+    this.editResponse = true;
     $('#addReponseModal').modal('show');
   }
 
