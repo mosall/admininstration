@@ -33,6 +33,8 @@ export class ParametresComponent implements OnInit {
   scoreReponse: any = '';
   idReponse = null;
   question: any;
+  editParametre: boolean = false;
+  // editResponse: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private parametresService: ParametresService) { }
 
@@ -84,6 +86,8 @@ export class ParametresComponent implements OnInit {
 
       this.idParameter = null;
     }
+    this.editParametre = false;
+    this.initParametre();
   }
 
   getParameters(){
@@ -122,11 +126,22 @@ export class ParametresComponent implements OnInit {
 
   onUpdateParameterClick(id: any){
     const parameter = this.listParameters.find((param: { id: any; }) => param.id == id);
-    this.code = parameter.code;
-    this.libelle = parameter.libelle;
-    this.nbQuestion = parameter.nbre_question;
-    this.idParameter = parameter.id;
+    this.initParametre(parameter.code, parameter.libelle, parameter.nbre_question, id, true);
     $('#exampleModalCenter').modal('show');
+  }
+
+  private initParametre(
+    code: string = '', 
+    libelle: string = '',
+    nbre_question: number = 0,
+    idParameter: any = null,
+    editable: boolean = false
+    ) {
+    this.code = code;
+    this.libelle = libelle;
+    this.nbQuestion = nbre_question;
+    this.idParameter = idParameter;
+    this.editParametre = editable;
   }
 
   saveQuestion(idParametre: any){
