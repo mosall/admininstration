@@ -25,6 +25,7 @@ export class EligibiliteComponent implements OnInit {
   codeQuestion = '';
   libelleQuestion = '';
   idQuestion = null;
+  editQuestion: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private eligibilityService: EligibilityService) { }
 
@@ -64,6 +65,7 @@ export class EligibiliteComponent implements OnInit {
         error => this.errorMsgBox(error.error),
       );
     }
+    this.editQuestion = false;
 
   }
 
@@ -81,6 +83,7 @@ export class EligibiliteComponent implements OnInit {
     this.libelleQuestion = question.libelle;
     this.codeQuestion = question.code;
     this.idQuestion = question.id;
+    this.editQuestion = true;
     $('#exampleModalCenter').modal('show');
   }
 
