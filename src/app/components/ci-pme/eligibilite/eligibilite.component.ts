@@ -80,12 +80,21 @@ export class EligibiliteComponent implements OnInit {
 
   onUpdateQuestionClick(id: any){
     const question = this.listQuestions.find((param: { id: any; }) => param.id == id);
-    this.libelleQuestion = question.libelle;
-    this.codeQuestion = question.code;
-    this.idQuestion = question.id;
-    this.editQuestion = true;
+    this.initQuestion(question?.code, question?.libelle, id, true);
     $('#exampleModalCenter').modal('show');
   }
+
+  cleanQuestionForm(){
+    this.initQuestion();
+  }
+
+  private initQuestion(code: string = '', libelle: string = '', idQuestion: any = null,editable: boolean = false) {
+    this.libelleQuestion = libelle;
+    this.codeQuestion = code;
+    this.idQuestion = idQuestion;
+    this.editQuestion = editable;
+  }
+  
 
   deleteQuestion(idQuestion: any){
     Swal.fire({

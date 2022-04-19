@@ -144,6 +144,11 @@ export class ParametresComponent implements OnInit {
     this.editParametre = editable;
   }
 
+  // Reinitialize  data inside the parameter modal form
+  cleanParametreForm(){
+    this.initParametre('', '', 0, null, false);
+  }
+
   saveQuestion(idParametre: any){
     this.submittedQ = true;
 
@@ -212,9 +217,18 @@ export class ParametresComponent implements OnInit {
 
   onUpdateQuestionClick(id: any){
     const question = this.listQuestions.find((param: { id: any; }) => param.id == id);
-    this.codeQuestion = question.code;
-    this.libelleQuestion = question.libelle;
-    this.idQuestion = question.id;
+    this.initQuestion(question?.code, question?.libelle, question?.id);
+  }
+
+  private initQuestion(code: string = '', libelle: string = '', idQuestion: any = 0) {
+    this.codeQuestion = code;
+    this.libelleQuestion = libelle;
+    this.idQuestion = idQuestion;
+  }
+
+  // Reinitialize  data inside the question modal form
+  cleanQuestionForm(){
+    this.initQuestion();
   }
 
   onAddReponseClick(q: any){
@@ -298,19 +312,28 @@ export class ParametresComponent implements OnInit {
   }
 
   onUpdateReponseClick(idReponse: any, score: any, code: any, libelle: any, idQuestion: any){
+    this.initResponse(code, libelle, score, idReponse, idQuestion, true);
+    $('#addReponseModal').modal('show');
+  }
+
+  private initResponse(code: string = '', libelle: string = '', score: number = 0, idReponse: any = null, idQuestion: any = null, editable: boolean = false) {
     this.codeReponse = code;
     this.libelleReponse = libelle;
     this.scoreReponse = score;
     this.idReponse = idReponse;
     this.idQuestion = idQuestion;
-    this.editResponse = true;
-    $('#addReponseModal').modal('show');
+    this.editResponse = editable;
   }
 
   updateReponse(){}
 
   activateTab(id: any){    
     $('a[href*="#'+id+'"]').trigger('click');
+  }
+
+  // Reinitialize  data inside the response modal form
+  cleanResponseForm(){
+    this.initQuestion();
   }
 
   changeArrow(qcode: string){
