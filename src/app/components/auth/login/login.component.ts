@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import AppSettings from 'src/app/app.settings';
 import { AuthService } from 'src/app/services/auth.service';
 import { ROLE_ADMIN, ROLE_ADMIN_FONC, ROLE_ENTR, ROLE_EXP_PME } from 'src/app/utils/constante';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
+                window.location.href = environment.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.confirme == 0){
@@ -49,10 +49,10 @@ export class LoginComponent implements OnInit {
                   this.logout();
                 }
                 if(user?.entrepriseId){
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
+                  window.location.href = environment.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
+                  window.location.href = environment.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/ci-pme']);
                 break;
               case ROLE_EXP_PME :
-                window.location.href = AppSettings.URL_SCORING_HOME+'/liste-pme'
+                window.location.href = environment.URL_SCORING_HOME+'/liste-pme'
                 break;
               default:
                 if(user?.confirme == 0){
@@ -114,10 +114,10 @@ export class LoginComponent implements OnInit {
                   return;
                 }
                 if(user?.entrepriseId){
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/accueil'
+                  window.location.href = environment.URL_SCORING_HOME+'/accueil'
                 }
                 else{
-                  window.location.href = AppSettings.URL_SCORING_HOME+'/identification'
+                  window.location.href = environment.URL_SCORING_HOME+'/identification'
                 }
                 break;
             }
