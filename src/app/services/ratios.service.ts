@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import AppSettings from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,10 @@ export class RatiosService {
   constructor(private http: HttpClient) { }
 
   getRatios(){
-    return this.http.get(AppSettings.UM_REFERENTIEL + `/ratios`, AppSettings.httpOptions);
+    return this.http.get(environment.UM_REFERENTIEL + `/ratios`, environment.httpOptions);
   }
 
   updatePonderation(payload: any){
-    return this.http.put(AppSettings.UM_REFERENTIEL + `/ratios/update`, payload, AppSettings.httpOptions);
+    return this.http.put(environment.UM_REFERENTIEL + `/ratios/update`, payload, environment.httpOptions);
   }
 }

@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import AppSettings from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HabilitationService {
 
-  private baseUrl = AppSettings.UM_URL;
+  private baseUrl = environment.UM_URL;
 
   constructor(
     private http: HttpClient
   ) { }
 
   getHabilitations(cbs: any){
-    this.http.get(`${this.baseUrl}/habilitations`, AppSettings.httpOptions).subscribe(...cbs);
+    this.http.get(`${this.baseUrl}/habilitations`, environment.httpOptions).subscribe(...cbs);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import AppSettings from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,18 @@ export class ScoreService {
   constructor(private http: HttpClient) { }
 
   savePonderation(payload: any){
-    return this.http.post(AppSettings.UM_REFERENTIEL + `/ponderations/create`, payload, AppSettings.httpOptions);
+    return this.http.post(environment.UM_REFERENTIEL + `/ponderations/create`, payload, environment.httpOptions);
   }
 
   getPonderation(){
-    return this.http.get(AppSettings.UM_REFERENTIEL + `/ponderations`, AppSettings.httpOptions);
+    return this.http.get(environment.UM_REFERENTIEL + `/ponderations`, environment.httpOptions);
   }
 
   updatePonderation(payload: any){
-    return this.http.put(AppSettings.UM_REFERENTIEL + `/ponderations/update`, payload, AppSettings.httpOptions);
+    return this.http.put(environment.UM_REFERENTIEL + `/ponderations/update`, payload, environment.httpOptions);
   }
 
   deletePonderation(id: any){
-    return this.http.delete(AppSettings.UM_REFERENTIEL + `/ponderations/${id}/delete`, AppSettings.httpOptions);
+    return this.http.delete(environment.UM_REFERENTIEL + `/ponderations/${id}/delete`, environment.httpOptions);
   }
 }

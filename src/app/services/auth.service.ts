@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import AppSettings from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 interface Body{
   [key: string]: any
@@ -11,7 +11,7 @@ interface Body{
 })
 export class AuthService {
 
-  private baseUrl =  AppSettings.UM_TOKEN_URL;
+  private baseUrl =  environment.UM_TOKEN_URL;
   private clientId: string = 'cipme';
   private clientSecret: string = 'cipme';
 
@@ -39,24 +39,24 @@ export class AuthService {
       headers
     };
 
-    this.http.post(AppSettings.UM_TOKEN_URL, params.toString(), httpOptions).subscribe(...cbs);
+    this.http.post(environment.UM_TOKEN_URL, params.toString(), httpOptions).subscribe(...cbs);
   }
 
   forgotPassword(emailOrId: any, cbs: any){
-    this.http.post(AppSettings.UM_URL + '/forgot_password', emailOrId).subscribe(...cbs);
+    this.http.post(environment.UM_URL + '/forgot_password', emailOrId).subscribe(...cbs);
   }
 
 
   checkToken(data: any, cbs: any){
-    this.http.post(`${AppSettings.UM_URL}/check_token`, data, AppSettings.httpOptions).subscribe(...cbs);
+    this.http.post(`${environment.UM_URL}/check_token`, data, environment.httpOptions).subscribe(...cbs);
   }
 
   resetPassword(data: any, cbs: any){
-    this.http.post(AppSettings.UM_URL + '/reset_password', data).subscribe(...cbs);
+    this.http.post(environment.UM_URL + '/reset_password', data).subscribe(...cbs);
   }
 
   me(cbs: any){
-    this.http.get(`${AppSettings.UM_URL}/me`, AppSettings.httpOptions).subscribe(...cbs);
+    this.http.get(`${environment.UM_URL}/me`, environment.httpOptions).subscribe(...cbs);
   }
 
   logout(){
@@ -67,15 +67,15 @@ export class AuthService {
   }
 
   register(data: any, cbs: any){
-    this.http.post(`${AppSettings.UM_URL}/register`, data, AppSettings.httpOptions).subscribe(...cbs);
+    this.http.post(`${environment.UM_URL}/register`, data, environment.httpOptions).subscribe(...cbs);
   }
 
   confirm(token: string, cbs: any){
-    this.http.get(`${AppSettings.UM_URL}/users/confirm?token=${token}`, AppSettings.httpOptions).subscribe(...cbs);
+    this.http.get(`${environment.UM_URL}/users/confirm?token=${token}`, environment.httpOptions).subscribe(...cbs);
   }
   
   sendActivationMail(payload: any ) {    
-    return this.http.post(`${AppSettings.UM_URL}/users/confirmation_mail`, payload, AppSettings.httpOptions);
+    return this.http.post(`${environment.UM_URL}/users/confirmation_mail`, payload, environment.httpOptions);
   }
 
 }

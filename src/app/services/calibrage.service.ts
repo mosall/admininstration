@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import AppSettings from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,19 @@ export class CalibrageService {
   constructor(private http: HttpClient) { }
 
   getCalibrage(idRatio: any){
-    return this.http.get(AppSettings.UM_REFERENTIEL + `/calibrages/ratio/${idRatio}`, AppSettings.httpOptions);
+    return this.http.get(environment.UM_REFERENTIEL + `/calibrages/ratio/${idRatio}`, environment.httpOptions);
   }
 
   saveCalibrage(payload: any){
-    return this.http.post(AppSettings.UM_REFERENTIEL + `/calibrages/create`, payload, AppSettings.httpOptions);
+    return this.http.post(environment.UM_REFERENTIEL + `/calibrages/create`, payload, environment.httpOptions);
   }
 
   updateCalibrage(payload: any){
-    return this.http.put(AppSettings.UM_REFERENTIEL + `/calibrages/update`, payload, AppSettings.httpOptions);
+    return this.http.put(environment.UM_REFERENTIEL + `/calibrages/update`, payload, environment.httpOptions);
   }
 
   deleteCalibrage(id: any){
-    return this.http.delete(AppSettings.UM_REFERENTIEL + `/calibrages/${id}/delete`, AppSettings.httpOptions);
+    return this.http.delete(environment.UM_REFERENTIEL + `/calibrages/${id}/delete`, environment.httpOptions);
   }
 
 }
