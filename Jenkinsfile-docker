@@ -13,6 +13,7 @@ pipeline{
 		        sh 'npm run build'
 		    }
 		}
+
 		stage('Build docker image'){
 			agent any 
 
@@ -22,12 +23,16 @@ pipeline{
             }
 			}
 		}
+		
 		stage('Run docker image'){
 			agent any
-		    steps{
-                script {
-                      docker.image('cipme-admin').inside('-p 86:80'){}
-                }
-            }
+			steps {
+				script {
+					docker.image('cipme-admin').inside('-p 86:80'){
+
+					}
+				}
+			}
 		}
+	}
 }
