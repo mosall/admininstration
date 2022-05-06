@@ -1,0 +1,26 @@
+pipeline{
+    agent{
+		docker{
+			image 'node:lts-alpine'
+		}
+	}
+    stages{
+    
+        stage('build'){
+		    steps{
+		        sh 'npm install --legacy-peer-deps'
+		        sh 'npm run build'
+		    }
+		}
+		stage('Build docker image'){
+		    steps{
+		        app = docker.build('cipme-admin')
+			}
+		}
+		stage('Run docker image'){
+		    steps{
+		        app.withRun('-p 86:80') 
+			}
+		}
+    }
+}
