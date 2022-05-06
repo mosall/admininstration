@@ -25,9 +25,9 @@ pipeline{
 		stage('Run docker image'){
 			agent any
 		    steps{
-            script {
-		          withDockerContainer(args: '-p 86:80', image: 'cipme-admin')
+                script {
+                      docker.image('cipme-admin').inside('-p 86:80'){}
+                }
             }
-			  }
 		}
 }
