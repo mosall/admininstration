@@ -17,16 +17,17 @@ pipeline{
 			agent any 
 
 		    steps{
-		        docker.build('cipme-admin')
+            script {
+                docker.build('cipme-admin')
+            }
 			}
 		}
 		stage('Run docker image'){
 			agent any
 		    steps{
-		        withDockerContainer(args: '-p 86:80', image: 'cipme-admin') {
-					// some block
-				}
-			}
+            script {
+		          withDockerContainer(args: '-p 86:80', image: 'cipme-admin')
+            }
+			  }
 		}
-    }
 }
